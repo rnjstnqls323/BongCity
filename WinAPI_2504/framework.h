@@ -163,7 +163,7 @@ typedef function<void()> Event;
 
 #include "Objects/Character/Naruto.h"
 
-#include "Objects/Game/SimCity/Building.h"
+#include "Objects/Game/SimCity/Building/Building.h"
 
 #include "Scenes/Scene.h"
 #include "Framework/Manager/SceneManager.h"
