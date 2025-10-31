@@ -15,6 +15,8 @@
 #include "Scenes/TerrainEditorScene.h"
 #include "Scenes/WeatherScene.h"
 #include "Scenes/ParticleEditorScene.h"
+#include "Scenes/WaterScene.h"
+#include "Scenes/TestScene.h"
 
 GameManager::GameManager()
 {
@@ -27,7 +29,7 @@ GameManager::GameManager()
 	//SCENE->AddScene("Game", new BlockScene());
 	//SCENE->AddScene("Game", new LightScene());
 	//SCENE->AddScene("Export", new ModelExportScene());
-	SCENE->AddScene("Game", new ModelRenderScene());
+	//SCENE->AddScene("Game", new ModelRenderScene());
 	//SCENE->AddScene("Game", new ModelAnimationScene());
 	//SCENE->AddScene("Game", new CharacterScene());
 	//SCENE->AddScene("Game", new ModelInstancingScene());
@@ -35,6 +37,8 @@ GameManager::GameManager()
 	//SCENE->AddScene("Game", new TerrainEditorScene());
 	//SCENE->AddScene("Game", new WeatherScene());
 	//SCENE->AddScene("Game", new ParticleEditorScene());
+	//SCENE->AddScene("Game", new WaterScene());
+	SCENE->AddScene("Game", new TestScene());
 
 	SCENE->ChangeScene("Game");
 }
@@ -59,8 +63,7 @@ void GameManager::Update()
 
 void GameManager::Render()
 {
-	SCENE->PreRender();
-	
+	SCENE->PreRender();	
 	
 	Device::Get()->Clear();	
 

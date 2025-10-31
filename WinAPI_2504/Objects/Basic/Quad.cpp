@@ -1,6 +1,6 @@
 #include "Framework.h"
 
-Quad::Quad(Vector2 size) : size(size)
+Quad::Quad(Vector2 size) : size(size), GameObject(L"Basic/Texture.hlsl")
 {
 	tag = "Quad";
 

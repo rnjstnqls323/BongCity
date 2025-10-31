@@ -150,9 +150,13 @@
     <ClInclude Include="Framework\Device\Device.h" />
     <ClInclude Include="Framework\Environment\Camera.h" />
     <ClInclude Include="Framework\Environment\Environment.h" />
+    <ClInclude Include="Framework\Environment\Reflection.h" />
+    <ClInclude Include="Framework\Environment\Refraction.h" />
+    <ClInclude Include="Framework\Environment\Shadow.h" />
     <ClInclude Include="Framework\Manager\GameManager.h" />
     <ClInclude Include="Framework\Manager\SceneManager.h" />
     <ClInclude Include="Framework\Math\GameMath.h" />
+    <ClInclude Include="Framework\Math\Index2.h" />
     <ClInclude Include="Framework\Math\Transform.h" />
     <ClInclude Include="Framework\Math\Vector2.h" />
     <ClInclude Include="Framework\Math\Vector3.h" />
@@ -160,6 +164,7 @@
     <ClInclude Include="Framework\Model\ModelData.h" />
     <ClInclude Include="Framework\Model\ModelExporter.h" />
     <ClInclude Include="Framework\Model\ModelMesh.h" />
+    <ClInclude Include="Framework\Render\DepthStencil.h" />
     <ClInclude Include="Framework\Render\Material.h" />
     <ClInclude Include="Framework\Render\Mesh.h" />
     <ClInclude Include="Framework\Render\RenderTarget.h" />
@@ -206,11 +211,14 @@
     <ClInclude Include="Objects\Collider\SphereCollider.h" />
     <ClInclude Include="Objects\Game\Block.h" />
     <ClInclude Include="Objects\Game\GameBall.h" />
+    <ClInclude Include="Objects\Game\SimCity\Installation\Installation.h" />
+    <ClInclude Include="Objects\Game\SimCity\Tile\Tile.h" />
     <ClInclude Include="Objects\Game\Steve.h" />
     <ClInclude Include="Objects\Game\Sword.h" />
     <ClInclude Include="Objects\Landscape\Skybox.h" />
     <ClInclude Include="Objects\Landscape\Terrain.h" />
     <ClInclude Include="Objects\Landscape\TerrainEditor.h" />
+    <ClInclude Include="Objects\Landscape\Water.h" />
     <ClInclude Include="Objects\Manger\DataManager.h" />
     <ClInclude Include="Objects\Manger\EventManager.h" />
     <ClInclude Include="Objects\Model\Model.h" />
@@ -238,7 +246,9 @@
     <ClInclude Include="Scenes\SphereScene.h" />
     <ClInclude Include="Scenes\TerrainEditorScene.h" />
     <ClInclude Include="Scenes\TerrainScene.h" />
+    <ClInclude Include="Scenes\TestScene.h" />
     <ClInclude Include="Scenes\TutorialScene.h" />
+    <ClInclude Include="Scenes\WaterScene.h" />
     <ClInclude Include="Scenes\WeatherScene.h" />
     <ClInclude Include="targetver.h" />
     <ClInclude Include="WinAPI_2504.h" />
@@ -254,6 +264,9 @@
     <ClCompile Include="Framework\Device\Device.cpp" />
     <ClCompile Include="Framework\Environment\Camera.cpp" />
     <ClCompile Include="Framework\Environment\Environment.cpp" />
+    <ClCompile Include="Framework\Environment\Reflection.cpp" />
+    <ClCompile Include="Framework\Environment\Refraction.cpp" />
+    <ClCompile Include="Framework\Environment\Shadow.cpp" />
     <ClCompile Include="Framework\Manager\GameManager.cpp" />
     <ClCompile Include="Framework\Manager\SceneManager.cpp" />
     <ClCompile Include="Framework\Math\GameMath.cpp" />
@@ -261,6 +274,7 @@
     <ClCompile Include="Framework\Model\ModelClip.cpp" />
     <ClCompile Include="Framework\Model\ModelExporter.cpp" />
     <ClCompile Include="Framework\Model\ModelMesh.cpp" />
+    <ClCompile Include="Framework\Render\DepthStencil.cpp" />
     <ClCompile Include="Framework\Render\Material.cpp" />
     <ClCompile Include="Framework\Render\RenderTarget.cpp" />
     <ClCompile Include="Framework\Render\Texture.cpp" />
@@ -305,11 +319,14 @@
     <ClCompile Include="Objects\Collider\SphereCollider.cpp" />
     <ClCompile Include="Objects\Game\Block.cpp" />
     <ClCompile Include="Objects\Game\GameBall.cpp" />
+    <ClCompile Include="Objects\Game\SimCity\Installation\Installation.cpp" />
+    <ClCompile Include="Objects\Game\SimCity\Tile\Tile.cpp" />
     <ClCompile Include="Objects\Game\Steve.cpp" />
     <ClCompile Include="Objects\Game\Sword.cpp" />
     <ClCompile Include="Objects\Landscape\Skybox.cpp" />
     <ClCompile Include="Objects\Landscape\Terrain.cpp" />
     <ClCompile Include="Objects\Landscape\TerrainEditor.cpp" />
+    <ClCompile Include="Objects\Landscape\Water.cpp" />
     <ClCompile Include="Objects\Manger\DataManager.cpp" />
     <ClCompile Include="Objects\Manger\EventManager.cpp" />
     <ClCompile Include="Objects\Model\Model.cpp" />
@@ -335,7 +352,9 @@
     <ClCompile Include="Scenes\SphereScene.cpp" />
     <ClCompile Include="Scenes\TerrainEditorScene.cpp" />
     <ClCompile Include="Scenes\TerrainScene.cpp" />
+    <ClCompile Include="Scenes\TestScene.cpp" />
     <ClCompile Include="Scenes\TutorialScene.cpp" />
+    <ClCompile Include="Scenes\WaterScene.cpp" />
     <ClCompile Include="Scenes\WeatherScene.cpp" />
     <ClCompile Include="WinAPI_2504.cpp" />
   </ItemGroup>
@@ -430,6 +449,18 @@
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Vertex</ShaderType>
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Vertex</ShaderType>
     </FxCompile>
+    <FxCompile Include="Resources\Shaders\Landscape\REflection.hlsl">
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Vertex</ShaderType>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Vertex</ShaderType>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Vertex</ShaderType>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Vertex</ShaderType>
+    </FxCompile>
+    <FxCompile Include="Resources\Shaders\Landscape\Refraction.hlsl">
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Vertex</ShaderType>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Vertex</ShaderType>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Vertex</ShaderType>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Vertex</ShaderType>
+    </FxCompile>
     <FxCompile Include="Resources\Shaders\Landscape\Skybox.hlsl">
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Vertex</ShaderType>
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Vertex</ShaderType>
@@ -443,6 +474,18 @@
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Vertex</ShaderType>
     </FxCompile>
     <FxCompile Include="Resources\Shaders\Landscape\TerrainEditor.hlsl">
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Vertex</ShaderType>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Vertex</ShaderType>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Vertex</ShaderType>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Vertex</ShaderType>
+    </FxCompile>
+    <FxCompile Include="Resources\Shaders\Landscape\Water.hlsl">
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Vertex</ShaderType>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Vertex</ShaderType>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Vertex</ShaderType>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Vertex</ShaderType>
+    </FxCompile>
+    <FxCompile Include="Resources\Shaders\Light\DepthMap.hlsl">
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Vertex</ShaderType>
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Vertex</ShaderType>
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Vertex</ShaderType>
@@ -503,6 +546,18 @@
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Vertex</ShaderType>
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Vertex</ShaderType>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+    </FxCompile>
+    <FxCompile Include="Resources\Shaders\Light\Shadow.hlsl">
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Vertex</ShaderType>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Vertex</ShaderType>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Vertex</ShaderType>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Vertex</ShaderType>
+    </FxCompile>
+    <FxCompile Include="Resources\Shaders\Light\SkinDepthMap.hlsl">
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Vertex</ShaderType>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Vertex</ShaderType>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Vertex</ShaderType>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Vertex</ShaderType>
     </FxCompile>
     <FxCompile Include="Resources\Shaders\Light\SpecularLight.hlsl">
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Vertex</ShaderType>

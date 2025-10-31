@@ -9,6 +9,8 @@ public:
 	void Update();
 	void Edit();
 
+	void SetView(UINT slot = 1);
+
 	void SetTarget(Transform* target) { this->target = target; }
 
 	class Ray ScreenPointToRay(Vector3 screenPos);	

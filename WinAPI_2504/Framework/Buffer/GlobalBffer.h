@@ -97,10 +97,10 @@ public:
     struct Light
     {
         Float4 color = { 1, 1, 1, 1 };
-        Float3 direction = { 0, -1, 0 };
+        Float3 direction = { 0, -1, 1 };
         int type = 0;
 
-        Float3 position = { 0, 0, 0 };
+        Float3 position = { 0, 5, -5 };
         float range = 100.0f;
 
         float inner = 55.0f;
@@ -244,6 +244,32 @@ public:
     };
 
     Data* GetData() { return &data; }
+
+private:
+    Data data;
+};
+
+class WaterBuffer : public ConstBuffer
+{
+private:
+    struct Data
+    {
+        Float4 color = { 1, 1, 1, 1 };
+
+        float waveTime = 0.0f;
+        float waveSpeed = 0.1f;
+        float waveScale = 0.1f;
+        float waveShininess = 24.0f;
+
+        float fresnel = 0.5f;
+        float padding[3];
+    };
+public:
+    WaterBuffer() : ConstBuffer(&data, sizeof(Data))
+    {
+    }
+
+    Data& Get() { return data; }
 
 private:
     Data data;

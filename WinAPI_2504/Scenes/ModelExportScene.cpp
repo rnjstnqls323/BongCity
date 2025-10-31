@@ -3,7 +3,7 @@
 
 ModelExportScene::ModelExportScene()
 {
-	string name = "road";
+	string name = "Road";
 	string file = "Resources/Models/FBX/Road/" + name + ".fbx";
 	ModelExporter* exporter;
 

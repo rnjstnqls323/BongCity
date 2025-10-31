@@ -23,11 +23,7 @@ void Camera::Update()
     else
 	    FreeMode();
 
-	UpdateWorld();	
-
-	view = XMMatrixInverse(nullptr, world);
-	viewBuffer->Set(view, world);
-	viewBuffer->SetVS(1);
+	UpdateWorld();		
 }
 
 void Camera::Edit()
@@ -60,6 +56,13 @@ void Camera::Edit()
     }
 
     Transform::Edit();
+}
+
+void Camera::SetView(UINT slot)
+{
+    view = XMMatrixInverse(nullptr, world);
+    viewBuffer->Set(view, world);
+    viewBuffer->SetVS(slot);
 }
 
 Ray Camera::ScreenPointToRay(Vector3 screenPos)

@@ -85,6 +85,8 @@ void Environment::SetViewport(UINT width, UINT height)
 
 void Environment::SetRender()
 {
+	mainCamera->SetView();
+
 	SetViewport();
 
 	projectionBuffer->Set(perspective);
