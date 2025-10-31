@@ -34,6 +34,14 @@ void Quad::Render()
 	mesh->Draw();
 }
 
+void Quad::RenderInstanced(UINT count)
+{
+	if (!isActive) return;
+
+	SetRender();
+	mesh->DrawInstanced(count);
+}
+
 void Quad::MakeMesh()
 {
 	Vector2 halfSize = size * 0.5f;

@@ -1,58 +1,107 @@
 #include "Framework.h"
 
-Button::Button(wstring fileName)
+Button::Button(Vector2 center, Vector2 size)
+	: Rect(center, size)
 {
-	wstring path = L"Resources/Textures/UI/Inventory/" + fileName + L".png";
-	quad = new Quad(Vector2(50,50));
-	
-	quad->GetMaterial()->SetDiffuseMap(path);
-
-	quad->SetParent(this);
-
-	UpdateWorld();
-	quad->UpdateWorld();
-}
-
-Button::Button(wstring imagePath, Vector2 size)
-{
-	quad = new Quad(size);
-	quad->GetMaterial()->SetDiffuseMap(imagePath);
-	
-	quad->SetParent(this);
-
-	UpdateWorld();
-	quad->UpdateWorld();
-
+	hFont = CreateFont(20, 0, 0, 0, FW_BOLD, false, false, false,
+		DEFAULT_CHARSET, OUT_DEFAULT_PRECIS, CLIP_DEFAULT_PRECIS,
+		DEFAULT_QUALITY, DEFAULT_PITCH | FF_SWISS, L"배달의민족 꾸불림 TTF");
 }
 
 Button::~Button()
 {
-	delete quad;
+	DeleteObject(hFont);
+	if (hNormalBrush)
+		DeleteObject(hNormalBrush);
+	if (hOverBrush)
+		DeleteObject(hOverBrush);
+	if (hDownBrush)
+		DeleteObject(hDownBrush);
 }
 
 void Button::Update()
 {
-	UpdateWorld();
-	quad->UpdateWorld();
+	if (!isActive) return;
 
-	if (IsPointCollision(mousePos))
+	if (IsCollisionPoint(mousePos))
 	{
-		GetMaterial()->SetColor(1, 0, 0);
-		if (Input::Get()->IsKeyDown(VK_LBUTTON))
-			OnClick(); //이벤트 어떤식으로 발생시키더라? 일단 온클릭해놓고 찾아오자
+		state = OVER;
+
+		if (Input::Get()->IsKeyPress(VK_LBUTTON))
+		{
+			state = DOWN;
+			isMouseDown = true;
+		}
+
+		if (Input::Get()->IsKeyUp(VK_LBUTTON) && isMouseDown)
+		{
+			isMouseDown = false;
+
+			if (onClick)
+			{
+				onClick();
+			}
+
+			if (onClickInt)
+			{
+				onClickInt(intParameter);
+			}
+
+			if (onClickObject)
+			{
+				onClickObject(objectParameter);
+			}
+		}
 	}
 	else
-		GetMaterial()->SetColor(0, 1, 0);
+	{
+		state = NORMAL;
+	}
+
+	switch (state)
+	{
+	case Button::NORMAL:
+		hSelectBrush = hNormalBrush;
+		break;
+	case Button::OVER:
+		hSelectBrush = hOverBrush;
+		break;
+	case Button::DOWN:
+		hSelectBrush = hDownBrush;
+		break;
+	}
 }
 
-void Button::Render()
+void Button::Render(HDC hdc)
 {
-	BoxCollider::Render();
-	quad->Render();
+	if (!isActive) return;
+	
+	HBRUSH defaultBrush = (HBRUSH)SelectObject(hdc, hSelectBrush);
+
+	Rect::Render(hdc);
+
+	SelectObject(hdc, defaultBrush);
+	
+	RECT rect = { Left(), Top(), Right(), Bottom() };
+
+	HFONT defalutFont = (HFONT)SelectObject(hdc, hFont);
+
+	DrawText(hdc, text.c_str(), text.length(), &rect, DT_CENTER | DT_VCENTER | DT_SINGLELINE);
+
+	SelectObject(hdc, defalutFont);
 }
 
-void Button::OnClick()
+void Button::SetBrush(COLORREF normalColor, COLORREF overColor, COLORREF downColor)
 {
-	if (onClick == nullptr) return;
-	onClick();
+	if (hNormalBrush)
+		DeleteObject(hNormalBrush);
+	hNormalBrush = CreateSolidBrush(normalColor);
+
+	if (hOverBrush)
+		DeleteObject(hOverBrush);
+	hOverBrush = CreateSolidBrush(overColor);
+
+	if (hDownBrush)
+		DeleteObject(hDownBrush);
+	hDownBrush = CreateSolidBrush(downColor);
 }

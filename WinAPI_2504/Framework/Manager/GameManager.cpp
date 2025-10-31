@@ -1,24 +1,40 @@
 #include "Framework.h"
 
-#include "Scenes/ExampleScene/ModelExportScene.h"
-#include "Scenes/ExampleScene/ModelRenderScene.h"
-#include "Scenes/ExampleScene/ModelAnimaionScene.h"
-#include "Scenes/ExampleScene/CharacterScene.h"
-#include "Scenes/ExampleScene/ModelInstancingScene.h"
-#include "Scenes/ExampleScene/TerrainScene.h"
-#include "Scenes/ExampleScene/TerrainEditorScene.h"
+#include "Scenes/TutorialScene.h"
+#include "Scenes/CubeScene.h"
+#include "Scenes/CollisionScene.h"
+#include "Scenes/SphereScene.h"
+#include "Scenes/BlockScene.h"
+#include "Scenes/LightScene.h"
+#include "Scenes/ModelExportScene.h"
+#include "Scenes/ModelRenderScene.h"
+#include "Scenes/ModelAnimaionScene.h"
+#include "Scenes/CharacterScene.h"
+#include "Scenes/ModelInstancingScene.h"
+#include "Scenes/TerrainScene.h"
+#include "Scenes/TerrainEditorScene.h"
+#include "Scenes/WeatherScene.h"
+#include "Scenes/ParticleEditorScene.h"
 
 GameManager::GameManager()
 {
 	Create();
 		
-	SCENE->AddScene("Export", new ModelExportScene());
+	//SCENE->AddScene("Game", new TutorialScene());	
+	//SCENE->AddScene("Game", new CubeScene());
+	//SCENE->AddScene("Game", new CollisionScene());
+	//SCENE->AddScene("Game", new SphereScene());
+	//SCENE->AddScene("Game", new BlockScene());
+	//SCENE->AddScene("Game", new LightScene());
+	//SCENE->AddScene("Export", new ModelExportScene());
 	SCENE->AddScene("Game", new ModelRenderScene());
 	//SCENE->AddScene("Game", new ModelAnimationScene());
 	//SCENE->AddScene("Game", new CharacterScene());
 	//SCENE->AddScene("Game", new ModelInstancingScene());
 	//SCENE->AddScene("Game", new TerrainScene());
 	//SCENE->AddScene("Game", new TerrainEditorScene());
+	//SCENE->AddScene("Game", new WeatherScene());
+	//SCENE->AddScene("Game", new ParticleEditorScene());
 
 	SCENE->ChangeScene("Game");
 }

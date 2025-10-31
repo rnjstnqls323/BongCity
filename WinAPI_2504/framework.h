@@ -147,8 +147,6 @@ typedef function<void()> Event;
 #include "Objects/Collider/SphereCollider.h"
 #include "Objects/Collider/CapsuleCollider.h"
 
-#include "Objects/UI/Button.h"
-
 #include "Objects/Model/Model.h"
 #include "Objects/Model/ModelAnimator.h"
 #include "Objects/Model/ModelInstancing.h"
@@ -161,9 +159,19 @@ typedef function<void()> Event;
 #include "Objects/Landscape/Terrain.h"
 #include "Objects/Landscape/TerrainEditor.h"
 
-#include "Objects/Character/Naruto.h"
+#include "Objects/Particle/Particle.h"
+#include "Objects/Particle/Sprite.h"
+#include "Objects/Particle/Rain.h"
+#include "Objects/Particle/Snow.h"
+#include "Objects/Particle/Spark.h"
+#include "Objects/Particle/ParticleSystem.h"
 
-#include "Objects/Game/SimCity/Building/Building.h"
+#include "Objects/Game/GameBall.h"
+#include "Objects/Game/Block.h"
+#include "Objects/Game/Steve.h"
+#include "Objects/Game/Sword.h"
+
+#include "Objects/Character/Naruto.h"
 
 #include "Scenes/Scene.h"
 #include "Framework/Manager/SceneManager.h"

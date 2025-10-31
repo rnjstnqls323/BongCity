@@ -37,6 +37,7 @@ private:
 	Vector3 moveDir = Vector3::Zero();
 
 	ModelAnimator* model;
+	Sword* sword;
 
 	Transform* rightHand;
 

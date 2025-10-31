@@ -15,8 +15,11 @@ Naruto::Naruto()
 	
 	model->GetClip(Attack)->SetEvent(bind(&Naruto::EndAttack, this), 0.9f);
 
+	sword = new Sword();
+
 	rightHand = new Transform();
 
+	sword->SetParent(rightHand);
 
 	//CAM->SetTarget(this);
 }
@@ -24,6 +27,7 @@ Naruto::Naruto()
 Naruto::~Naruto()
 {
 	delete model;
+	delete sword;
 	delete rightHand;
 }
 
@@ -37,6 +41,7 @@ void Naruto::Update()
 	model->Update();
 	UpdateWorld();
 
+	sword->Update();
 }
 
 void Naruto::Render()
@@ -44,6 +49,7 @@ void Naruto::Render()
 	model->Render();
 	Collider::Render();
 
+	sword->Render();
 }
 
 void Naruto::Edit()
@@ -51,6 +57,7 @@ void Naruto::Edit()
 	Transform::Edit();
 	model->Edit();
 
+	sword->Edit();	
 }
 
 void Naruto::Move()

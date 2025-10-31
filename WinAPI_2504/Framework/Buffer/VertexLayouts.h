@@ -33,6 +33,10 @@ struct VertexUV//정점 : 3차원 공간에서의 한 점
 		: x(x), y(y), z(z), u(u), v(v)
     {
     }
+    VertexUV(Vector3 pos, Vector2 uv)
+        : x(pos.x), y(pos.y), z(pos.z), u(uv.x), v(uv.y)
+    {
+    }
 };
 
 struct VertexUVNormal

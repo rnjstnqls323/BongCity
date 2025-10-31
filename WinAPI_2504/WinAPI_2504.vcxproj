@@ -204,7 +204,10 @@
     <ClInclude Include="Objects\Collider\CapsuleCollider.h" />
     <ClInclude Include="Objects\Collider\Collider.h" />
     <ClInclude Include="Objects\Collider\SphereCollider.h" />
-    <ClInclude Include="Objects\Game\SimCity\Building.h" />
+    <ClInclude Include="Objects\Game\Block.h" />
+    <ClInclude Include="Objects\Game\GameBall.h" />
+    <ClInclude Include="Objects\Game\Steve.h" />
+    <ClInclude Include="Objects\Game\Sword.h" />
     <ClInclude Include="Objects\Landscape\Skybox.h" />
     <ClInclude Include="Objects\Landscape\Terrain.h" />
     <ClInclude Include="Objects\Landscape\TerrainEditor.h" />
@@ -214,16 +217,29 @@
     <ClInclude Include="Objects\Model\ModelAnimator.h" />
     <ClInclude Include="Objects\Model\ModelAnimatorInstancing.h" />
     <ClInclude Include="Objects\Model\ModelInstancing.h" />
-    <ClInclude Include="Objects\UI\Button.h" />
+    <ClInclude Include="Objects\Particle\Particle.h" />
+    <ClInclude Include="Objects\Particle\ParticleSystem.h" />
+    <ClInclude Include="Objects\Particle\Rain.h" />
+    <ClInclude Include="Objects\Particle\Snow.h" />
+    <ClInclude Include="Objects\Particle\Spark.h" />
+    <ClInclude Include="Objects\Particle\Sprite.h" />
     <ClInclude Include="Resource.h" />
-    <ClInclude Include="Scenes\ExampleScene\CharacterScene.h" />
-    <ClInclude Include="Scenes\ExampleScene\ModelAnimaionScene.h" />
-    <ClInclude Include="Scenes\ExampleScene\ModelExportScene.h" />
-    <ClInclude Include="Scenes\ExampleScene\ModelInstancingScene.h" />
-    <ClInclude Include="Scenes\ExampleScene\ModelRenderScene.h" />
+    <ClInclude Include="Scenes\BlockScene.h" />
+    <ClInclude Include="Scenes\CharacterScene.h" />
+    <ClInclude Include="Scenes\CollisionScene.h" />
+    <ClInclude Include="Scenes\CubeScene.h" />
+    <ClInclude Include="Scenes\LightScene.h" />
+    <ClInclude Include="Scenes\ModelAnimaionScene.h" />
+    <ClInclude Include="Scenes\ModelExportScene.h" />
+    <ClInclude Include="Scenes\ModelInstancingScene.h" />
+    <ClInclude Include="Scenes\ModelRenderScene.h" />
+    <ClInclude Include="Scenes\ParticleEditorScene.h" />
     <ClInclude Include="Scenes\Scene.h" />
-    <ClInclude Include="Scenes\ExampleScene\TerrainEditorScene.h" />
-    <ClInclude Include="Scenes\ExampleScene\TerrainScene.h" />
+    <ClInclude Include="Scenes\SphereScene.h" />
+    <ClInclude Include="Scenes\TerrainEditorScene.h" />
+    <ClInclude Include="Scenes\TerrainScene.h" />
+    <ClInclude Include="Scenes\TutorialScene.h" />
+    <ClInclude Include="Scenes\WeatherScene.h" />
     <ClInclude Include="targetver.h" />
     <ClInclude Include="WinAPI_2504.h" />
   </ItemGroup>
@@ -287,6 +303,10 @@
     <ClCompile Include="Objects\Collider\CapsuleCollider.cpp" />
     <ClCompile Include="Objects\Collider\Collider.cpp" />
     <ClCompile Include="Objects\Collider\SphereCollider.cpp" />
+    <ClCompile Include="Objects\Game\Block.cpp" />
+    <ClCompile Include="Objects\Game\GameBall.cpp" />
+    <ClCompile Include="Objects\Game\Steve.cpp" />
+    <ClCompile Include="Objects\Game\Sword.cpp" />
     <ClCompile Include="Objects\Landscape\Skybox.cpp" />
     <ClCompile Include="Objects\Landscape\Terrain.cpp" />
     <ClCompile Include="Objects\Landscape\TerrainEditor.cpp" />
@@ -296,14 +316,27 @@
     <ClCompile Include="Objects\Model\ModelAnimator.cpp" />
     <ClCompile Include="Objects\Model\ModelAnimatorInstancing.cpp" />
     <ClCompile Include="Objects\Model\ModelInstancing.cpp" />
-    <ClCompile Include="Objects\UI\Button.cpp" />
-    <ClCompile Include="Scenes\ExampleScene\CharacterScene.cpp" />
-    <ClCompile Include="Scenes\ExampleScene\ModelAnimaionScene.cpp" />
-    <ClCompile Include="Scenes\ExampleScene\ModelExportScene.cpp" />
-    <ClCompile Include="Scenes\ExampleScene\ModelInstancingScene.cpp" />
-    <ClCompile Include="Scenes\ExampleScene\ModelRenderScene.cpp" />
-    <ClCompile Include="Scenes\ExampleScene\TerrainEditorScene.cpp" />
-    <ClCompile Include="Scenes\ExampleScene\TerrainScene.cpp" />
+    <ClCompile Include="Objects\Particle\Particle.cpp" />
+    <ClCompile Include="Objects\Particle\ParticleSystem.cpp" />
+    <ClCompile Include="Objects\Particle\Rain.cpp" />
+    <ClCompile Include="Objects\Particle\Snow.cpp" />
+    <ClCompile Include="Objects\Particle\Spark.cpp" />
+    <ClCompile Include="Objects\Particle\Sprite.cpp" />
+    <ClCompile Include="Scenes\BlockScene.cpp" />
+    <ClCompile Include="Scenes\CharacterScene.cpp" />
+    <ClCompile Include="Scenes\CollisionScene.cpp" />
+    <ClCompile Include="Scenes\CubeScene.cpp" />
+    <ClCompile Include="Scenes\LightScene.cpp" />
+    <ClCompile Include="Scenes\ModelAnimaionScene.cpp" />
+    <ClCompile Include="Scenes\ModelExportScene.cpp" />
+    <ClCompile Include="Scenes\ModelInstancingScene.cpp" />
+    <ClCompile Include="Scenes\ModelRenderScene.cpp" />
+    <ClCompile Include="Scenes\ParticleEditorScene.cpp" />
+    <ClCompile Include="Scenes\SphereScene.cpp" />
+    <ClCompile Include="Scenes\TerrainEditorScene.cpp" />
+    <ClCompile Include="Scenes\TerrainScene.cpp" />
+    <ClCompile Include="Scenes\TutorialScene.cpp" />
+    <ClCompile Include="Scenes\WeatherScene.cpp" />
     <ClCompile Include="WinAPI_2504.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -355,6 +388,30 @@
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Vertex</ShaderType>
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Vertex</ShaderType>
     </FxCompile>
+    <FxCompile Include="Resources\Shaders\Geometry\Rain.hlsl">
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Vertex</ShaderType>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Vertex</ShaderType>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Vertex</ShaderType>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Vertex</ShaderType>
+    </FxCompile>
+    <FxCompile Include="Resources\Shaders\Geometry\Snow.hlsl">
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Vertex</ShaderType>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Vertex</ShaderType>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Vertex</ShaderType>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Vertex</ShaderType>
+    </FxCompile>
+    <FxCompile Include="Resources\Shaders\Geometry\Spark.hlsl">
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Vertex</ShaderType>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Vertex</ShaderType>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Vertex</ShaderType>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Vertex</ShaderType>
+    </FxCompile>
+    <FxCompile Include="Resources\Shaders\Geometry\Sprite.hlsl">
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Vertex</ShaderType>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Vertex</ShaderType>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Vertex</ShaderType>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Vertex</ShaderType>
+    </FxCompile>
     <FxCompile Include="Resources\Shaders\Instancing\ModelAnimationInstancing.hlsl">
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Vertex</ShaderType>
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Vertex</ShaderType>
@@ -362,6 +419,12 @@
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Vertex</ShaderType>
     </FxCompile>
     <FxCompile Include="Resources\Shaders\Instancing\ModelInstancing.hlsl">
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Vertex</ShaderType>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Vertex</ShaderType>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Vertex</ShaderType>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Vertex</ShaderType>
+    </FxCompile>
+    <FxCompile Include="Resources\Shaders\Instancing\Particle.hlsl">
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Vertex</ShaderType>
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Vertex</ShaderType>
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Vertex</ShaderType>
