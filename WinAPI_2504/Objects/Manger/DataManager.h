@@ -2,15 +2,7 @@
 
 enum class InstallationType
 {
-	Building, Production, LandScape, Road
-};
-struct ScaleData
-{
-	int key;
-	string name;
-	float x;
-	float y;
-	float z;
+	Road,Building, Production, LandScape
 };
 struct PriceData
 {
@@ -33,7 +25,6 @@ struct InstallationData
 	int key;
 	string name;
 	PriceData* price;
-	ScaleData* scale;
 	InstallationType type;
 	int height;
 	int width;
@@ -61,13 +52,11 @@ private:
 	void LoadData();
 
 	void LoadDayData();
-	void LoadScaleData();
 	void LoadPriceData();
 	void LoadInstallationData();
 private:
 	string filePath = "Resources/Tables/";
 	unordered_map<int, DayData> dayDatas;
-	unordered_map<int, ScaleData> scaleDatas;
 	unordered_map<int, PriceData> priceDatas;
 	unordered_map<int, InstallationData> installationDatas;
 

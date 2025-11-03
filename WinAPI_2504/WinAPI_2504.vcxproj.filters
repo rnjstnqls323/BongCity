@@ -336,7 +336,7 @@
     <ClInclude Include="Objects\Collider\SquareCollider.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
-    <ClInclude Include="Objects\Collider\QuadCollider.h">
+    <ClInclude Include="Objects\Collider\RectCollider.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
   </ItemGroup>
@@ -620,7 +620,7 @@
     <ClCompile Include="Objects\Game\SimCity\Tile\Tile.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
-    <ClCompile Include="Objects\Collider\QuadCollider.cpp">
+    <ClCompile Include="Objects\Collider\RectCollider.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
   </ItemGroup>

@@ -3,8 +3,8 @@
 
 ModelExportScene::ModelExportScene()
 {
-	string name = "Road";
-	string file = "Resources/Models/FBX/Road/" + name + ".fbx";
+	string name = "building_weapon_3";
+	string file = "Resources/Models/FBX/Building/" + name + ".fbx";
 	ModelExporter* exporter;
 
 	exporter = new ModelExporter(name, file);
