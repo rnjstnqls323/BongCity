@@ -151,6 +151,7 @@ typedef function<void()> Event;
 #include "Objects/Collider/BoxCollider.h"
 #include "Objects/Collider/SphereCollider.h"
 #include "Objects/Collider/CapsuleCollider.h"
+#include "Objects/Collider/QuadCollider.h"
 
 #include "Objects/Model/Model.h"
 #include "Objects/Model/ModelAnimator.h"

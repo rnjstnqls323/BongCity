@@ -208,6 +208,7 @@
     <ClInclude Include="Objects\Collider\BoxCollider.h" />
     <ClInclude Include="Objects\Collider\CapsuleCollider.h" />
     <ClInclude Include="Objects\Collider\Collider.h" />
+    <ClInclude Include="Objects\Collider\QuadCollider.h" />
     <ClInclude Include="Objects\Collider\SphereCollider.h" />
     <ClInclude Include="Objects\Collider\SquareCollider.h" />
     <ClInclude Include="Objects\Game\Block.h" />
@@ -317,6 +318,7 @@
     <ClCompile Include="Objects\Collider\BoxCollider.cpp" />
     <ClCompile Include="Objects\Collider\CapsuleCollider.cpp" />
     <ClCompile Include="Objects\Collider\Collider.cpp" />
+    <ClCompile Include="Objects\Collider\QuadCollider.cpp" />
     <ClCompile Include="Objects\Collider\SphereCollider.cpp" />
     <ClCompile Include="Objects\Game\Block.cpp" />
     <ClCompile Include="Objects\Game\GameBall.cpp" />

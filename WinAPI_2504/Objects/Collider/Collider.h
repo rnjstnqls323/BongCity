@@ -25,7 +25,7 @@ class Collider : public GameObject
 protected:
 	enum class Type
 	{
-		Box, Sphere, Capsule
+		Box, Sphere, Capsule, Quad
 	};
 
 public:
