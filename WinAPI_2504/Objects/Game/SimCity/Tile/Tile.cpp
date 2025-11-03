@@ -20,7 +20,7 @@ void Tile::Render()
 
     material->Set();
 
-    mesh->Draw(D3D11_PRIMITIVE_TOPOLOGY_LINELIST);
+    //mesh->Draw(D3D11_PRIMITIVE_TOPOLOGY_LINELIST);
 }
 void Tile::MakeMesh()
 {
