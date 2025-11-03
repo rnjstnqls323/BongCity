@@ -1,10 +1,10 @@
 #pragma once
 
-class QuadCollider :public Collider
+class RectCollider :public Collider
 {
 public:
-	QuadCollider(Vector2 size);
-	~QuadCollider();
+	RectCollider(Vector2 size);
+	~RectCollider();
 
 	bool IsRayCollision(const Ray& ray, RayHit* hitInfo) override;
 	bool IsBoxCollision(BoxCollider* collider) override { return false; }

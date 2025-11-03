@@ -4,7 +4,7 @@ enum class TileType
 {
 	None, Road, Build, BuildingSide //사이드는 사람들 걸어다니게할거면 이렇게할거임
 };
-class Tile : public QuadCollider// 박스 상속받아야되나?
+class Tile : public RectCollider// 박스 상속받아야되나?
 {
 public:
 	Tile(Vector2 size = {1,1});

@@ -1,6 +1,6 @@
 #include "Framework.h"
 
-QuadCollider::QuadCollider(Vector2 size):size(size)
+RectCollider::RectCollider(Vector2 size):size(size)
 {
 	type = Type::Quad;
 
@@ -9,17 +9,17 @@ QuadCollider::QuadCollider(Vector2 size):size(size)
 
 }
 
-QuadCollider::~QuadCollider()
+RectCollider::~RectCollider()
 {
 	delete mesh;
 }
 
-bool QuadCollider::IsRayCollision(const Ray& ray, RayHit* hitInfo)
+bool RectCollider::IsRayCollision(const Ray& ray, RayHit* hitInfo)
 {
 	//이거는 처리해주면됨
     return false;
 }
-void QuadCollider::MakeMesh()
+void RectCollider::MakeMesh()
 {
 	mesh = new Mesh<Vertex>();
 
