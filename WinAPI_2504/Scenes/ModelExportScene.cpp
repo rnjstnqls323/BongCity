@@ -3,7 +3,7 @@
 
 ModelExportScene::ModelExportScene()
 {
-	string name = "building_weapon_3";
+	string name = "building_landscape_school";
 	string file = "Resources/Models/FBX/Building/" + name + ".fbx";
 	ModelExporter* exporter;
 

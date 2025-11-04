@@ -3,17 +3,18 @@
 
 TestScene::TestScene()
 {
-	tile = new Tile;
+	TileManager::Get();
 }
 
 TestScene::~TestScene()
 {
-	delete tile;
+	TileManager::Delete();
 }
 
 void TestScene::Update()
 {
-	tile->UpdateWorld();
+	TileManager::Get()->Update();
+	
 }
 
 void TestScene::PreRender()
@@ -22,7 +23,7 @@ void TestScene::PreRender()
 
 void TestScene::Render()
 {
-	tile->Render();
+	TileManager::Get()->Render();
 }
 
 void TestScene::PostRender()
@@ -31,5 +32,4 @@ void TestScene::PostRender()
 
 void TestScene::GUIRender()
 {
-	tile->Edit();
 }

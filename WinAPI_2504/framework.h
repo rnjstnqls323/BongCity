@@ -181,7 +181,9 @@ typedef function<void()> Event;
 
 
 #include "Objects/Game/Simcity/Installation/Installation.h"
+
 #include "Objects/Game/Simcity/Tile/Tile.h"
+#include "Objects/Game/Simcity/Tile/TileManager.h"
 
 #include "Objects/Character/Naruto.h"
 

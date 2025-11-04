@@ -215,6 +215,7 @@
     <ClInclude Include="Objects\Game\GameBall.h" />
     <ClInclude Include="Objects\Game\SimCity\Installation\Installation.h" />
     <ClInclude Include="Objects\Game\SimCity\Tile\Tile.h" />
+    <ClInclude Include="Objects\Game\SimCity\Tile\TileManager.h" />
     <ClInclude Include="Objects\Game\Steve.h" />
     <ClInclude Include="Objects\Game\Sword.h" />
     <ClInclude Include="Objects\Landscape\Skybox.h" />
@@ -238,6 +239,7 @@
     <ClInclude Include="Scenes\CharacterScene.h" />
     <ClInclude Include="Scenes\CollisionScene.h" />
     <ClInclude Include="Scenes\CubeScene.h" />
+    <ClInclude Include="Scenes\GameScene\MapTool.h" />
     <ClInclude Include="Scenes\LightScene.h" />
     <ClInclude Include="Scenes\ModelAnimaionScene.h" />
     <ClInclude Include="Scenes\ModelExportScene.h" />
@@ -324,6 +326,7 @@
     <ClCompile Include="Objects\Game\GameBall.cpp" />
     <ClCompile Include="Objects\Game\SimCity\Installation\Installation.cpp" />
     <ClCompile Include="Objects\Game\SimCity\Tile\Tile.cpp" />
+    <ClCompile Include="Objects\Game\SimCity\Tile\TileManager.cpp" />
     <ClCompile Include="Objects\Game\Steve.cpp" />
     <ClCompile Include="Objects\Game\Sword.cpp" />
     <ClCompile Include="Objects\Landscape\Skybox.cpp" />

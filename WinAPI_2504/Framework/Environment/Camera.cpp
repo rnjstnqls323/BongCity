@@ -16,7 +16,7 @@ void Camera::Update()
 {
 	projection = Environment::Get()->GetPerspective();
 
-	FrusutmUpdate();
+    FrustumUpdate();
 
     if (target)
         FollowMode();
@@ -107,7 +107,7 @@ Vector3 Camera::WorldToScreenPoint(Vector3 worldPos)
 
 bool Camera::ContainPoint(Vector3 point)
 {
-    FOR(6)
+    for (int i = 0; i < 6;i++)
     {
         Vector3 dot = XMPlaneDotCoord(planes[i], point);
 
@@ -180,7 +180,7 @@ void Camera::FollowMode()
 	
 }
 
-void Camera::FrusutmUpdate()
+void Camera::FrustumUpdate()
 {
     Float4x4 VP;
     XMStoreFloat4x4(&VP, view * projection);
@@ -227,6 +227,6 @@ void Camera::FrusutmUpdate()
     d = VP._44 - VP._43;
     planes[5] = XMVectorSet(a, b, c, d);
 
-    FOR(6)
+    for(int i=0;i<6;i++)
         planes[i] = XMPlaneNormalize(planes[i]);
 }

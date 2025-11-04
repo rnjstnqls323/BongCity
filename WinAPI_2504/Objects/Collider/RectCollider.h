@@ -11,6 +11,8 @@ public:
 	bool IsSphereCollision(SphereCollider* collider) override { return false; }
 	bool IsCapsuleCollision(CapsuleCollider* collider) override {return false;}
 
+	void Update();
+
 private:
 	void MakeMesh() override;
 

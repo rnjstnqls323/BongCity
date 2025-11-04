@@ -7,21 +7,18 @@ enum class TileType
 class Tile : public RectCollider
 {
 public:
-	Tile(Vector2 size = {1,1});
+	Tile(Index2 index = {0,0}, Vector2 size = { 1,1 });
 	~Tile();
 
 
 	void SetTileType(const TileType& type) { this->type = type; }
-	void SetIndex(const Index2& index) { this->index = index; }
+	void SetIndex(const Index2& index) { this->index = index; } //이거 필요할까?
 
 	TileType& GetTileType() { return type; }
 	Index2& GetIndex() { return index; }
 
-	
-
-
 private:
-	Vector2 size;
-	TileType type;
+
+	TileType type = TileType::None;
 	Index2 index;
 };

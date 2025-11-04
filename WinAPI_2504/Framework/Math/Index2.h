@@ -74,7 +74,17 @@ struct Index2
 		row *= scala;
 		col *= scala;
 	}
-
+	int ChangeToInt(const int& num)//왼쪽 위에 0기준
+	{
+		int index = (row * num) + col;
+		if (index < 0)return-1;
+		return index;
+	}
+	void ChangeToIndex(const int& index, const int& num)//왼쪽 위 0기준
+	{
+		row = index / num;
+		col = index % num;
+	}
 
 	static const Index2 Zero() { return Index2(0, 0); }
 	static const Index2 One() { return Index2(1, 1); }

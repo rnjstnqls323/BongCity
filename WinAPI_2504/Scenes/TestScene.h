@@ -21,5 +21,5 @@ public:
 
 
 private:
-	Tile* tile;
+	vector<Tile*> tiles;
 };

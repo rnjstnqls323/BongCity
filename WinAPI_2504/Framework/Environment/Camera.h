@@ -23,7 +23,7 @@ private:
 	void FreeMode();
 	void FollowMode();
 
-	void FrusutmUpdate();
+	void FrustumUpdate();
 
 private:
 	float moveSpeed = 10.0f;

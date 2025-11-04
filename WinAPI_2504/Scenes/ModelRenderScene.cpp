@@ -3,7 +3,7 @@
 
 ModelRenderScene::ModelRenderScene()
 {
-	model = new Model("building_weapon_3");
+	model = new Model("building_landscape_school");
 	//model->SetTag("road1");
 	//model2 = new Model("Road_L");
 	//model2->SetTag("road2");
