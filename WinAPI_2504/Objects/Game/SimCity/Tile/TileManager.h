@@ -16,7 +16,7 @@ public:
 	void Update();
 	void Render();
 
-	vector<Tile*> GetTileToNearCam();
+	
 	Index2& GetIndexToPos(Vector3& pos);
 	Tile* GetTileToIndex(Index2& index);
 
@@ -24,10 +24,12 @@ public:
 	
 
 private:
+	void TileToNearCam();
 	void CreateTiles();
-	vector<Tile*> GetTileToNearMouse(const int& height = 4, const int& width = 7);
+	vector<Tile*>& GetTileToNearMouse(const int& height = 4, const int& width = 7);
 
 private:
 	vector<Tile*> tiles;
-
+	vector<Tile*> nearTiles;
+	vector<Tile*> choiceTiles;
 };

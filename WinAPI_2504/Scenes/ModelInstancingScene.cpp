@@ -11,6 +11,7 @@ ModelInstancingScene::ModelInstancingScene()
 
 	modelInstancing->CreateTexture();
 
+
 	for (float z = -5.0f; z <= 5.0f; z++)
 	{
 		for (float x = -5.0f; x <= 5.0f; x++)

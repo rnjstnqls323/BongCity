@@ -3,6 +3,7 @@
 TileManager::TileManager()
 {
     CreateTiles();
+    nearTiles.reserve(CAMERA_RANGE_HEIGHT * CAMERA_RANGE_WIDTH);
 }
 
 TileManager::~TileManager()
@@ -13,7 +14,8 @@ TileManager::~TileManager()
 
 void TileManager::Update()
 {
-    for (Tile* tile : GetTileToNearCam())
+    TileToNearCam();
+    for (Tile* tile : nearTiles)
     {
         if (!tile->IsActive()) continue;
         tile->SetColor(0, 1, 0);
@@ -30,7 +32,7 @@ void TileManager::Update()
 
 void TileManager::Render()
 {
-    for (Tile* tile : GetTileToNearCam())
+    for (Tile* tile : nearTiles)
     {
         if (!tile->IsActive()) continue;
         if (!CAM->ContainPoint(tile->GetGlobalPosition())) continue;
@@ -38,32 +40,6 @@ void TileManager::Render()
         tile->Render();
     }
 }
-
-vector<Tile*> TileManager::GetTileToNearCam()
-{
-    vector<Tile*> nearTiles;
-
-    Index2 ind = { -(int)(CAMERA_RANGE_WIDTH*0.5f)-(int)CAM->GetGlobalPosition().z , (int)CAM->GetGlobalPosition().x };
-    int index =0;
-    ind.row -= CAMERA_RANGE_WIDTH * 0.5f - 1;
-    ind.col -= CAMERA_RANGE_HEIGHT * 0.5f - 1;
-
-    for (int row = 0; row < CAMERA_RANGE_WIDTH; row++)
-    {
-        for (int col = 0; col < CAMERA_RANGE_HEIGHT; col++)
-        {
-            Index2 in = { ind.row + row, ind.col + col };
-            index = in.ChangeToInt(TILE_SIZE);
-            if (index < 0 || index >= TILE_SIZE * TILE_SIZE) continue;
-
-            nearTiles.push_back(tiles[index]);
-        }
-    }
-
-
-    return nearTiles;
-}
-
 
 Index2& TileManager::GetIndexToPos(Vector3& pos)
 {
@@ -79,6 +55,29 @@ Tile* TileManager::GetTileToIndex(Index2& index)
 void TileManager::SpawnInstallation(Installation* install)
 {
     GetTileToNearMouse(install->GetData().height, install->GetData().width);
+}
+
+void TileManager::TileToNearCam()
+{
+    nearTiles.clear();
+
+    Index2 ind = { -(int)(CAMERA_RANGE_WIDTH * 0.5f) - (int)CAM->GetGlobalPosition().z , (int)CAM->GetGlobalPosition().x };
+    int index = 0;
+    ind.row -= CAMERA_RANGE_WIDTH * 0.5f - 1;
+    ind.col -= CAMERA_RANGE_HEIGHT * 0.5f - 1;
+
+    for (int row = 0; row < CAMERA_RANGE_WIDTH; row++)
+    {
+        for (int col = 0; col < CAMERA_RANGE_HEIGHT; col++)
+        {
+            Index2 in = { ind.row + row, ind.col + col };
+            index = in.ChangeToInt(TILE_SIZE);
+            if (index < 0 || index >= TILE_SIZE * TILE_SIZE) continue;
+
+            nearTiles.push_back(tiles[index]);
+        }
+    }
+
 }
 
 void TileManager::CreateTiles()
@@ -98,7 +97,7 @@ void TileManager::CreateTiles()
     }
 }
 
-vector<Tile*> TileManager::GetTileToNearMouse(const int& height, const int& width)
+vector<Tile*>& TileManager::GetTileToNearMouse(const int& height, const int& width)
 {
     //선택한 건물 사이즈 받아와서 마우스기준 범위처리해서 출력하기
     Ray ray = CAM->ScreenPointToRay(mousePos);
