@@ -41,6 +41,8 @@ public:
 
     UINT GetClipSize() { return clips.size(); }
 
+    
+
 private:
     vector<Transform*> transforms;
     InstanceData instanceDatas[MAX_INSTANCE];

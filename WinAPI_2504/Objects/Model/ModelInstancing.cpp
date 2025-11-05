@@ -12,26 +12,21 @@ ModelInstancing::~ModelInstancing()
 {
     delete[] instanceDatas;
     delete instanceBuffer;
-
-    for (Transform* transform : transforms)
-        delete transform;
 }
 
-void ModelInstancing::Update()
+
+void ModelInstancing::Update(vector<Transform*>& transforms)
 {
     drawCount = 0;
-
-    FOR(transforms.size())
+    for (int i = 0; i < transforms.size(); i++)
     {
-        if (transforms[i]->IsActive())
-        {
-            transforms[i]->UpdateWorld();
-            instanceDatas[drawCount] = XMMatrixTranspose(transforms[i]->GetWorld());
+        if (!transforms[i]->IsActive()) continue;
 
-            drawCount++;
-        }
+        transforms[i]->UpdateWorld();
+        instanceDatas[drawCount] = XMMatrixTranspose(transforms[i]->GetWorld());
+
+        drawCount++;
     }
-
     instanceBuffer->Update(instanceDatas, drawCount);
 }
 
@@ -47,23 +42,5 @@ void ModelInstancing::Edit()
 {
     ImGui::Text("DrawCount : %d", drawCount);
 
-    if (ImGui::Button("Add"))
-        Add();
-
-    for (Transform* transform : transforms)
-        transform->Edit();
-
     Model::Edit();
-}
-
-Transform* ModelInstancing::Add()
-{
-    if (transforms.size() >= size)
-        return nullptr;
-
-    Transform* transform = new Transform();
-    transform->SetTag(name + "_" + to_string(transforms.size()));
-    transforms.push_back(transform);
-
-    return transform;
 }

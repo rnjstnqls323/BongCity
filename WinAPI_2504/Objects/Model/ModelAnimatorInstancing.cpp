@@ -22,7 +22,7 @@ void ModelAnimatorInstancing::Update()
 {
     drawCount = 0;
 
-    FOR(transforms.size())
+    for(int i=0; i<transforms.size();i++)
     {
         if (transforms[i]->IsActive())
         {
@@ -65,6 +65,7 @@ Transform* ModelAnimatorInstancing::Add()
 
     return transform;
 }
+
 
 void ModelAnimatorInstancing::PlayClip(UINT instanceIndex, int clip, float scale, float takeTime)
 {

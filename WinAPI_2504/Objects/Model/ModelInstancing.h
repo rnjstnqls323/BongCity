@@ -6,14 +6,11 @@ public:
     ModelInstancing(string name, UINT size);
     ~ModelInstancing();
 
-    void Update();
+    void Update(vector<Transform*>& transforms);
     void Render();
     void Edit();
 
-    Transform* Add();
-
 private:
-    vector<Transform*> transforms;
     Matrix* instanceDatas;
 
     VertexBuffer* instanceBuffer;
