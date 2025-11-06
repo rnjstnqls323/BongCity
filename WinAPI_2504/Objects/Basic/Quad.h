@@ -8,6 +8,7 @@ private:
 public:
 	Quad(Vector2 size = Vector2(1, 1));
 	Quad(wstring textureFile, Vector2 startUV = Vector2(), Vector2 endUV = Vector2(1, 1));
+	Quad(wstring textureFile, bool isFit);
 	~Quad();
 
 	void Render();	
@@ -18,7 +19,7 @@ public:
 private:
 	void MakeMesh();
 
-private:
+protected:
 	Vector2 startUV;
 	Vector2 endUV = { 1, 1 };
 

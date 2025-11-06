@@ -15,7 +15,10 @@ public:
 private:
 	//vector<Model*> models;
 	//ModelInstancing* modelInstancing;
-	ModelAnimatorInstancing* modelInstancing;
+	//ModelAnimatorInstancing* modelInstancing;
+
+	QuadInstancing* instan;
+	vector<Transform*> transforms;
 
 	int instanceIndex = 0;
 	int clip = 0;

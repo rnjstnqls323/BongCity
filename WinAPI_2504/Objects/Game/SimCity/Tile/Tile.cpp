@@ -6,11 +6,19 @@
 //	UpdateWorld();
 //}
 
-Tile::Tile(Index2 index, Vector2 size):RectCollider(size),index(index)
+Tile::Tile(Index2 index):index(index)
 {
 }
 
 Tile::~Tile()
 {
-	delete mesh;
+}
+
+void Tile::SetTileType(const TileType& type)
+{
+	this->type = type;
+	if (type == TileType::None)
+		instancingType = InstancingType::None;
+	else
+		instancingType = InstancingType::Impossible;
 }

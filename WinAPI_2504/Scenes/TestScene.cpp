@@ -32,4 +32,5 @@ void TestScene::PostRender()
 
 void TestScene::GUIRender()
 {
+	TileManager::Get()->Edit();
 }

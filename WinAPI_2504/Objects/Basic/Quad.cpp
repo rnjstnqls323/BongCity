@@ -21,6 +21,22 @@ Quad::Quad(wstring textureFile, Vector2 startUV, Vector2 endUV)
 	mesh->CreateMesh();
 }
 
+Quad::Quad(wstring textureFile, bool isFit)
+{
+	material->SetDiffuseMap(textureFile);
+
+	Vector2 texSize = material->GetDiffuseMap()->GetSize();
+	size = Vector2(1, 1); // 항상 1,1로 고정
+
+	this->startUV = Vector2(0, 0);
+	this->endUV = Vector2(1, 1);
+
+	mesh = new Mesh<VertexType>();
+	MakeMesh();
+	mesh->CreateMesh();
+}
+
+
 Quad::~Quad()
 {
 	delete mesh;

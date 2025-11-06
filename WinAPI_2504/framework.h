@@ -33,6 +33,7 @@
 #include <windows.h>
 #include <string>
 #include <unordered_map>
+#include <unordered_set>
 #include <map>
 #include <vector>
 #include <functional>
@@ -178,7 +179,7 @@ typedef function<void()> Event;
 #include "Objects/Game/Steve.h"
 #include "Objects/Game/Sword.h"
 
-
+#include "Objects/Game/SimCity/Basic/QuadInstancing.h"
 
 #include "Objects/Game/Simcity/Installation/Installation.h"
 

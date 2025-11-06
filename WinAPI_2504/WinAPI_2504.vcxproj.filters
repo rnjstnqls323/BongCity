@@ -345,6 +345,9 @@
     <ClInclude Include="Scenes\GameScene\MapTool.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
+    <ClInclude Include="Objects\Game\SimCity\Basic\QuadInstancing.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="WinAPI_2504.cpp">
@@ -632,6 +635,9 @@
     <ClCompile Include="Objects\Game\SimCity\Tile\TileManager.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
+    <ClCompile Include="Objects\Game\SimCity\Basic\QuadInstancing.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="WinAPI_2504.rc">
@@ -680,6 +686,7 @@
     <FxCompile Include="Resources\Shaders\Light\DepthMap.hlsl" />
     <FxCompile Include="Resources\Shaders\Light\SkinDepthMap.hlsl" />
     <FxCompile Include="Resources\Shaders\Light\Shadow.hlsl" />
+    <FxCompile Include="Resources\Shaders\Instancing\QuadInstancing.hlsl" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\Shaders\VertexHeader.hlsli" />
