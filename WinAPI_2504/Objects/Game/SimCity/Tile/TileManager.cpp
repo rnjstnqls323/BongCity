@@ -107,14 +107,14 @@ void TileManager::CreateInstancing()
 
 void TileManager::TileToNearCam()
 {
-    vector<Transform*>& transform = instancing[InstancingType::None].second;
+    //vector<Transform*>& transform = instancing[InstancingType::None].second;
     instancing[InstancingType::None].second.clear();
     instancing[InstancingType::Possible].second.clear();
     instancing[InstancingType::Impossible].second.clear();
 
     GetTileToNearMouse();
 
-    transform.size();
+    //transform.size();
 
     Index2 ind = { (int)(CAMERA_RANGE_WIDTH * 2.5) - (int)CAM->GetGlobalPosition().z , (int)CAM->GetGlobalPosition().x };
 
@@ -133,10 +133,10 @@ void TileManager::TileToNearCam()
 
             instancing[tiles[index]->GetInstancingType()].second.push_back(tiles[index]);
 
-            // if (tiles[index]->GetInstancingType() == InstancingType::Possible)
-            //     tiles[index]->SetInstancingType(InstancingType::None);
-            // else if (tiles[index]->GetInstancingType() == InstancingType::Impossible && tiles[index]->GetTileType() == TileType::None)
-            //     tiles[index]->SetInstancingType(InstancingType::None);
+             if (tiles[index]->GetInstancingType() == InstancingType::Possible)
+                 tiles[index]->SetInstancingType(InstancingType::None);
+             else if (tiles[index]->GetInstancingType() == InstancingType::Impossible && tiles[index]->GetTileType() == TileType::None)
+                 tiles[index]->SetInstancingType(InstancingType::None);
         }
     }
 
