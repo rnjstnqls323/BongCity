@@ -12,9 +12,8 @@ TestScene::~TestScene()
 }
 
 void TestScene::Update()
-{
-	TileManager::Get()->Update();
-	
+{	
+	TileManager::Get()->Update();	
 }
 
 void TestScene::PreRender()
@@ -23,7 +22,8 @@ void TestScene::PreRender()
 
 void TestScene::Render()
 {
-	TileManager::Get()->Render();
+	//TileManager::Get()->Render();
+	TileManager::Get()->RenderInstancing();
 }
 
 void TestScene::PostRender()

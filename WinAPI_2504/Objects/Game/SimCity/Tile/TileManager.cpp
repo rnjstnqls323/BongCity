@@ -20,17 +20,18 @@ TileManager::~TileManager()
 
 void TileManager::Update()
 {
-    time += DELTA;
-    if (time < 0.01f)
-        return;
-    time -= 0.01f;
-    TileToNearCam();
-
-    for (int i = 0; i < (int)InstancingType::Max; i++)
-    {
-        instancing[(InstancingType)i].first->Update(instancing[(InstancingType)i].second);
-    }
-    Render();
+    tileInstncing->UpdateSelectTile();
+    //time += DELTA;
+    //if (time < 0.01f)
+    //    return;
+    //time -= 0.01f;
+    //TileToNearCam();
+    //
+    //for (int i = 0; i < (int)InstancingType::Max; i++)
+    //{
+    //    instancing[(InstancingType)i].first->Update(instancing[(InstancingType)i].second);
+    //}
+    //Render();
 }
 
 void TileManager::Render()
@@ -41,6 +42,12 @@ void TileManager::Render()
         instancing[(InstancingType)i].first->Render();
     }
     Environment::Get()->SetAlphaBlend(false);
+}
+
+void TileManager::RenderInstancing()
+{
+	//tileInstncing->Update(tiles);
+	tileInstncing->Render();
 }
 
 void TileManager::Edit()
@@ -144,21 +151,29 @@ void TileManager::TileToNearCam()
 
 void TileManager::CreateTiles()
 {
+	tileInstncing = new QuadInstancing(L"Resources/Textures/Color/black1.png", TILE_SIZE * TILE_SIZE);
+
     tiles.reserve(TILE_SIZE * TILE_SIZE);
     Vector3 startPos = {0.5f, 0, (float)TILE_SIZE - 0.5f };
     for (int row = 0; row < TILE_SIZE; row++)
     {
         for (int col = 0; col < TILE_SIZE; col++)
         {
-            Tile* tile = new Tile(Index2(row, col));
-            tile->SetLocalPosition(startPos.x + col, 0, startPos.z);
-            tile->SetLocalRotation(XMConvertToRadians(90), 0, 0);
+            //Tile* tile = new Tile(Index2(row, col));
+            //tile->SetLocalPosition(startPos.x + col, 0, startPos.z);
+            //tile->SetLocalRotation(XMConvertToRadians(90), 0, 0);
+            //
+            //tile->UpdateWorld();
+            //tiles.push_back(tile);
 
-            tile->UpdateWorld();
-            tiles.push_back(tile);
+            Transform* transform = tileInstncing->Add();
+			transform->SetLocalPosition(startPos.x + col, 0, startPos.z);
+			transform->SetLocalRotation(XMConvertToRadians(90), 0, 0);
         }
         startPos.z--;
     }
+
+    tileInstncing->UpdateTransform();
 }
 
 void TileManager::GetTileToNearMouse(const int& height, const int& width)

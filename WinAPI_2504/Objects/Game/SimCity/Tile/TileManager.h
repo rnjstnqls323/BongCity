@@ -16,6 +16,7 @@ private:
 public:
 	void Update();
 	void Render();
+	void RenderInstancing();
 	void Edit();
 	
 	Index2& GetIndexToPos(Vector3& pos);
@@ -36,6 +37,7 @@ private:
 	Tile* hoverTile;
 	Index2 real;
 	vector<Tile*> tiles;
-
 	unordered_map < InstancingType, pair<QuadInstancing*, vector<Transform*>>> instancing;
+
+	QuadInstancing* tileInstncing;
 };
