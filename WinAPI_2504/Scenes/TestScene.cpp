@@ -4,11 +4,13 @@
 TestScene::TestScene()
 {
 	TileManager::Get();
+	InstallationManager::Get();
 }
 
 TestScene::~TestScene()
 {
 	TileManager::Delete();
+	InstallationManager::Delete();
 }
 
 void TestScene::Update()
@@ -22,8 +24,8 @@ void TestScene::PreRender()
 
 void TestScene::Render()
 {
-	//TileManager::Get()->Render();
-	TileManager::Get()->RenderInstancing();
+	TileManager::Get()->Render();
+	InstallationManager::Get()->Render();
 }
 
 void TestScene::PostRender()
@@ -32,5 +34,5 @@ void TestScene::PostRender()
 
 void TestScene::GUIRender()
 {
-	TileManager::Get()->Edit();
+	//TileManager::Get()->Edit();
 }

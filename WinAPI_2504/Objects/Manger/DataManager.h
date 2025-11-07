@@ -2,7 +2,7 @@
 
 enum class InstallationType
 {
-	Road,Building, Production, LandScape
+	Road, Building, Production, LandScape, None
 };
 struct PriceData
 {
@@ -48,6 +48,7 @@ public:
 	int GetInstallationCount() {return installationDatas.size(); }
 
 	DayData& GetDayData(int key) { return dayDatas[key]; }
+	vector<int>& GetKeys() { return installationKeys; }
 private:
 	void LoadData();
 
@@ -56,6 +57,7 @@ private:
 	void LoadInstallationData();
 private:
 	string filePath = "Resources/Tables/";
+	vector<int> installationKeys;
 	unordered_map<int, DayData> dayDatas;
 	unordered_map<int, PriceData> priceDatas;
 	unordered_map<int, InstallationData> installationDatas;

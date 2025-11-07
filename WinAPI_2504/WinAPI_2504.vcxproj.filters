@@ -345,7 +345,13 @@
     <ClInclude Include="Scenes\GameScene\MapTool.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
-    <ClInclude Include="Objects\Game\SimCity\Basic\QuadInstancing.h">
+    <ClInclude Include="Objects\Game\SimCity\Basic\TileInstancing.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="Objects\Game\SimCity\Basic\InstallationInstancing.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="Objects\Game\SimCity\Installation\InstallationManager.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
   </ItemGroup>
@@ -635,7 +641,13 @@
     <ClCompile Include="Objects\Game\SimCity\Tile\TileManager.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
-    <ClCompile Include="Objects\Game\SimCity\Basic\QuadInstancing.cpp">
+    <ClCompile Include="Objects\Game\SimCity\Basic\TileInstancing.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="Objects\Game\SimCity\Basic\InstallationInstancing.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="Objects\Game\SimCity\Installation\InstallationManager.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
   </ItemGroup>

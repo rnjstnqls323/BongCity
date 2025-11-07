@@ -14,11 +14,12 @@ Tile::~Tile()
 {
 }
 
-void Tile::SetTileType(const TileType& type)
+void Tile::SetTileType(const InstallationType& type)
 {
 	this->type = type;
-	if (type == TileType::None)
+	if (type == InstallationType::None)
 		instancingType = InstancingType::None;
 	else
 		instancingType = InstancingType::Impossible;
 }
+

@@ -33,7 +33,7 @@ ModelInstancingScene::ModelInstancingScene()
 	//  
 	//  //modelInstancing->Update();
 
-	instan = new QuadInstancing(L"Resources/Textures/Test.jfif", 10000);
+	instan = new TileInstancing(L"Resources/Textures/Test.jfif", 10000);
 }
 
 ModelInstancingScene::~ModelInstancingScene()
@@ -48,7 +48,7 @@ ModelInstancingScene::~ModelInstancingScene()
 void ModelInstancingScene::Update()
 {
 	//modelInstancing->Update();
-	instan->Update(transforms);
+	//instan->Update(transforms);
 }
 
 void ModelInstancingScene::PreRender()

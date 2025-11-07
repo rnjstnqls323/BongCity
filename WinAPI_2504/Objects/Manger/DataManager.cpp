@@ -126,6 +126,8 @@ void DataManager::LoadInstallationData()
 		ins.electricUsage = stoi(data[10]);
 
 		installationDatas[ins.key] = ins;
+
+		installationKeys.emplace_back(ins.key);
 	}
 	file.close();
 }

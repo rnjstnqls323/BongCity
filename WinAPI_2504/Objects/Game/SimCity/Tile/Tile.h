@@ -1,14 +1,10 @@
 #pragma once
 
-enum class TileType
-{
-	None, Road, Build, BuildingSide //사이드는 사람들 걸어다니게할거면 이렇게할거임
-};
 enum class InstancingType
 {
 	None, Possible, Impossible, Max
 };
-class Tile : public Transform
+class Tile
 {
 public:
 	Tile(Index2 index = {0,0});
@@ -16,14 +12,18 @@ public:
 
 	void SetInstancingType(const InstancingType& type) { this->instancingType = type; }
 
-	void SetTileType(const TileType& type);
+	void SetTileType(const InstallationType& type);
 	void SetIndex(const Index2& index) { this->index = index; } //이거 필요할까?
 
-	TileType& GetTileType() { return type; }
+	InstallationType& GetTileType() { return type; }
 	Index2& GetIndex() { return index; }
 	InstancingType& GetInstancingType() { return instancingType; }	
+
+	void SetTransform(Transform*& transform) { this->transform = transform; }
+	Transform*& GetTransform() { return transform; }
 private:
+	Transform* transform; //들고있을 이유있나?
 	InstancingType instancingType = InstancingType::None;
-	TileType type = TileType::None;
+	InstallationType type = InstallationType::None;
 	Index2 index;
 };

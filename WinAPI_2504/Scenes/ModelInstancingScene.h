@@ -17,7 +17,7 @@ private:
 	//ModelInstancing* modelInstancing;
 	//ModelAnimatorInstancing* modelInstancing;
 
-	QuadInstancing* instan;
+	TileInstancing* instan;
 	vector<Transform*> transforms;
 
 	int instanceIndex = 0;

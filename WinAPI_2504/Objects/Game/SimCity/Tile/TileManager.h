@@ -16,28 +16,27 @@ private:
 public:
 	void Update();
 	void Render();
-	void RenderInstancing();
 	void Edit();
 	
 	Index2& GetIndexToPos(Vector3& pos);
-	Tile* GetTileToIndex(Index2& index);
+	Tile*& GetTileToIndex(Index2& index);
 
 	void SpawnInstallation(Installation* install);
-	
+	int GetMaxTileSize() { return TILE_SIZE; }
+
+	Vector3 GetPreCenter() 
+	{
+		Index2 index = 	tileInstancing->GetPreCenter(); 
+		Vector3 pos = { (float)index.col, 0, 100-(float)index.row };
+		return pos;
+	}
 
 private:
-	void CreateInstancing();
-	void TileToNearCam();
+
 	void CreateTiles();
-	void GetTileToNearMouse(const int& height = 4, const int& width = 7);
 
 private:
-	float time = 0.0f;
-	int testIndex;
-	Tile* hoverTile;
-	Index2 real;
 	vector<Tile*> tiles;
-	unordered_map < InstancingType, pair<QuadInstancing*, vector<Transform*>>> instancing;
 
-	QuadInstancing* tileInstncing;
+	TileInstancing* tileInstancing;
 };

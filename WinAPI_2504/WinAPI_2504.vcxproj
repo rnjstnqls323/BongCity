@@ -213,8 +213,10 @@
     <ClInclude Include="Objects\Collider\SquareCollider.h" />
     <ClInclude Include="Objects\Game\Block.h" />
     <ClInclude Include="Objects\Game\GameBall.h" />
-    <ClInclude Include="Objects\Game\SimCity\Basic\QuadInstancing.h" />
+    <ClInclude Include="Objects\Game\SimCity\Basic\InstallationInstancing.h" />
+    <ClInclude Include="Objects\Game\SimCity\Basic\TileInstancing.h" />
     <ClInclude Include="Objects\Game\SimCity\Installation\Installation.h" />
+    <ClInclude Include="Objects\Game\SimCity\Installation\InstallationManager.h" />
     <ClInclude Include="Objects\Game\SimCity\Tile\Tile.h" />
     <ClInclude Include="Objects\Game\SimCity\Tile\TileManager.h" />
     <ClInclude Include="Objects\Game\Steve.h" />
@@ -325,8 +327,10 @@
     <ClCompile Include="Objects\Collider\SphereCollider.cpp" />
     <ClCompile Include="Objects\Game\Block.cpp" />
     <ClCompile Include="Objects\Game\GameBall.cpp" />
-    <ClCompile Include="Objects\Game\SimCity\Basic\QuadInstancing.cpp" />
+    <ClCompile Include="Objects\Game\SimCity\Basic\InstallationInstancing.cpp" />
+    <ClCompile Include="Objects\Game\SimCity\Basic\TileInstancing.cpp" />
     <ClCompile Include="Objects\Game\SimCity\Installation\Installation.cpp" />
+    <ClCompile Include="Objects\Game\SimCity\Installation\InstallationManager.cpp" />
     <ClCompile Include="Objects\Game\SimCity\Tile\Tile.cpp" />
     <ClCompile Include="Objects\Game\SimCity\Tile\TileManager.cpp" />
     <ClCompile Include="Objects\Game\Steve.cpp" />
