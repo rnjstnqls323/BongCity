@@ -24,6 +24,7 @@ public:
 
 	bool CheckSide();
 
+	bool GetIsBuild() { return isBuild; }
 
 private:
 	bool isSelect = false; //이거 기준으로 선택되었으면 계속 업데이트해주기

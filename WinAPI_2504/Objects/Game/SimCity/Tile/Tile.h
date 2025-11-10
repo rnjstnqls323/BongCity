@@ -9,7 +9,7 @@ class Tile
 public:
 	Tile(Index2 index = {0,0});
 	~Tile();
-
+	
 	void SetInstancingType(const InstancingType& type) { this->instancingType = type; }
 
 	void SetTileType(const InstallationType& type);
@@ -21,6 +21,9 @@ public:
 
 	void SetTransform(Transform*& transform) { this->transform = transform; }
 	Transform*& GetTransform() { return transform; }
+
+	bool IsSideToRoad();
+
 private:
 	Transform* transform; //들고있을 이유있나?
 	InstancingType instancingType = InstancingType::None;

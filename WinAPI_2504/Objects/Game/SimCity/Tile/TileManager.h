@@ -36,6 +36,8 @@ private:
 	void CreateTiles();
 
 private:
+	int key = 200; //테스트용 임시객체
+
 	vector<Tile*> tiles;
 
 	TileInstancing* tileInstancing;

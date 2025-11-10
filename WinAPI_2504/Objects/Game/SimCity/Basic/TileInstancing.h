@@ -22,9 +22,11 @@ public:
 	~TileInstancing();
 
 	void UpdateSelectTile(int height = 4, int width = 3);
+	void UpdateSelectTile(InstallationData& data);
 
 	void UpdateTransform();
 	void Render();
+	void Edit() override;
 
 	void SetColor(int& index, Float4& color);
 	void UpdateInstanceBuffer();
@@ -41,6 +43,7 @@ private:
 	void ClearPreTiles();
 
 private:
+	class Tile* test;
 	bool isPossible;
 	int size;
 	int drawCount;

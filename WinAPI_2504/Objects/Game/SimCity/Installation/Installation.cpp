@@ -40,6 +40,7 @@ void Installation::Distroy()
 
 bool Installation::CheckSide()
 {
+	isBuild = true;
 	if (data.type == InstallationType::Road) return true;
 
 	sideTiles.clear();
@@ -71,6 +72,8 @@ bool Installation::CheckSide()
 		if (tile->GetTileType() == InstallationType::Road)
 			return true;
 	}
+
+	isBuild = false;
 	return false;
 }
 

@@ -13,10 +13,17 @@ TileManager::~TileManager()
 
 void TileManager::Update()
 {
-    int key = 100;
+
+    if (Input::Get()->IsKeyDown(VK_RBUTTON))
+    {
+        if (key == 200)
+            key = 100;
+        else
+            key = 200;
+    }
     if (Input::Get()->IsKeyDown(VK_LBUTTON)&& tileInstancing->IsPossible())
     {
-        if (!InstallationManager::Get()->SpawnInstallation(key, GetPreCenter(), tileInstancing->GetPreCenter())) return; 
+        InstallationManager::Get()->SpawnInstallation(key, GetPreCenter(), tileInstancing->GetPreCenter());
 
         // 이것도 고른거 데베 받아와서 셋팅해주기
         // 이거 쪼개서 타일위에서 애초에 false면 빨갛게 출력해야겠다 check부분을 ispossible쪽에서
@@ -26,11 +33,11 @@ void TileManager::Update()
 
         for (Tile* tile : tileInstancing->GetPreSelectTiles())
         {
-            tile->SetTileType(InstallationType::Road); //이거 데베받아와서 셋팅해주면됨 (선택된 건물알아야겠네)
+            tile->SetTileType(DataManager::Get()->GetInstallationData(key).type); //이거 데베받아와서 셋팅해주면됨 (선택된 건물알아야겠네)
         }
 
     }
-    tileInstancing->UpdateSelectTile(DataManager::Get()->GetInstallationData(key).height, DataManager::Get()->GetInstallationData(key).width);//건물 크기 넘겨줘야됨
+    tileInstancing->UpdateSelectTile(DataManager::Get()->GetInstallationData(key));//건물 크기 넘겨줘야됨
 }
 
 void TileManager::Render()
@@ -41,7 +48,7 @@ void TileManager::Render()
 
 void TileManager::Edit()
 {
-   
+    tileInstancing->Edit();
 }
 
 Index2& TileManager::GetIndexToPos(Vector3& pos)

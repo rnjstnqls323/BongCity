@@ -52,7 +52,7 @@ void TileInstancing::UpdateSelectTile(int height, int width)
 			in = { preCenter.row + row, preCenter.col + col };
 
 			if (in.row < 0 || in.col < 0 || in.row >= MAX_TILE_SIZE || in.col >= MAX_TILE_SIZE 
-				|| TileManager::Get()->GetTileToIndex(in)->GetTileType() != InstallationType::None)
+				|| TileManager::Get()->GetTileToIndex(in)->GetTileType() != InstallationType::None )
 			{
 				isPossible = false;
 				break;
@@ -64,6 +64,76 @@ void TileInstancing::UpdateSelectTile(int height, int width)
 	for (int row = 0; row < width; row++)
 	{
 		for (int col = 0; col < height; col++)
+		{
+			in = { preCenter.row + row, preCenter.col + col };
+
+			index = in.ChangeToInt(MAX_TILE_SIZE);
+			if (in.row < 0 || in.col < 0 || in.row >= MAX_TILE_SIZE || in.col >= MAX_TILE_SIZE)
+				continue;
+			if (!isPossible)
+			{
+				instanceDatas[index].color = Float4(1, 0, 0, 1);
+			}
+			else
+			{
+				instanceDatas[index].color = Float4(0, 1, 0, 1);
+			}
+			preSelectTiles.push_back(TileManager::Get()->GetTileToIndex(in));
+		}
+	}
+
+	instanceBuffer->Update(instanceDatas, size);
+}
+
+void TileInstancing::UpdateSelectTile(InstallationData& data)
+{
+	ClearPreTiles();
+
+	Ray ray = CAM->ScreenPointToRay(mousePos);
+	float t = -ray.origin.y / ray.direction.y;
+
+	Vector3 hitPos = ray.origin + ray.direction * t;
+	preCenter = { (int)-(hitPos.z - 100), (int)hitPos.x };
+
+	if (preCenter.row < 0 || preCenter.col < 0 || preCenter.row >= MAX_TILE_SIZE || preCenter.col >= MAX_TILE_SIZE)
+		return;
+
+	test = TileManager::Get()->GetTileToIndex(preCenter);
+
+	//왼쪽 위 중심잡기 + (중간으로 마우스 위치 보정)
+	preCenter.row -= (data.width * 0.5f) - 1;
+	preCenter.col -= (data.height * 0.5f) - 1;
+
+
+	int index;
+	Index2 in;
+
+	bool isRoad = false;
+
+	for (int row = 0; row < data.width; row++)
+	{
+		for (int col = 0; col < data.height; col++)
+		{
+			in = { preCenter.row + row, preCenter.col + col };
+
+			if (in.row < 0 || in.col < 0 || in.row >= MAX_TILE_SIZE || in.col >= MAX_TILE_SIZE
+				|| TileManager::Get()->GetTileToIndex(in)->GetTileType() != InstallationType::None)
+			{
+				isPossible = false;
+				break;
+			}
+			if (isRoad) continue;
+			else if (data.type == InstallationType::Road || TileManager::Get()->GetTileToIndex(in)->IsSideToRoad())
+				isRoad = true;
+		}
+		if (!isPossible)
+			break;
+	}
+	if (!isRoad)
+		isPossible = false;
+	for (int row = 0; row < data.width; row++)
+	{
+		for (int col = 0; col < data.height; col++)
 		{
 			in = { preCenter.row + row, preCenter.col + col };
 
@@ -104,6 +174,11 @@ void TileInstancing::Render()
 	GetMaterial()->Set();
 	mesh->DrawInstanced(size);
 	Environment::Get()->SetAlphaBlend(false);
+}
+
+void TileInstancing::Edit()
+{
+	ImGui::Text("Tile Type: %d", test->GetTileType());
 }
 
 void TileInstancing::SetColor(int& index, Float4& color)

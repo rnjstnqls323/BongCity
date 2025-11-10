@@ -34,7 +34,7 @@ void InstallationManager::Edit()
 {
 }
 
-bool InstallationManager::SpawnInstallation(int& key, Vector3 pos, Index2& index)
+void InstallationManager::SpawnInstallation(int& key, Vector3 pos, Index2& index)
 {
 	vector<Installation*>& installation = installations[key].second;
 	for (int i = 0; i < installation.size(); i++)
@@ -42,7 +42,8 @@ bool InstallationManager::SpawnInstallation(int& key, Vector3 pos, Index2& index
 		if (installation[i]->GetTransform()->IsActive())continue;
 
 		installation[i]->SetCenterIndex(index);
-		if (!installation[i]->CheckSide()) return false;
+		// if (!installation[i]->CheckSide()) return false; 
+
 
 		Transform* transform = installation[i]->GetTransform();
 		transform->SetActive(true);
@@ -56,8 +57,6 @@ bool InstallationManager::SpawnInstallation(int& key, Vector3 pos, Index2& index
 		break;
 	}
 	installations[key].first->UpdateTransform();
-
-	return true;
 }
 
 

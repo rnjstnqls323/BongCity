@@ -15,7 +15,7 @@ public:
 	void Render();
 	void Edit();
 
-	bool SpawnInstallation(int& key, Vector3 pos, Index2& index);
+	void SpawnInstallation(int& key, Vector3 pos, Index2& index);
 
 private:
 	void CreateInstallation();

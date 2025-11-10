@@ -49,6 +49,30 @@ struct Index2
 
 		return false;
 	}
+	bool operator<(const Index2& other)const
+	{
+		if (row < other.row && col < other.col)
+			return true;
+		return false;
+	}
+	bool operator<=(const Index2& other)const
+	{
+		if (row <= other.row && col <= other.col)
+			return true;
+		return false;
+	}
+	bool operator>(const Index2& other)const
+	{
+		if (row > other.row && col > other.col)
+			return true;
+		return false;
+	}
+	bool operator>=(const Index2& other)const
+	{
+		if (row >= other.row && col >= other.col)
+			return true;
+		return false;
+	}
 	void operator+=(const Index2& other)
 	{
 		row += other.row;
