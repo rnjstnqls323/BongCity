@@ -1,39 +1,31 @@
 #pragma once
 
-class Button : public Rect
+class Button : public BoxCollider
 {
-	//내 버튼 코드로 다시 가져오자.
-private:
-	enum State
-	{
-		NORMAL,
-		OVER,
-		DOWN
-	};
-
 public:
-	Button(Vector2 center, Vector2 size);
+	Button(wstring fileName);
+	Button(wstring imagePath, Vector2 size);
 	~Button();
 
-	void Update();
-	void Render(HDC hdc);
+	virtual void Update();
+	virtual void Render();
 
-	void SetText(wstring text) { this->text = text; }
 	void SetEvent(function<void()> onClick) { this->onClick = onClick; }
 	void SetIntEvent(function<void(int)> onClickInt) { this->onClickInt = onClickInt; }
 	void SetIntParameter(int intParameter) { this->intParameter = intParameter; }
 	void SetObjectEvent(function<void(void*)> onClickObject) { this->onClickObject = onClickObject; }
 	void SetObjectParameter(void* objectParameter) { this->objectParameter = objectParameter; }
 
-private:
-	wstring text = L"";
-	State state = NORMAL;
 
+protected:
+	virtual void OnClick();
+
+protected:
 	int intParameter = 0;
 	void* objectParameter = nullptr;
-	bool isMouseDown = false;
 
 	function<void()> onClick = nullptr;
 	function<void(int)> onClickInt = nullptr;
 	function<void(void*)> onClickObject = nullptr;
+	Quad* quad;
 };

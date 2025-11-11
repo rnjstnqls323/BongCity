@@ -20,6 +20,7 @@ public:
 	bool IsBoxCollision(BoxCollider* collider) override;
 	bool IsSphereCollision(SphereCollider* collider) override;
 	bool IsCapsuleCollision(CapsuleCollider* collider) override;
+	bool IsPointCollision(const Vector3& point);
 
 	void GetOBB(ObbDesc& desc);
 

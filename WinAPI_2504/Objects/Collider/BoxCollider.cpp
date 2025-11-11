@@ -146,6 +146,16 @@ bool BoxCollider::IsCapsuleCollision(CapsuleCollider* collider)
 {
     return false;
 }
+bool BoxCollider::IsPointToCollision(const Vector3& point)
+{
+	Vector3 halfSize = size * 0.5f;
+
+	if (point.x > localPosition.x + halfSize.x || point.x < localPosition.x - halfSize.x) return false;
+	if (point.y > localPosition.y + halfSize.y || point.y < localPosition.y - halfSize.y) return false;
+	if (point.z > localPosition.z + halfSize.z || point.z < localPosition.z - halfSize.z) return false;
+
+	return true;
+}
 
 void BoxCollider::GetOBB(ObbDesc& desc)
 {	
