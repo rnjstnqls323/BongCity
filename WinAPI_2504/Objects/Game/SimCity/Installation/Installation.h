@@ -11,6 +11,8 @@ public:
 
 	Transform* GetTransform() { return transform; }
 
+	Index2& GetCenterIndex() { return centerIndex; }
+
 	virtual void Render(); //이것도 필요없다
 	virtual void Update(); //이거 필요없다? 애매띠
 
@@ -19,10 +21,9 @@ public:
 
 	void SetCenterIndex(const Index2& index) { centerIndex = index; }
 
-	virtual void Build(const Vector3 pos);
-	virtual void Distroy(); //이거 isSelect되고 
+	virtual void Spawn(const Vector3 pos, int& rotation);
+	virtual void Dispawn(); //이거 isSelect되고 
 
-	bool CheckSide();
 
 	bool GetIsBuild() { return isBuild; }
 

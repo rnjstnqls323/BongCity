@@ -190,6 +190,9 @@ typedef function<void()> Event;
 
 #include "Objects/Character/Naruto.h"
 
+#include "Objects/Game/Simcity/UI/button.h"
+#include "Objects/Game/Simcity/UI/Panel.h"
+
 #include "Scenes/Scene.h"
 #include "Framework/Manager/SceneManager.h"
 #include "Framework/Manager/GameManager.h"

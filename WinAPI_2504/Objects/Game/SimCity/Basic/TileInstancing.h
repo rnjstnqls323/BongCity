@@ -21,8 +21,8 @@ public:
 	TileInstancing(wstring path, int size);
 	~TileInstancing();
 
-	void UpdateSelectTile(int height = 4, int width = 3);
-	void UpdateSelectTile(InstallationData& data);
+
+	void UpdateSelectTile(InstallationData* data);
 
 	void UpdateTransform();
 	void Render();
@@ -40,6 +40,7 @@ public:
 	Transform* Add();
 
 private:
+	void UpdateSelectTileToBuild();
 	void ClearPreTiles();
 
 private:

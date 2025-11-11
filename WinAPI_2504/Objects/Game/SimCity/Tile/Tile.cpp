@@ -37,3 +37,19 @@ bool Tile::IsSideToRoad()
 	return false;
 }
 
+void Tile::SpawnTile(const InstallationType& type, const Index2& centerIndex, InstallationData data)
+{
+	this->type = type;
+	this->center = centerIndex;
+	this->data = data;
+	instancingType = InstancingType::Impossible;
+}
+
+void Tile::DispawnTile()
+{
+	this->type = InstallationType::None;
+	center = Index2{ 0,0 };
+	data = InstallationData();
+	instancingType = InstancingType::None;
+}
+

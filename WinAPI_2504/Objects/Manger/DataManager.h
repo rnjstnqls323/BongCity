@@ -45,6 +45,7 @@ private:
 
 public:	
 	InstallationData& GetInstallationData(const int& key) { return installationDatas[key]; }
+	InstallationData GetInstallationDataCopy(const int& key) { return installationDatas[key]; }
 	int GetInstallationCount() {return installationDatas.size(); }
 
 	DayData& GetDayData(int key) { return dayDatas[key]; }

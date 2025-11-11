@@ -14,30 +14,69 @@ TileManager::~TileManager()
 void TileManager::Update()
 {
 
+    //버튼 클릭하는거 업데이트 제대로 설정해주기
+    // 데이터 받아온걸로 셋팅해주는 코드 필요함 (이부분 UI랑 같이하면됨)
+    // 데이터 받아온걸로 환경도랑 혼잡도 넣어줘야됨 + 없애면서 환경도 혼잡도 밸류 조정해줘야됨
+    //
+
     if (Input::Get()->IsKeyDown(VK_RBUTTON))
     {
         if (key == 200)
-            key = 100;
+            key = 0;
         else
             key = 200;
     }
-    if (Input::Get()->IsKeyDown(VK_LBUTTON)&& tileInstancing->IsPossible())
+
+    if (key == 0)
     {
-        InstallationManager::Get()->SpawnInstallation(key, GetPreCenter(), tileInstancing->GetPreCenter());
+        data = InstallationData();
+        rotation = 0;
+    }
+    else if (data.key == InstallationData().key)
+    {
+        data = DataManager::Get()->GetInstallationDataCopy(key); //매번 복사생성자 되는데 이것도 선택하면 카피하는걸로 바꿔야겠다
+        rotation = 0;
+    }
+    else if (data.key != key)
+    {
+        data = DataManager::Get()->GetInstallationDataCopy(key); //매번 복사생성자 되는데 이것도 선택하면 카피하는걸로 바꿔야겠다
+        rotation = 0;
+    }
+
+    if (Input::Get()->IsKeyDown('E'))
+    {
+        int temp = data.width;
+        data.width = data.height;
+        data.height = temp;
+        rotation += 90;
+    }
+
+    if (key < 100 && Input::Get()->IsKeyDown(VK_LBUTTON)&& // key상수넣는거 빼야됨 UI에서select보고 처리해야됨
+        tiles[tileInstancing->GetPreCenter().ChangeToInt(TILE_SIZE)]->GetTileType() !=InstallationType::None)
+    {
+        InstallationManager::Get()->DispawnInstallation(tiles[tileInstancing->GetPreCenter().ChangeToInt(TILE_SIZE)]->GetData().key,
+            tileInstancing->GetPreCenter());
+        for (Tile* tile : tileInstancing->GetPreSelectTiles())
+        {
+            tile->DispawnTile();
+        }
+
+        //건물 없애기(삭제)
+
+    }
+    else if (Input::Get()->IsKeyDown(VK_LBUTTON)&& tileInstancing->IsPossible())
+    {
+        InstallationManager::Get()->SpawnInstallation(data, GetPreCenter(), tileInstancing->GetPreCenter(), rotation);
 
         // 이것도 고른거 데베 받아와서 셋팅해주기
-        // 이거 쪼개서 타일위에서 애초에 false면 빨갛게 출력해야겠다 check부분을 ispossible쪽에서
-        // 해주면될듯??
-        // 
-        // + 내가 고른것도 보였으면좋겠는데 계속 월드업데이트해야돼서 좀 부담스러우려나? 아님 꼼수를 써?? 
 
         for (Tile* tile : tileInstancing->GetPreSelectTiles())
         {
-            tile->SetTileType(DataManager::Get()->GetInstallationData(key).type); //이거 데베받아와서 셋팅해주면됨 (선택된 건물알아야겠네)
+            tile->SpawnTile(DataManager::Get()->GetInstallationData(key).type, tileInstancing->GetPreCenter(), data); //이거 데베받아와서 셋팅해주면됨 (선택된 건물알아야겠네)
         }
 
     }
-    tileInstancing->UpdateSelectTile(DataManager::Get()->GetInstallationData(key));//건물 크기 넘겨줘야됨
+    tileInstancing->UpdateSelectTile(&data);//건물 크기 넘겨줘야됨
 }
 
 void TileManager::Render()
@@ -62,10 +101,6 @@ Tile*& TileManager::GetTileToIndex(Index2& index)
     return tiles[index.ChangeToInt(TILE_SIZE)];
 }
 
-void TileManager::SpawnInstallation(Installation* install)
-{
-   
-}
 
 void TileManager::CreateTiles()
 {

@@ -11,9 +11,9 @@ InstallationManager::~InstallationManager()
 	{
 		delete installation.second.first;
 
-		for (int i = 0; i < installation.second.second.size(); i++)
+		for (Installation* install : installation.second.second)
 		{
-			delete installation.second.second[i];
+			delete install;
 		}
 	}
 }
@@ -34,28 +34,31 @@ void InstallationManager::Edit()
 {
 }
 
-void InstallationManager::SpawnInstallation(int& key, Vector3 pos, Index2& index)
+void InstallationManager::SpawnInstallation(InstallationData& data, Vector3 pos, Index2& index, int& rotation)
 {
-	vector<Installation*>& installation = installations[key].second;
-	for (int i = 0; i < installation.size(); i++)
+	vector<Installation*>& installation = installations[data.key].second;
+
+	for (Installation* install : installation)
 	{
-		if (installation[i]->GetTransform()->IsActive())continue;
-
-		installation[i]->SetCenterIndex(index);
-		// if (!installation[i]->CheckSide()) return false; 
-
-
-		Transform* transform = installation[i]->GetTransform();
-		transform->SetActive(true);
+		if(install->GetTransform()->IsActive())continue;
+		install->SetCenterIndex(index);
 
 		Vector3 addPos;
 
-		addPos.x = installation[i]->GetData().height * 0.5f;
-		addPos.z = -installation[i]->GetData().width * 0.5f;
+		addPos.x = data.height * 0.5f;
+		addPos.z = -data.width * 0.5f;
 
-		transform->SetLocalPosition(pos + addPos);
+		install->Spawn(pos + addPos, rotation);
 		break;
 	}
+
+	installations[data.key].first->UpdateTransform();
+}
+
+void InstallationManager::DispawnInstallation(int& key, Index2& index)
+{
+	Installation* installation = GetTransformToIndex(key, index);
+	installation->Dispawn();
 	installations[key].first->UpdateTransform();
 }
 
@@ -85,5 +88,17 @@ void InstallationManager::CreateInstallation()
 			installation->GetTransform()->SetLocalScale(0.03,0.03,0.03);
 			installations[key].second.push_back(installation);
 		}
+	}
+}
+
+Installation*& InstallationManager::GetTransformToIndex(int& key, Index2& index)
+{
+	vector<Installation*>& installation = installations[key].second;
+	for (Installation* install : installation)
+	{
+		if (!install->GetTransform()->IsActive()) continue;
+		if (install->GetCenterIndex() != index)continue;
+
+		return install;
 	}
 }

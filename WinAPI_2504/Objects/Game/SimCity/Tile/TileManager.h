@@ -21,7 +21,6 @@ public:
 	Index2& GetIndexToPos(Vector3& pos);
 	Tile*& GetTileToIndex(Index2& index);
 
-	void SpawnInstallation(Installation* install);
 	int GetMaxTileSize() { return TILE_SIZE; }
 
 	Vector3 GetPreCenter() 
@@ -36,9 +35,12 @@ private:
 	void CreateTiles();
 
 private:
-	int key = 200; //테스트용 임시객체
+	int key = 100; //테스트용 임시객체
+	int rotation = 0;//테스트용 임시객체 이거 씬으로 빼줄거임
 
 	vector<Tile*> tiles;
 
 	TileInstancing* tileInstancing;
+
+	InstallationData data;
 };
