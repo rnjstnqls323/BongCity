@@ -146,7 +146,7 @@ bool BoxCollider::IsCapsuleCollision(CapsuleCollider* collider)
 {
     return false;
 }
-bool BoxCollider::IsPointToCollision(const Vector3& point)
+bool BoxCollider::IsPointCollision(const Vector3& point)
 {
 	Vector3 halfSize = size * 0.5f;
 

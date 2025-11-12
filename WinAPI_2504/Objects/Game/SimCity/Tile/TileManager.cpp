@@ -3,6 +3,8 @@
 TileManager::TileManager()
 {
     CreateTiles();
+
+    keys = DataManager::Get()->GetKeys();
 }
 
 TileManager::~TileManager()
@@ -19,29 +21,31 @@ void TileManager::Update()
     // 데이터 받아온걸로 환경도랑 혼잡도 넣어줘야됨 + 없애면서 환경도 혼잡도 밸류 조정해줘야됨
     //
 
+    //if (Input::Get()->IsKeyDown(VK_RBUTTON))
+    //{
+    //    if (key == 200)
+    //        key = 0;
+    //    else
+    //        key = 200;
+    //}
+
     if (Input::Get()->IsKeyDown(VK_RBUTTON))
     {
-        if (key == 200)
-            key = 0;
-        else
-            key = 200;
+        key++;
     }
 
-    if (key == 0)
+
+    if (key > keys.size())
     {
         data = InstallationData();
         rotation = 0;
     }
-    else if (data.key == InstallationData().key)
+    else if (data.key != keys[key] || data.key == InstallationData().key)
     {
-        data = DataManager::Get()->GetInstallationDataCopy(key); //매번 복사생성자 되는데 이것도 선택하면 카피하는걸로 바꿔야겠다
+        data = DataManager::Get()->GetInstallationDataCopy(keys[key]); //매번 복사생성자 되는데 이것도 선택하면 카피하는걸로 바꿔야겠다
         rotation = 0;
     }
-    else if (data.key != key)
-    {
-        data = DataManager::Get()->GetInstallationDataCopy(key); //매번 복사생성자 되는데 이것도 선택하면 카피하는걸로 바꿔야겠다
-        rotation = 0;
-    }
+    //-> 이부분 iskeydown이랑 같이 봐야되는데, 이거 ui기준으로 선택할거라 uimanager에서 받아와서 수정해줘야됨
 
     if (Input::Get()->IsKeyDown('E'))
     {
@@ -51,7 +55,7 @@ void TileManager::Update()
         rotation += 90;
     }
 
-    if (key < 100 && Input::Get()->IsKeyDown(VK_LBUTTON)&& // key상수넣는거 빼야됨 UI에서select보고 처리해야됨
+    if (key > keys.size() && Input::Get()->IsKeyDown(VK_LBUTTON)&& // key상수넣는거 빼야됨 UI에서select보고 처리해야됨
         tiles[tileInstancing->GetPreCenter().ChangeToInt(TILE_SIZE)]->GetTileType() !=InstallationType::None)
     {
         InstallationManager::Get()->DispawnInstallation(tiles[tileInstancing->GetPreCenter().ChangeToInt(TILE_SIZE)]->GetData().key,
@@ -72,11 +76,13 @@ void TileManager::Update()
 
         for (Tile* tile : tileInstancing->GetPreSelectTiles())
         {
-            tile->SpawnTile(DataManager::Get()->GetInstallationData(key).type, tileInstancing->GetPreCenter(), data); //이거 데베받아와서 셋팅해주면됨 (선택된 건물알아야겠네)
+            tile->SpawnTile(DataManager::Get()->GetInstallationData(keys[key]).type, tileInstancing->GetPreCenter(), data); //이거 데베받아와서 셋팅해주면됨 (선택된 건물알아야겠네)
         }
 
     }
     tileInstancing->UpdateSelectTile(&data);//건물 크기 넘겨줘야됨
+
+    InstallationManager::Get()->ShowInstallationToMouse(data, GetPreCenter(), tileInstancing->GetPreCenter(), rotation);
 }
 
 void TileManager::Render()

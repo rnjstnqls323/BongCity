@@ -220,6 +220,8 @@
     <ClInclude Include="Objects\Game\SimCity\Tile\Tile.h" />
     <ClInclude Include="Objects\Game\SimCity\Tile\TileManager.h" />
     <ClInclude Include="Objects\Game\SimCity\UI\Button.h" />
+    <ClInclude Include="Objects\Game\SimCity\UI\Panels\BuildPanel.h" />
+    <ClInclude Include="Objects\Game\SimCity\UI\Panels\CityPanel.h" />
     <ClInclude Include="Objects\Game\SimCity\UI\Panel.h" />
     <ClInclude Include="Objects\Game\SimCity\UI\UIManager.h" />
     <ClInclude Include="Objects\Game\Steve.h" />
@@ -339,6 +341,7 @@
     <ClCompile Include="Objects\Game\SimCity\Tile\TileManager.cpp" />
     <ClCompile Include="Objects\Game\SimCity\UI\Button.cpp" />
     <ClCompile Include="Objects\Game\SimCity\UI\Panel.cpp" />
+    <ClCompile Include="Objects\Game\SimCity\UI\Panels\CityPanel.cpp" />
     <ClCompile Include="Objects\Game\SimCity\UI\UIManager.cpp" />
     <ClCompile Include="Objects\Game\Steve.cpp" />
     <ClCompile Include="Objects\Game\Sword.cpp" />

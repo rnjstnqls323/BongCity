@@ -15,11 +15,11 @@ Button::Button(wstring fileName)
 
 Button::Button(wstring imagePath, Vector2 size)
 {
+	wstring path = L"Resources/Textures/UI/Inventory/" + imagePath + L".png";
 	quad = new Quad(size);
-	quad->GetMaterial()->SetDiffuseMap(imagePath);
+	quad->GetMaterial()->SetDiffuseMap(path);
 	
 	quad->SetParent(this);
-
 	UpdateWorld();
 	quad->UpdateWorld();
 
@@ -32,9 +32,6 @@ Button::~Button()
 
 void Button::Update()
 {
-	UpdateWorld();
-	quad->UpdateWorld();
-
 	if (IsPointCollision(mousePos))
 	{
 		GetMaterial()->SetColor(1, 0, 0);

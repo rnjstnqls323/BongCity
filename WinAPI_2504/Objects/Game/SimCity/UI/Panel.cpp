@@ -2,20 +2,52 @@
 
 Panel::Panel(PanelType type)
 {
+	buttons.reserve(MAX_BUTTON_SIZE);
 }
 
 Panel::~Panel()
 {
+	for (Button* button : buttons)
+	{
+		delete button;
+	}
 }
 
 void Panel::Update()
 {
+	for (Button* button : buttons)
+	{
+		button->Update();
+	}
 }
 
 void Panel::Render()
 {
+	for (Button* button : buttons)
+	{
+		button->Render();
+	}
 }
 
-void Panel::CreateButtons()
+void Panel::Edit()
 {
+	for (Button* button : buttons)
+	{
+		button->Edit();
+	}
+}
+
+
+void Panel::CreateButton(wstring image, Vector3 pos, Vector2 size)
+{
+	Button* button = new Button(image, size);
+	button->SetLocalPosition(pos);
+	button->UpdateWorld();
+	buttons.push_back(button);
+}
+
+void Panel::Init()
+{
+	CreateButtons();
+	SetButtonEvents();
 }

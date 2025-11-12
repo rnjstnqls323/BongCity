@@ -13,8 +13,7 @@ public:
 
 	Index2& GetCenterIndex() { return centerIndex; }
 
-	virtual void Render(); //이것도 필요없다
-	virtual void Update(); //이거 필요없다? 애매띠
+	//virtual void Update(); //이거 필요없다? 애매띠
 
 	void SetSelect(const bool isSelect) { this->isSelect = isSelect; }
 	void SetTransform(Transform* transform) { this->transform = transform; }

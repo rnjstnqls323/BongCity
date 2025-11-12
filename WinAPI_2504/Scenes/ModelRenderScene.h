@@ -13,6 +13,8 @@ public:
 	void GUIRender() override;
 
 private:
-	Model* model;
-	Model* model2;
+	int count = 0;
+	vector<int> keys;
+
+	unordered_map<int, Model*> showInstallations;
 };

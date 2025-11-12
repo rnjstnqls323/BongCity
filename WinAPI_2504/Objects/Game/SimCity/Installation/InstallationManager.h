@@ -19,10 +19,14 @@ public:
 
 	void DispawnInstallation(int& key, Index2& index);
 
+	void ShowInstallationToMouse(InstallationData& data, Vector3 pos, Index2& index, int& rotation);
+
 private:
 	void CreateInstallation();
 	Installation*& GetTransformToIndex(int& key, Index2& index);
 
 private:
+	int preSelectKey = 0;
 	unordered_map<int, pair<InstallationInstancing*, vector<Installation*>>> installations;	
+	unordered_map<int, Model*> showInstallations;	
 };
