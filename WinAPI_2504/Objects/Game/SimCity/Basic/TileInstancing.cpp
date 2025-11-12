@@ -126,7 +126,7 @@ void TileInstancing::Render()
 
 void TileInstancing::Edit()
 {
-	ImGui::Text("Tile Type: %d", test->GetTileType());
+	//ImGui::Text("Tile Type: %d", test->GetTileType());
 }
 
 void TileInstancing::SetColor(int& index, Float4& color)

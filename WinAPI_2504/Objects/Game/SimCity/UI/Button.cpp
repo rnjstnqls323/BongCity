@@ -2,7 +2,7 @@
 
 Button::Button(wstring fileName)
 {
-	wstring path = L"Resources/Textures/UI/Inventory/" + fileName + L".png";
+	wstring path = L"Resources/Textures/Simcity/UI/Buttons/" + fileName + L".png";
 	quad = new Quad(Vector2(50,50));
 	
 	quad->GetMaterial()->SetDiffuseMap(path);
@@ -15,7 +15,7 @@ Button::Button(wstring fileName)
 
 Button::Button(wstring imagePath, Vector2 size)
 {
-	wstring path = L"Resources/Textures/UI/Inventory/" + imagePath + L".png";
+	wstring path = L"Resources/Textures/Simcity/UI/Buttons/" + imagePath + L".png";
 	quad = new Quad(size);
 	quad->GetMaterial()->SetDiffuseMap(path);
 	

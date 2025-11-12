@@ -6,6 +6,7 @@ public:
 	Button(wstring fileName);
 	Button(wstring imagePath, Vector2 size);
 	~Button();
+	//생성시 ex) Installation/Data.name 이런식으로 경로하나 더 써주기
 
 	virtual void Update();
 	virtual void Render();
