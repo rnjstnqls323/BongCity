@@ -24,6 +24,8 @@ public:
 
 	void GetOBB(ObbDesc& desc);
 
+protected:
+	Vector3& GetSize() { return size; }
 private:
 	bool IsSeperateAxis(Vector3 D, Vector3 axis, ObbDesc box1, ObbDesc box2);
 
@@ -32,7 +34,6 @@ private:
 	void SaveBox();
 	void LoadBox();
 
-private:
 	void MakeMesh() override;
 
 private:

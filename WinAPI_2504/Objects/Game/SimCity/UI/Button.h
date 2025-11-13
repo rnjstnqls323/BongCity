@@ -17,6 +17,11 @@ public:
 	void SetObjectEvent(function<void(void*)> onClickObject) { this->onClickObject = onClickObject; }
 	void SetObjectParameter(void* objectParameter) { this->objectParameter = objectParameter; }
 
+	void SetData(InstallationData& data) { this->data = &data; }
+	InstallationData*& GetData() { return data; }
+
+	void SetOriginPos(Vector3 originPos) { this->originPos = originPos; }
+	Vector3& GetOriginPos() { return originPos; }
 
 protected:
 	virtual void OnClick();
@@ -24,6 +29,9 @@ protected:
 protected:
 	int intParameter = 0;
 	void* objectParameter = nullptr;
+
+	InstallationData* data;
+	Vector3 originPos;
 
 	function<void()> onClick = nullptr;
 	function<void(int)> onClickInt = nullptr;

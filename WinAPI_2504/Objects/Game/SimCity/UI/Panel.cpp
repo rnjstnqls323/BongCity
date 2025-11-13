@@ -38,12 +38,15 @@ void Panel::Edit()
 }
 
 
-void Panel::CreateButton(wstring image, Vector3 pos, Vector2 size)
+Button* Panel::CreateButton(wstring image, Vector3 pos, Vector2 size)
 {
 	Button* button = new Button(image, size);
 	button->SetLocalPosition(pos);
 	button->UpdateWorld();
+	button->SetTag(Utility::ToString(image));
 	buttons.push_back(button);
+
+	return button;
 }
 
 void Panel::Init()

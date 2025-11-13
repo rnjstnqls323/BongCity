@@ -2,7 +2,7 @@
 
 Button::Button(wstring fileName)
 {
-	wstring path = L"Resources/Textures/Simcity/UI/Buttons/" + fileName + L".png";
+	wstring path = L"Resources/Textures/Simcity/UI/" + fileName + L".png";
 	quad = new Quad(Vector2(50,50));
 	
 	quad->GetMaterial()->SetDiffuseMap(path);
@@ -13,9 +13,9 @@ Button::Button(wstring fileName)
 	quad->UpdateWorld();
 }
 
-Button::Button(wstring imagePath, Vector2 size)
+Button::Button(wstring imagePath, Vector2 size) : BoxCollider(Vector3{ size.x,size.y,1 })
 {
-	wstring path = L"Resources/Textures/Simcity/UI/Buttons/" + imagePath + L".png";
+	wstring path = L"Resources/Textures/Simcity/UI/" + imagePath + L".png";
 	quad = new Quad(size);
 	quad->GetMaterial()->SetDiffuseMap(path);
 	
@@ -40,6 +40,9 @@ void Button::Update()
 	}
 	else
 		GetMaterial()->SetColor(0, 1, 0);
+
+	UpdateWorld();
+	quad->UpdateWorld();
 }
 
 void Button::Render()

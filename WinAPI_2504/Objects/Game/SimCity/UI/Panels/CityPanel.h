@@ -10,4 +10,6 @@ protected:
 	void CreateButtons() override;
 	void SetButtonEvents() override;
 
+private:
+	void ClickBuildButton();
 };

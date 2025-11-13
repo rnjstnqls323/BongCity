@@ -1,8 +1,8 @@
 #pragma once
 
-enum PanelType
+enum class PanelType
 {
-	CityPanel, BuildPanel
+	CityPanel, BuildPanel, Max
 };
 
 class Panel
@@ -24,7 +24,7 @@ protected:
 	virtual void CreateButtons() = 0;
 	virtual void SetButtonEvents() = 0;
 	
-	void CreateButton(wstring image, Vector3 pos, Vector2 size);
+	Button* CreateButton(wstring image, Vector3 pos, Vector2 size);
 	void Init();
 protected:
 	PanelType type;
