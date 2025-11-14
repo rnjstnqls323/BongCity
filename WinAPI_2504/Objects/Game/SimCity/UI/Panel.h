@@ -25,6 +25,7 @@ protected:
 	virtual void SetButtonEvents() = 0;
 	
 	Button* CreateButton(wstring image, Vector3 pos, Vector2 size);
+	InstallationButton* CreateInstallationButton(wstring image, Vector3 pos, Vector2 size);
 	void Init();
 protected:
 	PanelType type;

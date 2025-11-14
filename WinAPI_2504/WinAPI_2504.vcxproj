@@ -220,11 +220,12 @@
     <ClInclude Include="Objects\Game\SimCity\Tile\Tile.h" />
     <ClInclude Include="Objects\Game\SimCity\Tile\TileManager.h" />
     <ClInclude Include="Objects\Game\SimCity\UI\Button.h" />
+    <ClInclude Include="Objects\Game\SimCity\UI\Buttons\InstallationButton.h" />
     <ClInclude Include="Objects\Game\SimCity\UI\Panels\BuildPanel.h" />
     <ClInclude Include="Objects\Game\SimCity\UI\Panels\CityPanel.h" />
     <ClInclude Include="Objects\Game\SimCity\UI\Panel.h" />
     <ClInclude Include="Objects\Game\SimCity\UI\Panels\BuildButtonPanel.h" />
-    <ClInclude Include="Objects\Game\SimCity\UI\ScrollButton.h" />
+    <ClInclude Include="Objects\Game\SimCity\UI\Buttons\ScrollButton.h" />
     <ClInclude Include="Objects\Game\SimCity\UI\UIManager.h" />
     <ClInclude Include="Objects\Game\Steve.h" />
     <ClInclude Include="Objects\Game\Sword.h" />
@@ -342,11 +343,12 @@
     <ClCompile Include="Objects\Game\SimCity\Tile\Tile.cpp" />
     <ClCompile Include="Objects\Game\SimCity\Tile\TileManager.cpp" />
     <ClCompile Include="Objects\Game\SimCity\UI\Button.cpp" />
+    <ClCompile Include="Objects\Game\SimCity\UI\Buttons\InstallationButton.cpp" />
     <ClCompile Include="Objects\Game\SimCity\UI\Panel.cpp" />
     <ClCompile Include="Objects\Game\SimCity\UI\Panels\BuildButtonPanel.cpp" />
     <ClCompile Include="Objects\Game\SimCity\UI\Panels\BuildPanel.cpp" />
     <ClCompile Include="Objects\Game\SimCity\UI\Panels\CityPanel.cpp" />
-    <ClCompile Include="Objects\Game\SimCity\UI\ScrollButton.cpp" />
+    <ClCompile Include="Objects\Game\SimCity\UI\Buttons\ScrollButton.cpp" />
     <ClCompile Include="Objects\Game\SimCity\UI\UIManager.cpp" />
     <ClCompile Include="Objects\Game\Steve.cpp" />
     <ClCompile Include="Objects\Game\Sword.cpp" />

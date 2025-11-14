@@ -10,7 +10,7 @@ public:
 	float Update(int size);
 	void Edit() override;
 
-	void SetOriginPos(Vector3 pos) { this->originPos = originPos; }
+	void SetOriginPos(Vector3 pos) { this->originPos = pos; }
 	Vector3& GetOriginPos(){ return originPos; }
 
 	void Reset();

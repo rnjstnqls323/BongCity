@@ -11,26 +11,16 @@ BuildButtonPanel::~BuildButtonPanel()
 
 void BuildButtonPanel::Update()
 {
-	backGround->UpdateWorld();
-	float x;
-	switch (choiceType)
-	{
-	case InstallationType::None:
-		x = scrollButton->Update(buttons.size() * BUTTON_SIZE);
-		MoveTransformToNone(x);
-		break;
-	default:
-		x = scrollButton->Update(showButtons[choiceType].size() * BUTTON_SIZE);
-		MoveTransformToType(x);
-		break;
-	}
-	for (Button* button : buttons)
+	MoveTransform(scrollButton->Update(choiceButtons->size() * BUTTON_SIZE));
+	
+	for (Button* button : *choiceButtons)
 	{
 		button->Update();
 	}
 	if (Input::Get()->IsKeyDown(VK_NUMPAD1))
 	{
 		choiceType = (InstallationType)((int)choiceType-1);
+		SetChoiceButtons();
 		scrollButton->SetLocalPosition(scrollButton->GetOriginPos());
 		scrollButton->Update();
 		UpdateTransform();
@@ -56,6 +46,10 @@ void BuildButtonPanel::Render()
 void BuildButtonPanel::Edit()
 {
 	scrollButton->Edit();
+	ImGui::Text("%f", buttons[0]->GetLocalPosition().x);
+
+	ImGui::Text("%f,%f", scrollButton->GetOriginPos().x, scrollButton->GetOriginPos().y);
+	ImGui::Text("%f,%f", scrollButton->GetLocalPosition().x, scrollButton->GetLocalPosition().y);
 }
 
 void BuildButtonPanel::CreateButtons()
@@ -67,14 +61,15 @@ void BuildButtonPanel::CreateButtons()
 	for (int key : keys)
 	{
 		InstallationData data = DataManager::Get()->GetInstallationData(key);
-		Button* button = CreateButton(L"Installations/" + Utility::ToWString(data.name),
+		InstallationButton* button = CreateInstallationButton(L"Installations/" + Utility::ToWString(data.name),
 			Vector3{ (float)count++ * BUTTON_SIZE + 70,(float)BUTTON_SIZE*0.8f,0 }, Vector2{ (float)BUTTON_SIZE,(float)BUTTON_SIZE });
 		button->SetData(data);
-
-		//originpos
+		button->SetOriginPos(button->GetLocalPosition());
 
 		showButtons[(InstallationType)((key / 100) - 1)].emplace_back(button);
 	}
+
+	choiceButtons = &buttons;
 }
 
 void BuildButtonPanel::SetButtonEvents()
@@ -96,60 +91,42 @@ void BuildButtonPanel::ShowButtonRender()
 
 void BuildButtonPanel::UpdateTransform()
 {
+	int count = 0;
+	for (Button* button : *choiceButtons)
+	{
+		button->SetLocalPosition(Vector3{ (float)count++ * BUTTON_SIZE + 70 ,(float)BUTTON_SIZE * 0.8f,0 });
+		button->SetOriginPos(button->GetLocalPosition());
+		button->Update();
+	}
+}
+
+void BuildButtonPanel::SetChoiceButtons()
+{
+	if (preType == choiceType) return;
+
 	switch (choiceType)
 	{
 	case InstallationType::None:
-		ChangeTransformToNone();
+		choiceButtons = &buttons;
 		break;
 	default:
-		ChangeTransformToType();
+		choiceButtons = &showButtons[choiceType];
 		break;
 	}
+	preType = choiceType;
 }
 
-void BuildButtonPanel::ChangeTransformToNone()
-{
-	//이거 어케 할지 바꿔야되긴함
-
-	int count = 0;
-	for (Button* button : buttons)
-	{
-		button->SetLocalPosition(Vector3{ (float)count++ * BUTTON_SIZE + 70,(float)BUTTON_SIZE * 0.8f,0 });
-		button->Update();
-	}
-	//originpos
-}
-
-void BuildButtonPanel::ChangeTransformToType()
-{
-	int count = 0;
-	for (Button* button : showButtons[choiceType])
-	{
-		button->SetLocalPosition(Vector3{ (float)count++ * BUTTON_SIZE + 70 ,(float)BUTTON_SIZE * 0.8f,0 });
-		button->Update();
-	}
-	//originpos
-}
-
-void BuildButtonPanel::MoveTransformToType(float x)
+void BuildButtonPanel::MoveTransform(float x)
 {
 	if (x == 0) return;
-	for (Button* button : showButtons[choiceType])
+	
+	for (Button* button : *choiceButtons)
 	{
-		button->SetLocalPosition(Vector3{ button->GetLocalPosition().x - x, button->GetLocalPosition().y,0});
-		button->Update();
+		Vector3 pos = button->GetOriginPos();
+		button->SetLocalPosition(Vector3{ pos.x - x, pos.y, pos.z });
 	}
 }
 
-void BuildButtonPanel::MoveTransformToNone(float x)
-{
-	if (x == 0) return;
-	for (Button* button : buttons)
-	{
-		button->SetLocalPosition(Vector3{ button->GetLocalPosition().x - x, button->GetLocalPosition().y,0 });
-		button->Update();
-	}
-}
 
 void BuildButtonPanel::CreateBackGround()
 {

@@ -191,9 +191,10 @@ typedef function<void()> Event;
 #include "Objects/Character/Naruto.h"
 
 #include "Objects/Game/Simcity/UI/Button.h"
-#include "Objects/Game/Simcity/UI/ScrollButton.h"
-#include "Objects/Game/Simcity/UI/Panel.h"
+#include "Objects/Game/Simcity/UI/Buttons/ScrollButton.h"
+#include "Objects/Game/Simcity/UI/Buttons/InstallationButton.h"
 
+#include "Objects/Game/Simcity/UI/Panel.h"
 #include "Objects/Game/Simcity/UI/Panels/CityPanel.h"
 #include "Objects/Game/Simcity/UI/Panels/BuildButtonPanel.h"
 #include "Objects/Game/Simcity/UI/Panels/BuildPanel.h"

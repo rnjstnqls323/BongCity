@@ -22,18 +22,21 @@ private:
 	void ShowButtonRender();
 	void UpdateTransform();
 
-	void ChangeTransformToNone();
-	void ChangeTransformToType();
+	void SetChoiceButtons();
 
-	void MoveTransformToType(float x);
-	void MoveTransformToNone(float x);
+	void MoveTransform(float x);
 
 	void CreateBackGround();
 
 
 private:
+
 	Quad* backGround;
 	ScrollButton* scrollButton;
+
+	InstallationType preType = InstallationType::None;
 	InstallationType choiceType = InstallationType::None;
+
 	unordered_map<InstallationType, vector<Button*>> showButtons;
+	vector<Button*>* choiceButtons;
 };

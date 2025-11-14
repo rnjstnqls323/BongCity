@@ -49,6 +49,17 @@ Button* Panel::CreateButton(wstring image, Vector3 pos, Vector2 size)
 	return button;
 }
 
+InstallationButton* Panel::CreateInstallationButton(wstring image, Vector3 pos, Vector2 size)
+{
+	InstallationButton* button = new InstallationButton(image, size);
+	button->SetLocalPosition(pos);
+	button->UpdateWorld();
+	button->SetTag(Utility::ToString(image));
+	buttons.push_back(button);
+
+	return button;
+}
+
 void Panel::Init()
 {
 	CreateButtons();

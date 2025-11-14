@@ -375,7 +375,10 @@
     <ClInclude Include="Objects\Game\SimCity\UI\Panels\BuildButtonPanel.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
-    <ClInclude Include="Objects\Game\SimCity\UI\ScrollButton.h">
+    <ClInclude Include="Objects\Game\SimCity\UI\Buttons\ScrollButton.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="Objects\Game\SimCity\UI\Buttons\InstallationButton.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
   </ItemGroup>
@@ -695,7 +698,10 @@
     <ClCompile Include="Objects\Game\SimCity\UI\Panels\BuildButtonPanel.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
-    <ClCompile Include="Objects\Game\SimCity\UI\ScrollButton.cpp">
+    <ClCompile Include="Objects\Game\SimCity\UI\Buttons\ScrollButton.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="Objects\Game\SimCity\UI\Buttons\InstallationButton.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
   </ItemGroup>
