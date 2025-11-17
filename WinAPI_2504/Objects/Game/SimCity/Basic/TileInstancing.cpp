@@ -24,29 +24,33 @@ TileInstancing::~TileInstancing()
 	}
 }
 
-
-
 void TileInstancing::UpdateSelectTile(InstallationData* data)
 {
 	ClearPreTiles();
 
-	
 	Ray ray = CAM->ScreenPointToRay(mousePos);
 	float t = -ray.origin.y / ray.direction.y;
 
 	Vector3 hitPos = ray.origin + ray.direction * t;
 	preCenter = { (int)-(hitPos.z - 100), (int)hitPos.x };
 
-	if (preCenter.row < 0 || preCenter.col < 0 || preCenter.row >= MAX_TILE_SIZE || preCenter.col >= MAX_TILE_SIZE)
-		return;
 
-	if (data->key == InstallationData().key) //이부분 상수 최대한 안쓰는 방법으로 가야됨 아마 UI매니저에 Select참조해서 처리하면될듯?
+	if (preCenter.row < 0 || preCenter.col < 0 || preCenter.row >= MAX_TILE_SIZE || preCenter.col >= MAX_TILE_SIZE)
+	{
+		isPossible = false;
+		preCenter.row -= (data->width * 0.5f) - 1;
+		preCenter.col -= (data->height * 0.5f) - 1;
+		return;
+	}
+
+	test = TileManager::Get()->GetTileToIndex(preCenter);
+
+	if (UIManager::Get()->IsRemoveMode()) //이부분 상수 최대한 안쓰는 방법으로 가야됨 아마 UI매니저에 Select참조해서 처리하면될듯?
 	{
 		UpdateSelectTileToBuild();
 		return;
 	}
 
-	test = TileManager::Get()->GetTileToIndex(preCenter);
 
 	//왼쪽 위 중심잡기 + (중간으로 마우스 위치 보정)
 	preCenter.row -= (data->width * 0.5f) - 1;
@@ -126,7 +130,9 @@ void TileInstancing::Render()
 
 void TileInstancing::Edit()
 {
-	//ImGui::Text("Tile Type: %d", test->GetTileType());
+	ImGui::Text("Tile: %d, %d", preCenter.row, preCenter.col);
+	ImGui::Text("size: %d", preSelectTiles.size());
+
 }
 
 void TileInstancing::SetColor(int& index, Float4& color)
@@ -149,6 +155,11 @@ Transform* TileInstancing::Add()
 
 void TileInstancing::UpdateSelectTileToBuild()
 {
+	if (preCenter.row < 0 || preCenter.col < 0 || preCenter.row >= 100 || preCenter.col >= 100)
+	{
+		isPossible = false;
+		return;
+	}
 	int index = preCenter.ChangeToInt(MAX_TILE_SIZE);
 	Index2 in;
 	if (TileManager::Get()->GetTileToIndex(preCenter)->GetTileType() != InstallationType::None)
@@ -157,8 +168,6 @@ void TileInstancing::UpdateSelectTileToBuild()
 
 		preCenter = TileManager::Get()->GetTileToIndex(preCenter)->GetCenterIndex();
 
-		preCenter.row -= (size.y * 0.5f) -2;
-		preCenter.col -= (size.x * 0.5f) - 2;
 
 		for (int row = 0; row < size.y; row++)
 		{
@@ -174,12 +183,10 @@ void TileInstancing::UpdateSelectTileToBuild()
 	else
 	{
 		instanceDatas[index].color = Float4(1, 0, 1, 1);
+		isPossible = false;
 		preSelectTiles.push_back(TileManager::Get()->GetTileToIndex(preCenter));
 	}
 
-
-
-	isPossible = false;
 	instanceBuffer->Update(instanceDatas, size);
 }
 

@@ -193,6 +193,7 @@ typedef function<void()> Event;
 #include "Objects/Game/Simcity/UI/Button.h"
 #include "Objects/Game/Simcity/UI/Buttons/ScrollButton.h"
 #include "Objects/Game/Simcity/UI/Buttons/InstallationButton.h"
+#include "Objects/Game/Simcity/UI/Buttons/TypeChoiceButton.h"
 
 #include "Objects/Game/Simcity/UI/Panel.h"
 #include "Objects/Game/Simcity/UI/Panels/CityPanel.h"

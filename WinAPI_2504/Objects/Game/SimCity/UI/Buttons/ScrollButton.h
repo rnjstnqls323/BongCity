@@ -6,8 +6,8 @@ public:
 	ScrollButton(wstring imagePath, Vector2 size);
 	~ScrollButton();
 
-	using Button::Update;
-	float Update(int size);
+	void Update() override;
+	float UpdateTransform(int size);
 	void Edit() override;
 
 	void SetOriginPos(Vector3 pos) { this->originPos = pos; }

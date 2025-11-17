@@ -7,15 +7,23 @@ BuildButtonPanel::BuildButtonPanel():Panel(PanelType::Max)
 
 BuildButtonPanel::~BuildButtonPanel()
 {
+	delete collider;
 }
 
 void BuildButtonPanel::Update()
 {
-	MoveTransform(scrollButton->Update(choiceButtons->size() * BUTTON_SIZE));
+	if (collider->IsPointCollision(mousePos))
+		UIManager::Get()->SetMouseOnPanel(true); //여기 UIManager로 넘겨야됨
+
+	MoveTransform(scrollButton->UpdateTransform(choiceButtons->size() * BUTTON_SIZE));
 	
 	for (Button* button : *choiceButtons)
 	{
 		button->Update();
+	}
+	for (int i = 0; i <= (int)InstallationType::None; i++)
+	{
+		typeButtons[(InstallationType)i]->Update();
 	}
 	if (Input::Get()->IsKeyDown(VK_NUMPAD1))
 	{
@@ -25,7 +33,7 @@ void BuildButtonPanel::Update()
 		scrollButton->Update();
 		UpdateTransform();
 	}
-
+	collider->UpdateWorld();
 }
 
 void BuildButtonPanel::Render()
@@ -41,15 +49,22 @@ void BuildButtonPanel::Render()
 		break;
 	}
 	scrollButton->Render();
+	for (int i = 0; i <= (int)InstallationType::None; i++)
+	{
+		typeButtons[(InstallationType)i]->Render();
+	}
 }
 
 void BuildButtonPanel::Edit()
 {
 	scrollButton->Edit();
+	typeButtons[InstallationType::Road]->Edit();
 	ImGui::Text("%f", buttons[0]->GetLocalPosition().x);
 
 	ImGui::Text("%f,%f", scrollButton->GetOriginPos().x, scrollButton->GetOriginPos().y);
 	ImGui::Text("%f,%f", scrollButton->GetLocalPosition().x, scrollButton->GetLocalPosition().y);
+
+	ImGui::Text("%d", UIManager::Get()->GetChoiceData().key);
 }
 
 void BuildButtonPanel::CreateButtons()
@@ -61,7 +76,7 @@ void BuildButtonPanel::CreateButtons()
 	for (int key : keys)
 	{
 		InstallationData data = DataManager::Get()->GetInstallationData(key);
-		InstallationButton* button = CreateInstallationButton(L"Installations/" + Utility::ToWString(data.name),
+		InstallationButton* button = CreateButton<InstallationButton>(L"Installations/" + Utility::ToWString(data.name),
 			Vector3{ (float)count++ * BUTTON_SIZE + 70,(float)BUTTON_SIZE*0.8f,0 }, Vector2{ (float)BUTTON_SIZE,(float)BUTTON_SIZE });
 		button->SetData(data);
 		button->SetOriginPos(button->GetLocalPosition());
@@ -70,15 +85,55 @@ void BuildButtonPanel::CreateButtons()
 	}
 
 	choiceButtons = &buttons;
+
+	typeButtons.reserve((int)InstallationType::None);
+	count = 0;
+	for (int i = 0; i <= (int)InstallationType::None; i++)
+	{
+		TypeChoiceButton* button = new TypeChoiceButton(
+			L"InstallationType/" + to_wstring(i) + L"_button",
+			Vector2{ (float)BUTTON_SIZE, (float)BUTTON_SIZE*0.5f }
+		);
+		button->SetLocalPosition(Vector3{ (float)count++ * BUTTON_SIZE + 70,210 });
+		button->SetType((InstallationType)i);
+		button->UpdateTransform();
+		typeButtons[(InstallationType)i] = button;
+	}
 }
 
 void BuildButtonPanel::SetButtonEvents()
 {
+	vector<int> keys = DataManager::Get()->GetKeys();
+	for (int i = 0; i <= (int)InstallationType::None; i++)
+	{
+		typeButtons[(InstallationType)i]->SetIntParameter(i);
+		typeButtons[(InstallationType)i]->SetIntEvent([this](int type) {ClickEventToChoiceTypeButton(type); });
+		for (int j = 0; j < showButtons[(InstallationType)i].size(); j++)
+		{
+			InstallationButton* button = (InstallationButton*)showButtons[(InstallationType)i][j];
+			int key = button->GetData().key;
+			button->SetIntParameter(key);
+			button->SetIntEvent([this, key](int)	{ClickEventToShowButton(key);});
+		
+		}
+	}
+
+
 }
 
 void BuildButtonPanel::ClickEventToShowButton(int key)
 {
 	//UIManager 에 버튼 눌린 키 넘겨서 초이스되게 해줘야됨
+	UIManager::Get()->SetChoiceData(key);
+}
+
+void BuildButtonPanel::ClickEventToChoiceTypeButton(int type)
+{
+	choiceType = (InstallationType)type;
+	SetChoiceButtons();
+	scrollButton->SetLocalPosition(scrollButton->GetOriginPos());
+	scrollButton->Update();
+	UpdateTransform();
 }
 
 void BuildButtonPanel::ShowButtonRender()
@@ -94,9 +149,10 @@ void BuildButtonPanel::UpdateTransform()
 	int count = 0;
 	for (Button* button : *choiceButtons)
 	{
-		button->SetLocalPosition(Vector3{ (float)count++ * BUTTON_SIZE + 70 ,(float)BUTTON_SIZE * 0.8f,0 });
-		button->SetOriginPos(button->GetLocalPosition());
-		button->Update();
+		InstallationButton* btn = (InstallationButton*)button;
+		btn->SetLocalPosition(Vector3{ (float)count++ * BUTTON_SIZE + 70 ,(float)BUTTON_SIZE * 0.8f,0 });
+		btn->SetOriginPos(button->GetLocalPosition());
+		btn->Update();
 	}
 }
 
@@ -122,8 +178,9 @@ void BuildButtonPanel::MoveTransform(float x)
 	
 	for (Button* button : *choiceButtons)
 	{
-		Vector3 pos = button->GetOriginPos();
-		button->SetLocalPosition(Vector3{ pos.x - x, pos.y, pos.z });
+		InstallationButton* btn = (InstallationButton*)button;
+		Vector3 pos = btn->GetOriginPos();
+		btn->SetLocalPosition(Vector3{ pos.x - x, pos.y, pos.z });
 	}
 }
 
@@ -136,9 +193,11 @@ void BuildButtonPanel::CreateBackGround()
 	backGround->UpdateWorld();
 
 
-	scrollButton = new ScrollButton(L"ScrollButton", Vector2{ 100,20 });
-	scrollButton->SetLocalPosition(Vector3{ 60,10,0 });
-	scrollButton->SetOriginPos(Vector3{ 60,10,0 });
+	scrollButton = new ScrollButton(L"ScrollButton", Vector2{ 100,25 });
+	scrollButton->SetLocalPosition(Vector3{ 60,12,0 });
+	scrollButton->SetOriginPos(Vector3{ 60,12,0 });
 	scrollButton->Update();
 
+	collider = new BoxCollider(Vector3{ backGround->GetSize().x, backGround->GetSize().y,0 });
+	collider->SetLocalPosition(backGround->GetLocalPosition());
 }

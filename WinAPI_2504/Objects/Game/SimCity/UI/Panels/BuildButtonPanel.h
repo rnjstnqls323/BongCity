@@ -19,6 +19,8 @@ protected:
 
 private:
 	void ClickEventToShowButton(int key);
+	void ClickEventToChoiceTypeButton(int type);
+	
 	void ShowButtonRender();
 	void UpdateTransform();
 
@@ -30,7 +32,7 @@ private:
 
 
 private:
-
+	BoxCollider* collider;
 	Quad* backGround;
 	ScrollButton* scrollButton;
 
@@ -38,5 +40,6 @@ private:
 	InstallationType choiceType = InstallationType::None;
 
 	unordered_map<InstallationType, vector<Button*>> showButtons;
+	unordered_map<InstallationType, Button*> typeButtons;
 	vector<Button*>* choiceButtons;
 };

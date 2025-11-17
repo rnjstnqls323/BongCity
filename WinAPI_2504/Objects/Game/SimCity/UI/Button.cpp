@@ -35,14 +35,14 @@ void Button::Update()
 	if (IsPointCollision(mousePos))
 	{
 		GetMaterial()->SetColor(1, 0, 0);
+		UIManager::Get()->SetMouseOnPanel(true); //여기 UIManager로 넘겨야됨
 		if (Input::Get()->IsKeyDown(VK_LBUTTON))
 			OnClick(); //이벤트 어떤식으로 발생시키더라? 일단 온클릭해놓고 찾아오자
 	}
 	else
+	{
 		GetMaterial()->SetColor(0, 1, 0);
-
-	UpdateWorld();
-	quad->UpdateWorld();
+	}
 }
 
 void Button::Render()
@@ -51,8 +51,18 @@ void Button::Render()
 	quad->Render();
 }
 
+void Button::UpdateTransform()
+{
+	UpdateWorld();
+	quad->UpdateWorld();
+}
+
 void Button::OnClick()
 {
-	if (onClick == nullptr) return;
-	onClick();
+	if (onClick)
+		onClick();
+	else if (onClickInt)
+		onClickInt(intParameter);
+	else if (onClickObject)
+		onClickObject(objectParameter);
 }

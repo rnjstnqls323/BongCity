@@ -8,7 +8,14 @@ ScrollButton::~ScrollButton()
 {
 }
 
-float ScrollButton::Update(int size)
+
+void ScrollButton::Update()
+{
+    UpdateWorld();
+    quad->UpdateWorld();
+}
+
+float ScrollButton::UpdateTransform(int size)
 {
     if (Input::Get()->IsKeyPress(VK_LBUTTON) && IsPointCollision(mousePos) && size > SCREEN_WIDTH)
         isMove = true;

@@ -24,8 +24,18 @@ protected:
 	virtual void CreateButtons() = 0;
 	virtual void SetButtonEvents() = 0;
 	
-	Button* CreateButton(wstring image, Vector3 pos, Vector2 size);
-	InstallationButton* CreateInstallationButton(wstring image, Vector3 pos, Vector2 size);
+	template <typename T>
+	T* CreateButton(wstring image, Vector3 pos, Vector2 size)
+	{
+		T* button = new T(image, size);
+		button->SetLocalPosition(pos);
+		button->UpdateWorld();
+		button->SetTag(Utility::ToString(image));
+		buttons.push_back(button);
+
+		return button;
+	}
+
 	void Init();
 protected:
 	PanelType type;

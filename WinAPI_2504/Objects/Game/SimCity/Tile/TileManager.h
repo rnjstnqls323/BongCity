@@ -31,13 +31,16 @@ public:
 	}
 
 private:
+	void SetChoiceData();
+	void InstallationRotation();
+	void BuildInstallation();
+	void RemoveInstallation();
 
 	void CreateTiles();
 
 private:
 	int key = 0; //테스트용 임시객체
 	int rotation = 0;//테스트용 임시객체 이거 씬으로 빼줄거임
-	vector<int> keys; //테스트용 임시객체
 
 	vector<Tile*> tiles;
 

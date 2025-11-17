@@ -16,6 +16,7 @@ UIManager::~UIManager()
 
 void UIManager::Update()
 {
+	isMouseOnPanel = false;
 	panels[type]->Update();
 }
 
@@ -27,6 +28,16 @@ void UIManager::Render()
 void UIManager::Edit()
 {
 	panels[type]->Edit();
+}
+
+void UIManager::SetChoiceData(int key)
+{
+	if (key == InstallationData().key)
+	{
+		ResetData();
+		return;
+	}
+	choiceData = DataManager::Get()->GetInstallationData(key);
 }
 
 void UIManager::CreatePanels()

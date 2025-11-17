@@ -15,7 +15,11 @@ void InstallationButton::Update()
 		SetLocalScale(1.2, 1.2, 1);
 		GetMaterial()->SetColor(1, 0, 0);
 		if (Input::Get()->IsKeyDown(VK_LBUTTON))
-			OnClick(); //이벤트 어떤식으로 발생시키더라? 일단 온클릭해놓고 찾아오자
+			OnClick();
+	}
+	else if (UIManager::Get()->GetChoiceData().key == data.key)
+	{
+		SetLocalScale(1.2, 1.2, 1);
 	}
 	else
 	{
@@ -23,6 +27,5 @@ void InstallationButton::Update()
 		SetLocalScale(1, 1, 1);
 	}
 		
-	UpdateWorld();
-	quad->UpdateWorld();
+	UpdateTransform();
 }

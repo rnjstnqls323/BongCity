@@ -11,7 +11,8 @@ CityPanel::~CityPanel()
 
 void CityPanel::CreateButtons()
 {
-	CreateButton(L"CityPanel/BuildButton", Vector3{ 90,500,0 },Vector2{120,60});
+	Button* button = CreateButton<Button>(L"CityPanel/BuildButton", Vector3{ 90,500,0 },Vector2{120,60});
+	button->UpdateTransform();
 }
 
 void CityPanel::SetButtonEvents()

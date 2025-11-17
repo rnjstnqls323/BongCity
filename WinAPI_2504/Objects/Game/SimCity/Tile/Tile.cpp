@@ -29,7 +29,7 @@ bool Tile::IsSideToRoad()
 
 	for (int i = 0; i < 4; i++)
 	{
-		if (index + arr[i] < Index2{ 0,0 } || index + arr[i] > Index2{ 100,100 })
+		if (index + arr[i] < Index2{ 0,0 } || index + arr[i] >= Index2{ 100,100 })
 			continue;
 		Index2 ind = index + arr[i];
 		if (TileManager::Get()->GetTileToIndex(ind)->GetTileType() == InstallationType::Road) return true;
