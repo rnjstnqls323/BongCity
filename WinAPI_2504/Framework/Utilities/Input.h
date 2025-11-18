@@ -21,7 +21,13 @@ public:
 	bool IsKeyUp(int key) const { return mapState[key] == Up; }
 	bool IsKeyPress(int key) const { return mapState[key] == Press; }
 
+	void SetMouseWheel(int delta) { wheelDelta += delta; }
+	int GetMouseWheel() { return wheelDelta; }
+
+	void ClearMouseWheel() { wheelDelta = 0; }
 private:
+	int wheelDelta = 0; // 스크롤 값 저장
+
 	BYTE curState[KEY_MAX] = {};
 	BYTE oldState[KEY_MAX] = {};
 	KeyState mapState[KEY_MAX] = {};

@@ -6,6 +6,8 @@ public:
 	TypeChoiceButton(wstring fileName,Vector2 size);
 	~TypeChoiceButton();
 
+	void Update() override;
+
 	void SetType(InstallationType type) { this->type = type; }
 	InstallationType& GetType() { return type; }
 

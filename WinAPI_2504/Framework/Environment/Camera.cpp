@@ -5,6 +5,7 @@ Camera::Camera()
 	tag = "Camera";
 
 	viewBuffer = new ViewBuffer();
+    localPosition = startPos;
 }
 
 Camera::~Camera()
@@ -24,6 +25,8 @@ void Camera::Update()
 	    FreeMode();
 
 	UpdateWorld();		
+
+    Input::Get()->ClearMouseWheel();
 }
 
 void Camera::Edit()
@@ -63,6 +66,24 @@ void Camera::SetView(UINT slot)
     view = XMMatrixInverse(nullptr, world);
     viewBuffer->Set(view, world);
     viewBuffer->SetVS(slot);
+}
+
+void Camera::SetTarget(Transform* target)
+{
+    this->target = target;
+
+    if (target != nullptr)
+    {
+        nextPositionY = MAX_POSITION_Y;
+        nextRotationX = XMConvertToRadians(MAX_ROTATION_X);
+    }
+    else
+    {
+        nextPositionY = MAX_POSITION_Y*0.5f;
+        nextRotationX = XMConvertToRadians(MAX_ROTATION_X*0.5f);
+    }
+    Input::Get()->ClearMouseWheel();
+    isMatch = false;
 }
 
 Ray Camera::ScreenPointToRay(Vector3 screenPos)
@@ -125,59 +146,63 @@ bool Camera::ContainSphere(Vector3 center, float radius)
 
 void Camera::FreeMode()
 {
-    Vector3 delta = mousePos - prevMousePos;
-    prevMousePos = mousePos;
+    if (Input::Get()->IsKeyPress('W'))
+        SetLocalPosition(localPosition.x, localPosition.y, localPosition.z + moveSpeed * DELTA);
+    if (Input::Get()->IsKeyPress('S'))
+        SetLocalPosition(localPosition.x, localPosition.y, localPosition.z - moveSpeed * DELTA);
+    if (Input::Get()->IsKeyPress('A'))
+        SetLocalPosition(localPosition.x - moveSpeed * DELTA, localPosition.y, localPosition.z);
+    if (Input::Get()->IsKeyPress('D'))
+        SetLocalPosition(localPosition.x + moveSpeed * DELTA, localPosition.y, localPosition.z);
 
-    if (Input::Get()->IsKeyPress(VK_RBUTTON))
+
+    if (localPosition.x < -TILE_SIZE*0.5f)
+        localPosition.x = -TILE_SIZE*0.5f;
+    if (localPosition.x > TILE_SIZE *1.1f)
+        localPosition.x = TILE_SIZE * 1.1f;
+    if (localPosition.z < -TILE_SIZE*0.5f)
+        localPosition.z = -TILE_SIZE*0.5f;
+    if (localPosition.z > TILE_SIZE)
+        localPosition.z = TILE_SIZE;
+
+    //스크롤로 확대 이런거 하기
+    
+     // 부드럽게 보간
+    if (!isMatch)
     {
-        if (Input::Get()->IsKeyPress('W'))
-            Translate(forward * moveSpeed * DELTA);
-        if (Input::Get()->IsKeyPress('S'))
-            Translate(-forward * moveSpeed * DELTA);
-        if (Input::Get()->IsKeyPress('E'))
-            Translate(up * moveSpeed * DELTA);
-        if (Input::Get()->IsKeyPress('Q'))
-            Translate(-up * moveSpeed * DELTA);
-        if (Input::Get()->IsKeyPress('A'))
-            Translate(-right * moveSpeed * DELTA);
-        if (Input::Get()->IsKeyPress('D'))
-            Translate(right * moveSpeed * DELTA);
-
-        Rotate(Vector3::Right(), -delta.y * rotSpeed * DELTA);
-        Rotate(Vector3::Up(), delta.x * rotSpeed * DELTA);
+        localPosition.y = GameMath::Lerp(localPosition.y, nextPositionY, DELTA * SMOOTH_SPEED);
+        localRotation.x = GameMath::Lerp(localRotation.x, nextRotationX, DELTA * SMOOTH_SPEED);
+        if (fabs(localPosition.y - nextPositionY) < EPSILON && fabs(localRotation.x - nextRotationX) < EPSILON)
+            isMatch = true;
     }
+
+
+    //localRotation.x = XMConvertToRadians(20);
 }
 
 void Camera::FollowMode()
 {
-    destRot = GameMath::Lerp<float>(destRot, target->GetLocalRotation().y, rotDamping * DELTA);
-    rotMatrix = XMMatrixRotationY(destRot);
+    FreeMode();
+    if (!isMatch)return;
 
-    Vector3 foraward = Vector3::Forward() * rotMatrix;
+    
+    //nextPositionY += Input::Get()->GetMouseWheel() * WHEEL;
+    //if (nextPositionY != 0 && nextPositionY >= MIN_WHEEL_POSITION_Y && nextPositionY <= MAX_WHEEL_POSITION_Y)
+    //{
+    //    localPosition.y = GameMath::Lerp(localPosition.y, nextPositionY, DELTA * SMOOTH_SPEED);
+    //    localPosition.z = GameMath::Lerp(localPosition.z, -nextPositionY, DELTA * SMOOTH_SPEED);
+    //}
+    float scrollDelta = Input::Get()->GetMouseWheel() * WHEEL;
+    float targetZ = localPosition.z - nextPositionY +localPosition.y;
 
-	destPos = target->GetGlobalPosition() - foraward * distance;
-	destPos.y += height;
+    nextPositionY += scrollDelta;
+    nextPositionY = GameMath::Clamp(nextPositionY, MIN_WHEEL_POSITION_Y, MAX_WHEEL_POSITION_Y);
 
-	localPosition = GameMath::Lerp<Vector3>(localPosition, destPos, moveDamping * DELTA);
+    // 카메라 보간
+    localPosition.y = GameMath::Lerp(localPosition.y, nextPositionY, DELTA * SMOOTH_SPEED);
 
-    Vector3 offset = focusOffset * rotMatrix;
-	Vector3 targetPos = target->GetGlobalPosition() + offset;
-
-    Vector3 dir = targetPos - localPosition;
-    dir.Normalize();
-    Vector3 dirXZ = Vector3(dir.x, 0.0f, dir.z);
-    dirXZ.Normalize();
-
-	float dot = Vector3::Dot(dir, dirXZ);
-
-    if(isLookAtTargetX)
-		localRotation.x = acos(dot);
-    if(isLookAtTargetY)
-        localRotation.y = atan2(foraward.x, foraward.z);
-
-    //float destRotY = atan2(foraward.x, foraward.z);
-	//localRotation.y = GameMath::Lerp<float>(localRotation.y, destRotY, rotDamping * DELTA);
-	
+    // z 이동을 y 변화량에 비례
+    localPosition.z = GameMath::Lerp(localPosition.z, targetZ, DELTA * SMOOTH_SPEED);
 }
 
 void Camera::FrustumUpdate()

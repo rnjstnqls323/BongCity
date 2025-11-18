@@ -3,7 +3,7 @@
 class TileInstancing : public Quad
 {
 private:
-	const int MAX_TILE_SIZE = 100;
+	const int TILE_SIZE = 150;
 
 private:
 	struct InstanceData

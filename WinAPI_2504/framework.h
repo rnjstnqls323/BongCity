@@ -179,6 +179,9 @@ typedef function<void()> Event;
 #include "Objects/Game/Steve.h"
 #include "Objects/Game/Sword.h"
 
+#include "Objects/Game/SimCity/Basic/Player.h"
+
+
 #include "Objects/Game/SimCity/Basic/TileInstancing.h"
 #include "Objects/Game/SimCity/Basic/InstallationInstancing.h"
 

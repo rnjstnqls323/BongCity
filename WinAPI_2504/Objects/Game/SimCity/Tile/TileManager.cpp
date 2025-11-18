@@ -23,10 +23,11 @@ void TileManager::Update()
     SetChoiceData();
     InstallationRotation();
 
-    if (Input::Get()->IsKeyDown('P'))
-        UIManager::Get()->SetRemoveMode(true);
-    else if (Input::Get()->IsKeyDown('O'))
-        UIManager::Get()->SetRemoveMode(false);
+    //if (Input::Get()->IsKeyDown('P'))
+    //    UIManager::Get()->SetRemoveMode(true);
+    //else if (Input::Get()->IsKeyDown('O'))
+    //    UIManager::Get()->SetRemoveMode(false);
+    // 
     //삭제모드로 바꾸는거 잘됨 씬으로빼자
 
     if (key == InstallationData().key || UIManager::Get()->IsMouseOnPanel())
@@ -37,8 +38,6 @@ void TileManager::Update()
     BuildInstallation();
 
     tileInstancing->UpdateSelectTile(&data);//건물 크기 넘겨줘야됨
-
-    InstallationManager::Get()->ShowInstallationToMouse(data, GetPreCenter(), tileInstancing->GetPreCenter(), rotation);
 }
 
 void TileManager::Render()
@@ -70,7 +69,7 @@ void TileManager::SetChoiceData()
 
     key = UIManager::Get()->GetChoiceData().key;
 
-    if (UIManager::Get()->IsRemoveMode())
+    if (UIManager::Get()->GetMode() == Mode::Remove)
     {
         data = InstallationData();
         rotation = 0;
@@ -91,23 +90,22 @@ void TileManager::InstallationRotation()
         data.width = data.height;
         data.height = temp;
         rotation += 90;
-    } //이거 회전하는거 빼든 하자
+    } 
     else if (Input::Get()->IsKeyDown('Q'))
     {
         int temp = data.width;
         data.width = data.height;
         data.height = temp;
         rotation -= 90;
-    } //이거 회전하는거 빼든 하자
+    }
 }
 
 void TileManager::BuildInstallation()
 {
-    if (UIManager::Get()->IsRemoveMode()) return;
+    if (UIManager::Get()->GetMode() != Mode::Build) return;
     if (Input::Get()->IsKeyDown(VK_LBUTTON) && tileInstancing->IsPossible())
     {
         InstallationManager::Get()->SpawnInstallation(data, GetPreCenter(), tileInstancing->GetPreCenter(), rotation);
-
         // 이것도 고른거 데베 받아와서 셋팅해주기
 
         for (Tile* tile : tileInstancing->GetPreSelectTiles())
@@ -116,11 +114,12 @@ void TileManager::BuildInstallation()
         }
 
     }
+    InstallationManager::Get()->ShowInstallationToMouse(data, GetPreCenter(), tileInstancing->GetPreCenter(), rotation);
 }
 
 void TileManager::RemoveInstallation()
 {
-    if (!UIManager::Get()->IsRemoveMode()) return;
+    if (UIManager::Get()->GetMode()!=Mode::Remove) return;
     //Index2 index = tileInstancing->GetPreCenter();
     //
     //if (index.row < 0 || index.col < 0 || index.row >= TILE_SIZE || index.col >= TILE_SIZE)return;

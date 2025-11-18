@@ -18,14 +18,18 @@ public:
 	bool& IsMouseOnPanel() { return isMouseOnPanel; }
 	void SetMouseOnPanel(bool isMouseOnPanel) { this->isMouseOnPanel = isMouseOnPanel; }
 
-	void ResetData() { choiceData = InstallationData(); }
+	void Reset();
 	InstallationData& GetChoiceData() { return choiceData; }
 	void SetChoiceData(int key);
 
-	bool& IsRemoveMode() { return isRemoveMode; }
-	void SetRemoveMode(bool isRemoveMode) { this->isRemoveMode = isRemoveMode; }
+	PanelType& GetPanelType(){ return type; }
+
+	void SetMode(Mode mode) { this->mode = mode; }
+	Mode GetMode() { return mode; }
+	//씬에서 모드보고 넘기기
 
 private:
+	void ResetData() { choiceData = InstallationData(); }
 	void CreatePanels();
 	template <typename T>
 	void CreatePanel(PanelType type)
@@ -37,7 +41,7 @@ private:
 private:
 	bool isMouseOnPanel = false;
 
-	bool isRemoveMode = false;
+	Mode mode;
 
 	InstallationData choiceData;
 	PanelType type = PanelType::CityPanel;

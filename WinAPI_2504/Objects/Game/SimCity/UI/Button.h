@@ -18,6 +18,7 @@ public:
 	void SetObjectEvent(function<void(void*)> onClickObject) { this->onClickObject = onClickObject; }
 	void SetObjectParameter(void* objectParameter) { this->objectParameter = objectParameter; }
 
+	Quad* GetQuad() { return quad; }
 
 protected:
 	virtual void OnClick();

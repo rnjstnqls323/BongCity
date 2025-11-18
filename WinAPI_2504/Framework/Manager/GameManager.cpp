@@ -39,8 +39,8 @@ GameManager::GameManager()
 	//SCENE->AddScene("Game", new WeatherScene());
 	//SCENE->AddScene("Game", new ParticleEditorScene());
 	//SCENE->AddScene("Game", new WaterScene());
-	//SCENE->AddScene("Game", new GameScene());
-	SCENE->AddScene("Game", new TestScene());
+	SCENE->AddScene("Game", new GameScene());
+	//SCENE->AddScene("Game", new TestScene());
 
 	SCENE->ChangeScene("Game");
 }

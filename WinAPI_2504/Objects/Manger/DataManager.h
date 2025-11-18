@@ -4,6 +4,14 @@ enum class InstallationType
 {
 	Road, Building, Production, LandScape, None
 };
+enum class Day
+{
+	WeekDays, Sat, Sun
+};
+enum class Season
+{
+	Spring, Summer, Autumn, Winter
+};
 struct PriceData
 {
 	int key;
@@ -15,7 +23,7 @@ struct PriceData
 struct DayData
 {
 	int key;
-	string day;
+	Day type;
 	float morningMagnification;
 	float afternoonMagnification;
 	float nightMagnification;
@@ -34,6 +42,15 @@ struct InstallationData
 	int value; //시민수나 기름 1시간마다얻는 수
 	int electricUsage;//1일마다 사용하는 전기량
 };
+struct SeasonData
+{
+	int key;
+	Season type;
+	string name;
+	int morningTime;
+	int afternoonTime;
+	int nightTime;
+};
 
 class DataManager : public Singleton<DataManager>
 {
@@ -49,6 +66,8 @@ public:
 	int GetInstallationCount() {return installationDatas.size(); }
 
 	DayData& GetDayData(int key) { return dayDatas[key]; }
+	SeasonData& GetSeasonData(int season) { return seasonDatas[season]; }
+
 	vector<int>& GetKeys() { return installationKeys; }
 private:
 	void LoadData();
@@ -56,11 +75,13 @@ private:
 	void LoadDayData();
 	void LoadPriceData();
 	void LoadInstallationData();
+	void LoadSeasonData();
 private:
 	string filePath = "Resources/Tables/";
 	vector<int> installationKeys;
 	unordered_map<int, DayData> dayDatas;
 	unordered_map<int, PriceData> priceDatas;
 	unordered_map<int, InstallationData> installationDatas;
+	vector<SeasonData> seasonDatas;
 
 };

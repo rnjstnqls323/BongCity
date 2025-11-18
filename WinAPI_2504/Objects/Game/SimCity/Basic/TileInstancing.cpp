@@ -10,8 +10,8 @@ TileInstancing::TileInstancing(wstring path, int size):Quad(path, true)
 	instanceDatas = new InstanceData[size];
 	instanceBuffer = new VertexBuffer(instanceDatas, sizeof(InstanceData), size);
 
-	transforms.reserve(MAX_TILE_SIZE * MAX_TILE_SIZE);
-	preSelectTiles.reserve(MAX_TILE_SIZE);
+	transforms.reserve(TILE_SIZE * TILE_SIZE);
+	preSelectTiles.reserve(TILE_SIZE);
 }
 TileInstancing::~TileInstancing()
 {
@@ -28,14 +28,16 @@ void TileInstancing::UpdateSelectTile(InstallationData* data)
 {
 	ClearPreTiles();
 
+	if (UIManager::Get()->GetMode() == Mode::None) return;
+
 	Ray ray = CAM->ScreenPointToRay(mousePos);
 	float t = -ray.origin.y / ray.direction.y;
 
 	Vector3 hitPos = ray.origin + ray.direction * t;
-	preCenter = { (int)-(hitPos.z - 100), (int)hitPos.x };
+	preCenter = { (int)-(hitPos.z - TILE_SIZE), (int)hitPos.x };
 
 
-	if (preCenter.row < 0 || preCenter.col < 0 || preCenter.row >= MAX_TILE_SIZE || preCenter.col >= MAX_TILE_SIZE)
+	if (preCenter.row < 0 || preCenter.col < 0 || preCenter.row >= TILE_SIZE || preCenter.col >= TILE_SIZE)
 	{
 		isPossible = false;
 		preCenter.row -= (data->width * 0.5f) - 1;
@@ -45,17 +47,15 @@ void TileInstancing::UpdateSelectTile(InstallationData* data)
 
 	test = TileManager::Get()->GetTileToIndex(preCenter);
 
-	if (UIManager::Get()->IsRemoveMode()) //이부분 상수 최대한 안쓰는 방법으로 가야됨 아마 UI매니저에 Select참조해서 처리하면될듯?
+	if (UIManager::Get()->GetMode() == Mode::Remove) //이부분 상수 최대한 안쓰는 방법으로 가야됨 아마 UI매니저에 Select참조해서 처리하면될듯?
 	{
 		UpdateSelectTileToBuild();
 		return;
 	}
 
-
 	//왼쪽 위 중심잡기 + (중간으로 마우스 위치 보정)
 	preCenter.row -= (data->width * 0.5f) - 1;
 	preCenter.col -= (data->height * 0.5f) - 1;
-
 
 	int index;
 	Index2 in;
@@ -68,7 +68,7 @@ void TileInstancing::UpdateSelectTile(InstallationData* data)
 		{
 			in = { preCenter.row + row, preCenter.col + col };
 
-			if (in.row < 0 || in.col < 0 || in.row >= MAX_TILE_SIZE || in.col >= MAX_TILE_SIZE
+			if (in.row < 0 || in.col < 0 || in.row >= TILE_SIZE || in.col >= TILE_SIZE
 				|| TileManager::Get()->GetTileToIndex(in)->GetTileType() != InstallationType::None)
 			{
 				isPossible = false;
@@ -89,8 +89,8 @@ void TileInstancing::UpdateSelectTile(InstallationData* data)
 		{
 			in = { preCenter.row + row, preCenter.col + col };
 
-			index = in.ChangeToInt(MAX_TILE_SIZE);
-			if (in.row < 0 || in.col < 0 || in.row >= MAX_TILE_SIZE || in.col >= MAX_TILE_SIZE)
+			index = in.ChangeToInt(TILE_SIZE);
+			if (in.row < 0 || in.col < 0 || in.row >= TILE_SIZE || in.col >= TILE_SIZE)
 				continue;
 			if (!isPossible)
 			{
@@ -155,12 +155,12 @@ Transform* TileInstancing::Add()
 
 void TileInstancing::UpdateSelectTileToBuild()
 {
-	if (preCenter.row < 0 || preCenter.col < 0 || preCenter.row >= 100 || preCenter.col >= 100)
-	{
-		isPossible = false;
-		return;
-	}
-	int index = preCenter.ChangeToInt(MAX_TILE_SIZE);
+	//if (preCenter.row < 0 || preCenter.col < 0 || preCenter.row >= TILE_SIZE || preCenter.col >= TILE_SIZE)
+	//{
+	//	isPossible = false;
+	//	return;
+	//}
+	int index = preCenter.ChangeToInt(TILE_SIZE);
 	Index2 in;
 	if (TileManager::Get()->GetTileToIndex(preCenter)->GetTileType() != InstallationType::None)
 	{
@@ -174,7 +174,7 @@ void TileInstancing::UpdateSelectTileToBuild()
 			for (int col = 0; col < size.x; col++)
 			{
 				in = Index2{ preCenter.row + row, preCenter.col + col };
-				index = in.ChangeToInt(MAX_TILE_SIZE);
+				index = in.ChangeToInt(TILE_SIZE);
 				instanceDatas[index].color = Float4(1, 1, 0.3, 1);
 				preSelectTiles.push_back(TileManager::Get()->GetTileToIndex(in));
 			}
@@ -182,7 +182,7 @@ void TileInstancing::UpdateSelectTileToBuild()
 	}
 	else
 	{
-		instanceDatas[index].color = Float4(1, 0, 1, 1);
+		//instanceDatas[index].color = Float4(1, 0, 1, 1);
 		isPossible = false;
 		preSelectTiles.push_back(TileManager::Get()->GetTileToIndex(preCenter));
 	}
@@ -194,7 +194,7 @@ void TileInstancing::ClearPreTiles()
 {
 	for (Tile* tile : preSelectTiles)
 	{
-		int index = tile->GetIndex().ChangeToInt(MAX_TILE_SIZE);
+		int index = tile->GetIndex().ChangeToInt(TILE_SIZE);
 		if (tile->GetTileType() == InstallationType::Building || tile->GetTileType() == InstallationType::Road)
 		{
 			instanceDatas[index].color = Float4(1, 0.3, 0.5, 1);

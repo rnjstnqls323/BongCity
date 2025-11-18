@@ -6,6 +6,8 @@ enum class InstancingType
 };
 class Tile
 {
+private:
+	const int TILE_SIZE = 150;
 public:
 	Tile(Index2 index = {0,0});
 	~Tile();

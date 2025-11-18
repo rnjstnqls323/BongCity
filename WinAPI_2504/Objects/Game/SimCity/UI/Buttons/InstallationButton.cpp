@@ -15,9 +15,13 @@ void InstallationButton::Update()
 		SetLocalScale(1.2, 1.2, 1);
 		GetMaterial()->SetColor(1, 0, 0);
 		if (Input::Get()->IsKeyDown(VK_LBUTTON))
+		{
+			Mode mode = Mode::Build;
 			OnClick();
+			EventManager::Get()->ExcuteEvent("ChangeMode", &mode);
+		}
 	}
-	else if (UIManager::Get()->GetChoiceData().key == data.key)
+	else if (UIManager::Get()->GetChoiceData().key == data.key && UIManager::Get()->GetMode() == Mode::Build)
 	{
 		SetLocalScale(1.2, 1.2, 1);
 	}

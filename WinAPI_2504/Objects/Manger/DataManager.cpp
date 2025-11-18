@@ -41,7 +41,7 @@ void DataManager::LoadDayData()
 
 		DayData dayData;
 		dayData.key = stoi(data[0]);
-		dayData.day = data[1];
+		dayData.type = (Day)stoi(data[1]);
 		dayData.morningMagnification = stof(data[2]);
 		dayData.afternoonMagnification = stof(data[3]);
 		dayData.nightMagnification = stof(data[4]);
@@ -128,6 +128,43 @@ void DataManager::LoadInstallationData()
 		installationDatas[ins.key] = ins;
 
 		installationKeys.emplace_back(ins.key);
+	}
+	file.close();
+}
+
+void DataManager::LoadSeasonData()
+{
+	ifstream file(filePath + "SeasonData.csv");
+	if (!file.is_open())
+	{
+		MessageBox(nullptr, L"Failed to open file", L"Error", MB_OK);
+		return;
+	}
+
+	string line;
+
+	bool isFirstLine = true;
+
+	while (getline(file, line))
+	{
+		if (isFirstLine)
+		{
+			isFirstLine = false;
+			continue;
+		}
+
+		vector<string> data = Utility::SplitString(line, ",");
+
+		SeasonData season;
+
+		season.key = stoi(data[0]);
+		season.type = (Season)stoi(data[1]);
+		season.name = data[2];
+		season.morningTime = stoi(data[3]);
+		season.afternoonTime = stoi(data[4]);
+		season.nightTime = stoi(data[5]);
+
+		seasonDatas.emplace_back(season);
 	}
 	file.close();
 }

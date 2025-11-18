@@ -31,8 +31,9 @@ protected:
 		button->SetLocalPosition(pos);
 		button->UpdateWorld();
 		button->SetTag(Utility::ToString(image));
+		button->UpdateTransform();
 		buttons.push_back(button);
-
+	
 		return button;
 	}
 

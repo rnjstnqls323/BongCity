@@ -5,9 +5,8 @@ class TileManager : public Singleton<TileManager>
 {
 	friend class Singleton;
 private:
-	const int TILE_SIZE = 100;
-	const int CAMERA_RANGE_HEIGHT = 51;
-	const int CAMERA_RANGE_WIDTH = 31;
+	const int TILE_SIZE = 150;
+
 	
 private:
 	TileManager();
@@ -26,7 +25,7 @@ public:
 	Vector3 GetPreCenter() 
 	{
 		Index2 index = 	tileInstancing->GetPreCenter(); 
-		Vector3 pos = { (float)index.col, 0, 100-(float)index.row };
+		Vector3 pos = { (float)index.col, 0, TILE_SIZE -(float)index.row };
 		return pos;
 	}
 

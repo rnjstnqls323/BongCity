@@ -30,6 +30,12 @@ void UIManager::Edit()
 	panels[type]->Edit();
 }
 
+void UIManager::Reset()
+{
+	ResetData();
+	mode = Mode::None;
+}
+
 void UIManager::SetChoiceData(int key)
 {
 	if (key == InstallationData().key)

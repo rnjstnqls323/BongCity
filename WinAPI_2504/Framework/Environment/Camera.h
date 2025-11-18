@@ -2,6 +2,21 @@
 
 class Camera : public Transform
 {
+private:
+	const int MAX_ROTATION_X = 40;
+	const int MAX_POSITION_Y = 50;
+
+	const int MIN_WHEEL_POSITION_Y = 11;
+	const int MAX_WHEEL_POSITION_Y = 80;
+
+	const int TILE_SIZE = 150;
+
+
+	const float SMOOTH_SPEED = 5.0f;
+	const float EPSILON = 0.1f;
+	const float WHEEL = -0.02f; //±âº» ÈÙ ÇÝÆ½ 120¾¿ ¿òÁ÷ÀÓ
+
+
 public:
 	Camera();
 	~Camera();
@@ -11,7 +26,7 @@ public:
 
 	void SetView(UINT slot = 1);
 
-	void SetTarget(Transform* target) { this->target = target; }
+	void SetTarget(Transform* target);
 
 	class Ray ScreenPointToRay(Vector3 screenPos);	
 	Vector3 WorldToScreenPoint(Vector3 worldPos);
@@ -26,9 +41,15 @@ private:
 	void FrustumUpdate();
 
 private:
-	float moveSpeed = 10.0f;
+	bool isMatch;
+	float nextPositionY;
+	float nextRotationX;
+
+	float moveSpeed = 30.0f;
 	float rotSpeed = 10.0f;
 	Vector3 prevMousePos;
+
+	Vector3 startPos = { 90,0,-50 };
 
 	Matrix view;
 	Matrix projection;

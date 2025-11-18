@@ -1,5 +1,9 @@
 #pragma once
 
+enum class Mode
+{
+	None, Build, Remove
+};
 class BuildPanel :public Panel
 {
 public:
@@ -13,7 +17,16 @@ protected:
 	void CreateButtons() override;
 	void SetButtonEvents() override;
 
-private:
-	BuildButtonPanel* panel;
+	void SetEvent();
 
+	void ClickModeButton();
+	void ClickBackButton();
+	void ChangeMode(Mode* mode);
+
+private:
+	wstring path = L"Resources/Textures/SimCity/UI/Buttons/";
+
+	Mode remove = Mode::Remove;
+	BuildButtonPanel* panel;
+	Button* modeButton;
 };

@@ -35,3 +35,4 @@ void VertexBuffer::Update(void* data, UINT count)
 {
     DC->UpdateSubresource(buffer, 0, nullptr, data, stride, count);
 }
+

@@ -214,6 +214,7 @@
     <ClInclude Include="Objects\Game\Block.h" />
     <ClInclude Include="Objects\Game\GameBall.h" />
     <ClInclude Include="Objects\Game\SimCity\Basic\InstallationInstancing.h" />
+    <ClInclude Include="Objects\Game\SimCity\Basic\Player.h" />
     <ClInclude Include="Objects\Game\SimCity\Basic\TileInstancing.h" />
     <ClInclude Include="Objects\Game\SimCity\Installation\Installation.h" />
     <ClInclude Include="Objects\Game\SimCity\Installation\InstallationManager.h" />
@@ -338,6 +339,7 @@
     <ClCompile Include="Objects\Game\Block.cpp" />
     <ClCompile Include="Objects\Game\GameBall.cpp" />
     <ClCompile Include="Objects\Game\SimCity\Basic\InstallationInstancing.cpp" />
+    <ClCompile Include="Objects\Game\SimCity\Basic\Player.cpp" />
     <ClCompile Include="Objects\Game\SimCity\Basic\TileInstancing.cpp" />
     <ClCompile Include="Objects\Game\SimCity\Installation\Installation.cpp" />
     <ClCompile Include="Objects\Game\SimCity\Installation\InstallationManager.cpp" />

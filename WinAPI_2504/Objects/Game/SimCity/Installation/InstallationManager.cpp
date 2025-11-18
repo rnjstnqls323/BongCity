@@ -34,6 +34,7 @@ void InstallationManager::Render()
 	}
 	for (int key : DataManager::Get()->GetKeys())
 	{
+		if (UIManager::Get()->GetMode() != Mode::Build)return;
 		if (!showInstallations[key]->IsActive()) continue;
 		showInstallations[key]->Render();
 	}
@@ -73,6 +74,7 @@ void InstallationManager::DispawnInstallation(int& key, Index2& index)
 
 void InstallationManager::ShowInstallationToMouse(InstallationData& data, Vector3 pos, Index2& index, int& rotation)
 {
+	
 	if (data.key == InstallationData().key)
 	{
 		if (preSelectKey != data.key)
