@@ -15,5 +15,5 @@ public:
 private:
 
 private:
-	
+	Map* map;
 };

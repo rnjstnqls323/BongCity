@@ -27,6 +27,9 @@ private:
 
 private:
 	int preSelectKey = 0;
+
+	unordered_set<Installation*> spawnInstallations;
 	unordered_map<int, pair<InstallationInstancing*, vector<Installation*>>> installations;	
 	unordered_map<int, Model*> showInstallations;	
+	FloorInstancing* floors;
 };

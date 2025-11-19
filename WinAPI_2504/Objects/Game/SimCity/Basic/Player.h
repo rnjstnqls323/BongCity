@@ -2,7 +2,7 @@
 
 enum class Resources
 {
-	Money, Oil, Electric, Iron
+	Money, Oil, Electric, Iron, Citizen
 };
 
 
@@ -37,6 +37,7 @@ private:
 	int oil = 0;
 	int electric = 0;
 	int iron = 0;
+	int citizen = 0;
 
 	Season season = Season::Spring;
 	SeasonData data;

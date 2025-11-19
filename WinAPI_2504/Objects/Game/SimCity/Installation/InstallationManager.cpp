@@ -20,14 +20,21 @@ InstallationManager::~InstallationManager()
 	{
 		delete showInstallations[key];
 	}
+	delete floors;
 }
 
 void InstallationManager::Update()
 {
+	for (Installation* install : spawnInstallations)
+	{
+		install->Update();
+	}
 }
 
 void InstallationManager::Render()
 {
+	floors->Render();
+
 	for (auto& installation : installations)
 	{
 		installation.second.first->Render();
@@ -38,6 +45,7 @@ void InstallationManager::Render()
 		if (!showInstallations[key]->IsActive()) continue;
 		showInstallations[key]->Render();
 	}
+
 }
 
 void InstallationManager::Edit()
@@ -59,6 +67,11 @@ void InstallationManager::SpawnInstallation(InstallationData& data, Vector3 pos,
 		addPos.z = -data.width * 0.5f;
 
 		install->Spawn(pos + addPos, rotation);
+
+		spawnInstallations.insert(install);
+
+		floors->UpdateTransform();
+
 		break;
 	}
 
@@ -69,7 +82,13 @@ void InstallationManager::DispawnInstallation(int& key, Index2& index)
 {
 	Installation* installation = GetTransformToIndex(key, index);
 	installation->Dispawn();
+	auto it = spawnInstallations.find(installation);
+	if (it != spawnInstallations.end())
+	{
+		spawnInstallations.erase(it);  // unordered_set에서 제거
+	}
 	installations[key].first->UpdateTransform();
+	floors->UpdateTransform();
 }
 
 void InstallationManager::ShowInstallationToMouse(InstallationData& data, Vector3 pos, Index2& index, int& rotation)
@@ -108,7 +127,8 @@ void InstallationManager::ShowInstallationToMouse(InstallationData& data, Vector
 
 void InstallationManager::CreateInstallation()
 {
-
+	int size = DataManager::Get()->GetKeys().size();
+	floors = new FloorInstancing(L"Resources/Textures/SimCity/UI/BackGround/floor.jpg", MAX_SIZE * size);
 	for (int key : DataManager::Get()->GetKeys())
 	{
 		string name = DataManager::Get()->GetInstallationData(key).name;
@@ -126,15 +146,33 @@ void InstallationManager::CreateInstallation()
 		installations[key].second.reserve(MAX_SIZE);
 		for (int i = 0; i < MAX_SIZE; i++)
 		{
-			Installation* installation = new Installation;
+			Installation* installation = nullptr;
+			switch (DataManager::Get()->GetInstallationData(key).type)
+			{
+			case InstallationType::Road:
+				installation = new Road();
+				break;
+			case InstallationType::Building:
+				installation = new Building();
+				break;
+			case InstallationType::Production:
+				installation = new Production();
+				break;
+			case InstallationType::LandScape:
+				installation = new LandScape();
+				break;
+			}
 			installation->SetData(key);
 			installation->SetTransform(installations[key].first->Add());
 
 			installation->GetTransform()->SetActive(false);
 			installation->GetTransform()->SetLocalScale(0.03,0.03,0.03);
+			installation->SetFloorTransform(floors->Add());
+
 			installations[key].second.push_back(installation);
 		}
 	}
+
 }
 
 Installation*& InstallationManager::GetTransformToIndex(int& key, Index2& index)

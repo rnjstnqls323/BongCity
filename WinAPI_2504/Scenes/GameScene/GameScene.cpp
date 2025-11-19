@@ -8,6 +8,8 @@ GameScene::GameScene()
 	UIManager::Get();
 	Player::Get();
 
+	map = new Map();
+
 	CAM->SetTarget(nullptr);
 }
 
@@ -17,6 +19,7 @@ GameScene::~GameScene()
 	InstallationManager::Delete();
 	UIManager::Delete();
 	Player::Delete();
+	delete map;
 }
 
 void GameScene::Update()
@@ -35,6 +38,7 @@ void GameScene::Update()
 		break;
 	}
 
+	map->Update();
 }
 
 void GameScene::PreRender()
@@ -54,6 +58,7 @@ void GameScene::Render()
 		break;
 	}
 	InstallationManager::Get()->Render();
+	map->Render();
 }
 
 void GameScene::PostRender()
@@ -63,6 +68,9 @@ void GameScene::PostRender()
 
 void GameScene::GUIRender()
 {
-	TileManager::Get()->Edit();
-	Player::Get()->Edit();
+	//TileManager::Get()->Edit();
+	//Player::Get()->Edit();
+
+	InstallationManager::Get()->Edit();
+	map->Edit();
 }

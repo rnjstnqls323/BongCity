@@ -77,7 +77,7 @@ void TerrainScene::PreRender()
 
 void TerrainScene::Render()
 {
-	//skybox->Render();
+	skybox->Render();
 	terrain->Render();	
 
 	Environment::Get()->SetAlphaBlend(true);

@@ -10,11 +10,51 @@ Player::~Player()
 
 void Player::Add(Resources resources, int value)
 {
+	switch (resources)
+	{
+	case Resources::Money:
+		money += value;
+		break;
+	case Resources::Oil:
+		oil += value;
+		break;
+	case Resources::Electric:
+		electric += value;
+		break;
+	case Resources::Iron:
+		iron += value;
+		break;
+	case Resources::Citizen:
+		citizen += value;
+		break;
+	}
 }
 
 bool Player::Use(Resources resources, int value)
 {
-	return false;
+	switch (resources)
+	{
+	case Resources::Money:
+		if (money < value) return false;
+		money -= value;
+		break;
+	case Resources::Oil:
+		if (oil < value) return false;
+		oil -= value;
+		break;
+	case Resources::Electric:
+		if (electric < value) return false;
+		electric -= value;
+		break;
+	case Resources::Iron:
+		if (iron < value) return false;
+		iron -= value;
+		break;
+	case Resources::Citizen:
+		citizen -= value;
+		break;
+	}
+	return true;
 }
 
 void Player::Update()
