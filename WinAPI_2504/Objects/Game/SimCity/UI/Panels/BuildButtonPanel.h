@@ -12,12 +12,13 @@ public:
 	void Render() override;
 
 	void Edit() override;
-
+	void Reset() override;
 protected:
 	void CreateButtons() override;
 	void SetButtonEvents() override;
 
 private:
+
 	void ClickEventToShowButton(int key);
 	void ClickEventToChoiceTypeButton(int type);
 	

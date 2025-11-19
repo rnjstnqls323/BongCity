@@ -34,6 +34,7 @@ void UIManager::Reset()
 {
 	ResetData();
 	mode = Mode::None;
+	panels[type]->Reset();
 }
 
 void UIManager::SetChoiceData(int key)

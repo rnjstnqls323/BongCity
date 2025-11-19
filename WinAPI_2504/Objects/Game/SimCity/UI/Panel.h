@@ -20,7 +20,9 @@ public:
 
 	virtual void Edit();
 	
+	virtual void Reset() = 0;
 protected:
+
 	virtual void CreateButtons() = 0;
 	virtual void SetButtonEvents() = 0;
 	

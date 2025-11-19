@@ -103,3 +103,10 @@ void BuildPanel::ChangeMode(Mode* mode)
 		break;
 	}
 }
+
+void BuildPanel::Reset()
+{
+	modeButton->GetQuad()->GetMaterial()->SetDiffuseMap(path + L"mode.png");
+	UIManager::Get()->SetMode(Mode::None);
+	panel->Reset();
+}

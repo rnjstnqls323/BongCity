@@ -121,6 +121,13 @@ void BuildButtonPanel::SetButtonEvents()
 
 }
 
+void BuildButtonPanel::Reset()
+{
+	preType = InstallationType::None;
+	choiceType = InstallationType::None;
+	SetChoiceButtons();
+}
+
 void BuildButtonPanel::ClickEventToShowButton(int key)
 {
 	//UIManager 에 버튼 눌린 키 넘겨서 초이스되게 해줘야됨

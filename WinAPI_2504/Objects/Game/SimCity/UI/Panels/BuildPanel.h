@@ -13,6 +13,7 @@ public:
 	void Update() override;
 	void Render() override;
 	void Edit() override;
+	void Reset() override;
 protected:
 	void CreateButtons() override;
 	void SetButtonEvents() override;
@@ -23,10 +24,12 @@ protected:
 	void ClickBackButton();
 	void ChangeMode(Mode* mode);
 
+
 private:
 	wstring path = L"Resources/Textures/SimCity/UI/Buttons/";
 
 	Mode remove = Mode::Remove;
 	BuildButtonPanel* panel;
 	Button* modeButton;
+
 };

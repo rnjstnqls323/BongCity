@@ -30,7 +30,7 @@ void TileManager::Update()
     // 
     //»èÁ¦¸ðµå·Î ¹Ù²Ù´Â°Å ÀßµÊ ¾ÀÀ¸·Î»©ÀÚ
 
-    if (key == InstallationData().key || UIManager::Get()->IsMouseOnPanel())
+    if (UIManager::Get()->GetMode() == Mode::None || UIManager::Get()->IsMouseOnPanel())
     {
         return;
     }

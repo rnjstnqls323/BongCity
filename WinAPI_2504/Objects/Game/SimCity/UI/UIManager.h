@@ -14,7 +14,7 @@ public:
 	void Render();
 	void Edit();
 
-	void ChangePanel(PanelType type) { this->type = type; }
+	void ChangePanel(PanelType type) { this->type = type; Reset(); }
 	bool& IsMouseOnPanel() { return isMouseOnPanel; }
 	void SetMouseOnPanel(bool isMouseOnPanel) { this->isMouseOnPanel = isMouseOnPanel; }
 
