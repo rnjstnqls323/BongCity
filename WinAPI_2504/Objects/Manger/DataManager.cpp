@@ -14,6 +14,7 @@ void DataManager::LoadData()
 	LoadDayData();
 	LoadPriceData();
 	LoadInstallationData();
+	LoadSeasonData();
 }
 
 void DataManager::LoadDayData()

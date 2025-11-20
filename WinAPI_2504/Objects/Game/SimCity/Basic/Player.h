@@ -24,8 +24,15 @@ public:
 	void Update();
 	void Edit();
 
+	Season& GetSeason() { return season; }
+	float& GetSpeedValue() { return speedValue; }
+
+	void SetSpeedValue(float value) { speedValue = value; }
+
 private:
 	bool isStop = false;
+
+	float speedValue = 1;
 
 	float minute = 0;
 	int hour = 0;

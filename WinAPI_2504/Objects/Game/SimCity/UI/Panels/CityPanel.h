@@ -13,4 +13,7 @@ protected:
 
 private:
 	void ClickBuildButton();
+	void ClickSetSpeedValue();
+private:
+	wstring path = L"Resources/Textures/Simcity/UI/Buttons/";
 };

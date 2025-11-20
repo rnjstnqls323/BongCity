@@ -1,7 +1,7 @@
 #include "Framework.h"
 #include "Skybox.h"
 
-Skybox::Skybox(wstring textureFile)
+SkyBox::SkyBox(wstring textureFile)
 {
 	material->SetShader(L"Landscape/Skybox.hlsl");
 
@@ -17,7 +17,7 @@ Skybox::Skybox(wstring textureFile)
 	depthStencilStates[1]->DepthEnable(false);
 }
 
-Skybox::~Skybox()
+SkyBox::~SkyBox()
 {
 	for (UINT i = 0; i < 2; i++)
 		delete rasterizerStates[i];
@@ -26,7 +26,7 @@ Skybox::~Skybox()
 		delete depthStencilStates[i];
 }
 
-void Skybox::Render()
+void SkyBox::Render()
 {
 	rasterizerStates[1]->SetState();
 	depthStencilStates[1]->SetState();

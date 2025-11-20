@@ -42,7 +42,8 @@ void FloorInstancing::Render()
 {
 	instanceBuffer->Set(1);
 	GetMaterial()->Set();
-	mesh->DrawInstanced(size);
+	mesh->DrawInstanced(drawCount);
+	//타일은 안줄어들어서 size로 맞춰도되는데, floorInstancing은 갯수 늘었다 줄었다해서 count로 맞춰줘야됨.
 }
 
 void FloorInstancing::Edit()

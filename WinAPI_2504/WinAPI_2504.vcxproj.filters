@@ -387,10 +387,10 @@
     <ClInclude Include="Objects\Game\SimCity\Basic\Player.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
-    <ClInclude Include="Objects\Game\SimCity\Basic\Map.h">
+    <ClInclude Include="Objects\Game\SimCity\Basic\LandScape\Map.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
-    <ClInclude Include="Objects\Game\SimCity\Basic\Tree.h">
+    <ClInclude Include="Objects\Game\SimCity\Basic\LandScape\Tree.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
     <ClInclude Include="Objects\Game\SimCity\Basic\FloorInstancing.h">
@@ -406,6 +406,9 @@
       <Filter>헤더 파일</Filter>
     </ClInclude>
     <ClInclude Include="Objects\Game\SimCity\Installation\LandScape.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="Objects\Game\SimCity\Basic\LandScape\SunMoon.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
   </ItemGroup>
@@ -737,10 +740,10 @@
     <ClCompile Include="Objects\Game\SimCity\Basic\Player.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
-    <ClCompile Include="Objects\Game\SimCity\Basic\Map.cpp">
+    <ClCompile Include="Objects\Game\SimCity\Basic\LandScape\Map.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
-    <ClCompile Include="Objects\Game\SimCity\Basic\Tree.cpp">
+    <ClCompile Include="Objects\Game\SimCity\Basic\LandScape\Tree.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
     <ClCompile Include="Objects\Game\SimCity\Basic\FloorInstancing.cpp">
@@ -756,6 +759,9 @@
       <Filter>소스 파일</Filter>
     </ClCompile>
     <ClCompile Include="Objects\Game\SimCity\Installation\Building.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="Objects\Game\SimCity\Basic\LandScape\SunMoon.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
   </ItemGroup>

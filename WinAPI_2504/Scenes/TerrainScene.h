@@ -17,7 +17,7 @@ public:
 
 private:
 	Terrain* terrain;
-	Skybox* skybox;
+	SkyBox* skybox;
 
 	//vector<Quad*> trees;
 	Material* material;

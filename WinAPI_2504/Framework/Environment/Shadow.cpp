@@ -52,14 +52,14 @@ void Shadow::GUIRender()
 
 void Shadow::SetViewProjection()
 {
-    LightBuffer::Light* light = Environment::Get()->GetLight(0);
+    //LightBuffer::Light* light = Environment::Get()->GetLight(0);
 
-    Matrix view = XMMatrixLookAtLH(Vector3(light->position),
-        Vector3(), Vector3(0, 1, 0));
+   // Matrix view = XMMatrixLookAtLH(Vector3(light->position),
+    //    Vector3(), Vector3(0, 1, 0));
 
     Matrix projection = XMMatrixPerspectiveFovLH(XM_PIDIV2, 1.0f, 0.1f, 5000.0f);
 
-    viewBuffer->Set(view, XMMatrixInverse(nullptr, view));
+   // viewBuffer->Set(view, XMMatrixInverse(nullptr, view));
     projectionBuffer->Set(projection);
 
     viewBuffer->SetVS(1);

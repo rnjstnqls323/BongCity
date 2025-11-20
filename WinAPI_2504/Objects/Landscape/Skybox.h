@@ -1,10 +1,10 @@
 #pragma once
 
-class Skybox : public Sphere
+class SkyBox : public Sphere
 {
 public:
-	Skybox(wstring textureFile);
-	~Skybox();
+	SkyBox(wstring textureFile);
+	~SkyBox();
 
 	void Render();
 

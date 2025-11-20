@@ -22,9 +22,9 @@ public:
 	void SetDepthEnable(bool isDepthEnable);
 	void SetDepthWriteMask(D3D11_DEPTH_WRITE_MASK mask);
 
-	LightBuffer::Light* AddLight();
-
-	LightBuffer::Light* GetLight(UINT index) { return &lightBuffer->GetData()->lights[index]; }
+	// LightBuffer::Light* AddLight();
+	// 
+	// LightBuffer::Light* GetLight(UINT index) { return &lightBuffer->GetData()->lights[index]; }
 
 	Camera* GetMainCamera() { return mainCamera; }
 	Matrix GetPerspective() { return perspective; }
@@ -35,7 +35,7 @@ private:
 	void CreateBlendState();	
 	void CreateStats();
 
-	void EditLight(LightBuffer::Light& light);
+	// void EditLight(LightBuffer::Light& light);
 
 private:
 	bool isWireFrame = false;
@@ -47,7 +47,7 @@ private:
 	Camera* mainCamera;
 	MatrixBuffer* projectionBuffer;
 	MatrixBuffer* uiViewBuffer;
-	LightBuffer* lightBuffer;
+	// LightBuffer* lightBuffer;
 
 	ID3D11SamplerState* samplerState;	
 

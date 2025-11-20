@@ -180,8 +180,9 @@ typedef function<void()> Event;
 #include "Objects/Game/Sword.h"
 
 #include "Objects/Game/SimCity/Basic/Player.h"
-#include "Objects/Game/SimCity/Basic/Tree.h"
-#include "Objects/Game/SimCity/Basic/Map.h"
+#include "Objects/Game/SimCity/Basic/LandScape/Tree.h"
+#include "Objects/Game/SimCity/Basic/LandScape/SunMoon.h"
+#include "Objects/Game/SimCity/Basic/LandScape/Map.h"
 
 
 #include "Objects/Game/SimCity/Basic/TileInstancing.h"

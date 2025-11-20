@@ -16,7 +16,7 @@ private:
 	void CreateObjects();
 
 private:
-	Skybox* skybox;
+	SkyBox* skybox;
 	Sphere* sphere;
 	Model* model;
 	ModelAnimator* animator;

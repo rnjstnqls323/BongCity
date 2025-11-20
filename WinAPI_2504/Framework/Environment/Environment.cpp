@@ -7,7 +7,7 @@ Environment::Environment()
 	mainCamera = new Camera();
 	mainCamera->Load();
 	uiViewBuffer = new MatrixBuffer();
-	lightBuffer = new LightBuffer();
+	//lightBuffer = new LightBuffer();
 
 	CreateProjection();
     CreateSamplerState();
@@ -22,7 +22,7 @@ Environment::~Environment()
 	delete mainCamera;
 	delete projectionBuffer;
 	delete uiViewBuffer;
-	delete lightBuffer;
+	//delete lightBuffer;
 
 	delete rasterizerState[0];
 	delete rasterizerState[1];
@@ -52,22 +52,22 @@ void Environment::Edit()
 
 	ImGui::Text("Light Option");
 
-	ImGui::ColorEdit3("AmbientLight", (float*)&lightBuffer->GetData()->ambientLight);
-	ImGui::ColorEdit3("AmbientCeil", (float*)&lightBuffer->GetData()->ambientCeil);
-
-	if (ImGui::Button("Add"))
-		lightBuffer->GetData()->lightCount++;	
-
-	for (UINT i = 0; i < lightBuffer->GetData()->lightCount; i++)
-	{
-		string name = "Light " + to_string(i);
-
-		if (ImGui::TreeNode(name.c_str()))
-		{
-			EditLight(lightBuffer->GetData()->lights[i]);
-			ImGui::TreePop();
-		}
-	}
+	// ImGui::ColorEdit3("AmbientLight", (float*)&lightBuffer->GetData()->ambientLight);
+	// ImGui::ColorEdit3("AmbientCeil", (float*)&lightBuffer->GetData()->ambientCeil);
+	// 
+	// if (ImGui::Button("Add"))
+	// 	lightBuffer->GetData()->lightCount++;	
+	// 
+	// for (UINT i = 0; i < lightBuffer->GetData()->lightCount; i++)
+	// {
+	// 	string name = "Light " + to_string(i);
+	// 
+	// 	if (ImGui::TreeNode(name.c_str()))
+	// 	{
+	// 		EditLight(lightBuffer->GetData()->lights[i]);
+	// 		ImGui::TreePop();
+	// 	}
+	// }
 }
 
 void Environment::SetViewport(UINT width, UINT height)
@@ -98,7 +98,7 @@ void Environment::SetRender()
 
 	// grid->Render();
 
-	lightBuffer->SetPS(1);
+	// lightBuffer->SetPS(1);
 }
 
 void Environment::SetPostRender()
@@ -132,12 +132,12 @@ void Environment::SetAlphaToCoverage()
 	blendState[2]->SetState();
 }
 
-LightBuffer::Light* Environment::AddLight()
-{
-	lightBuffer->GetData()->lightCount++;
-
-	return &lightBuffer->GetData()->lights[lightBuffer->GetData()->lightCount - 1];
-}
+// LightBuffer::Light* Environment::AddLight()
+// {
+// 	lightBuffer->GetData()->lightCount++;
+// 
+// 	return &lightBuffer->GetData()->lights[lightBuffer->GetData()->lightCount - 1];
+// }
 
 void Environment::CreateProjection()
 {   
@@ -202,18 +202,18 @@ void Environment::CreateStats()
 	depthStencilState[2] = new DepthStencilState();
 }
 
-void Environment::EditLight(LightBuffer::Light& light)
-{
-	ImGui::Checkbox("Active", (bool*)&light.active);
-
-	const char* items[] = { "Directional", "Point", "Spot", "Capsule" };
-	ImGui::Combo("Type", (int*)&light.type, items, IM_ARRAYSIZE(items));
-
-	ImGui::ColorEdit3("Color", (float*)&light.color);
-	ImGui::SliderFloat3("Direction", (float*)&light.direction, -1, 1);
-	ImGui::DragFloat3("Position", (float*)&light.position);
-	ImGui::SliderFloat("Range", &light.range, 0, 500);
-	ImGui::SliderFloat("Inner", &light.inner, 0, 180);
-	ImGui::SliderFloat("Outer", &light.outer, 0, 180);
-	ImGui::DragFloat("Length", &light.length, 0.1f, 10);
-}
+// void Environment::EditLight(LightBuffer::Light& light)
+// {
+// 	ImGui::Checkbox("Active", (bool*)&light.active);
+// 
+// 	const char* items[] = { "Directional", "Point", "Spot", "Capsule" };
+// 	ImGui::Combo("Type", (int*)&light.type, items, IM_ARRAYSIZE(items));
+// 
+// 	ImGui::ColorEdit3("Color", (float*)&light.color);
+// 	ImGui::SliderFloat3("Direction", (float*)&light.direction, -1, 1);
+// 	ImGui::DragFloat3("Position", (float*)&light.position);
+// 	ImGui::SliderFloat("Range", &light.range, 0, 500);
+// 	ImGui::SliderFloat("Inner", &light.inner, 0, 180);
+// 	ImGui::SliderFloat("Outer", &light.outer, 0, 180);
+// 	ImGui::DragFloat("Length", &light.length, 0.1f, 10);
+// }

@@ -8,12 +8,12 @@ BlockScene::BlockScene()
 
 	steve = new Steve();
 
-	light = Environment::Get()->GetLight(0);
+	//light = Environment::Get()->GetLight(0);
 	light->type = 2;
 
-	LightBuffer::Light* pointLight = Environment::Get()->AddLight();
-	pointLight->type = 1;
-	pointLight->position = Vector3(0, 5, 0);
+	//LightBuffer::Light* pointLight = Environment::Get()->AddLight();
+	//pointLight->type = 1;
+	//pointLight->position = Vector3(0, 5, 0);
 }
 
 BlockScene::~BlockScene()

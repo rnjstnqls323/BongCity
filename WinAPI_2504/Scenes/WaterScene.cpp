@@ -122,7 +122,7 @@ void WaterScene::CreateObjects()
     animator->CreateTexture();
     animator->Load();
 
-    skybox = new Skybox(L"Resources/Textures/Landscape/Snow_ENV.dds");
+    skybox = new SkyBox(L"Resources/Textures/Landscape/Snow_ENV.dds");
 
     plane = new Plane();
 }

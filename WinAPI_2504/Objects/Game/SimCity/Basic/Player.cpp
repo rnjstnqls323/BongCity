@@ -2,6 +2,7 @@
 
 Player::Player()
 {
+	data = DataManager::Get()->GetSeasonData((int)season); //이부분도 세이브데이터 있으면 변경하기
 }
 
 Player::~Player()
@@ -63,10 +64,19 @@ void Player::Update()
 
 	minute += DELTA;
 
-	if (minute > REAL_TIME)
+	if (minute > REAL_TIME*speedValue)
 	{
-		minute -= REAL_TIME;
+		minute -= REAL_TIME * speedValue;
+		EventManager::Get()->ExcuteEvent("SetLinearValue", nullptr);
 		hour++;
+		if (data.morningTime == hour)
+			EventManager::Get()->ExcuteEvent("OnSun", nullptr);
+		else if (data.nightTime == hour)
+			EventManager::Get()->ExcuteEvent("OnMoon", nullptr);
+		else if (hour == 9)
+			EventManager::Get()->ExcuteEvent("OriginEmbient", nullptr);
+		else if (hour == 17)
+			EventManager::Get()->ExcuteEvent("SunSetEmbient", nullptr);
 	}
 	if (hour > DAY_HOUR)
 	{

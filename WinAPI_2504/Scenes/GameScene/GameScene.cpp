@@ -47,7 +47,7 @@ void GameScene::PreRender()
 
 void GameScene::Render()
 {
-
+	map->Render();
 	switch (UIManager::Get()->GetPanelType())
 	{
 	case PanelType::BuildPanel:
@@ -58,7 +58,7 @@ void GameScene::Render()
 		break;
 	}
 	InstallationManager::Get()->Render();
-	map->Render();
+
 }
 
 void GameScene::PostRender()
@@ -69,7 +69,7 @@ void GameScene::PostRender()
 void GameScene::GUIRender()
 {
 	//TileManager::Get()->Edit();
-	//Player::Get()->Edit();
+	Player::Get()->Edit();
 
 	InstallationManager::Get()->Edit();
 	map->Edit();

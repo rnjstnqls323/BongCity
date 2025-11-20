@@ -1,5 +1,5 @@
 key,Type,name,morning,afternoon,night
-4000,0,Spring,7,13,20
-4001,1,Summer,6,12,22
-4002,2,Autumn,7,13,20
-4003,3,Winter,8,13,19
+4000,0,Spring,6,16,20
+4001,1,Summer,5,16,22
+4002,2,Autumn,6,16,20
+4003,3,Winter,7,16,19

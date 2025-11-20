@@ -215,10 +215,11 @@
     <ClInclude Include="Objects\Game\GameBall.h" />
     <ClInclude Include="Objects\Game\SimCity\Basic\FloorInstancing.h" />
     <ClInclude Include="Objects\Game\SimCity\Basic\InstallationInstancing.h" />
-    <ClInclude Include="Objects\Game\SimCity\Basic\Map.h" />
+    <ClInclude Include="Objects\Game\SimCity\Basic\LandScape\Map.h" />
+    <ClInclude Include="Objects\Game\SimCity\Basic\LandScape\SunMoon.h" />
     <ClInclude Include="Objects\Game\SimCity\Basic\Player.h" />
     <ClInclude Include="Objects\Game\SimCity\Basic\TileInstancing.h" />
-    <ClInclude Include="Objects\Game\SimCity\Basic\Tree.h" />
+    <ClInclude Include="Objects\Game\SimCity\Basic\LandScape\Tree.h" />
     <ClInclude Include="Objects\Game\SimCity\Installation\Building.h" />
     <ClInclude Include="Objects\Game\SimCity\Installation\Installation.h" />
     <ClInclude Include="Objects\Game\SimCity\Installation\InstallationManager.h" />
@@ -347,10 +348,11 @@
     <ClCompile Include="Objects\Game\GameBall.cpp" />
     <ClCompile Include="Objects\Game\SimCity\Basic\FloorInstancing.cpp" />
     <ClCompile Include="Objects\Game\SimCity\Basic\InstallationInstancing.cpp" />
-    <ClCompile Include="Objects\Game\SimCity\Basic\Map.cpp" />
+    <ClCompile Include="Objects\Game\SimCity\Basic\LandScape\Map.cpp" />
+    <ClCompile Include="Objects\Game\SimCity\Basic\LandScape\SunMoon.cpp" />
     <ClCompile Include="Objects\Game\SimCity\Basic\Player.cpp" />
     <ClCompile Include="Objects\Game\SimCity\Basic\TileInstancing.cpp" />
-    <ClCompile Include="Objects\Game\SimCity\Basic\Tree.cpp" />
+    <ClCompile Include="Objects\Game\SimCity\Basic\LandScape\Tree.cpp" />
     <ClCompile Include="Objects\Game\SimCity\Installation\Building.cpp" />
     <ClCompile Include="Objects\Game\SimCity\Installation\Installation.cpp" />
     <ClCompile Include="Objects\Game\SimCity\Installation\InstallationManager.cpp" />
