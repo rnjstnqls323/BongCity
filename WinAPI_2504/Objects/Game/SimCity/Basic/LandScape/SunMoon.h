@@ -4,8 +4,9 @@ class SunMoon
 {
 private:
 	const float SMOOTH_VALUE = 0.05;
-	const float SMOOTH_COLOR_VALUE = 0.005;
+	const float SMOOTH_COLOR_VALUE = 0.01;
 	const float EPSILON = 0.0001f;
+	const float CORRECT_VALUE = 200;
 public:
 	SunMoon();
 	~SunMoon();
@@ -26,11 +27,14 @@ private:
 	void SunSetEmbient();
 	void OriginEmbient();
 	
+	void ChangeSpeed();
+	
 	void SetLiner();
 
 	void AddEvent();
 	
 private:
+	float speed = 1;
 	float correct;
 	float linear;
 	
@@ -41,7 +45,7 @@ private:
 
 	Season season;
 
-	Vector3 originDir = Vector3{ -1,-1,1 };
+	Vector3 originPos = Vector3{ -150,50,100 };
 
 	LightBuffer* buffer;
 

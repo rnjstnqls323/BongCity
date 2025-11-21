@@ -2,7 +2,7 @@
 
 enum class Resources
 {
-	Money, Oil, Electric, Iron, Citizen
+	Money, Oil, Electric, Iron, Citizen, Environment, Congestion
 };
 
 
@@ -21,18 +21,36 @@ public:
 	void Add(Resources resources, int value);
 	bool Use(Resources resources, int value);
 
+	bool IsConsumeResources(InstallationData& data);
+
 	void Update();
 	void Edit();
 
 	Season& GetSeason() { return season; }
 	float& GetSpeedValue() { return speedValue; }
 
-	void SetSpeedValue(float value) { speedValue = value; }
+	void SetSpeedValue(float value) 
+	{ 
+		speedValue = value;  
+		inversevalue = 1 / speedValue;
+	}
+
+	int& GetDay() { return day; }
+	int& GetHour() { return hour; }
+	int GetMinute() { return minute * inversevalue; }
+
+	int& GetResources(Resources resources);
+private:
+	void AddMoney();
+	void UpdateTime();
+	void SetMulValue();
 
 private:
 	bool isStop = false;
 
 	float speedValue = 1;
+	float inversevalue = 1;
+
 
 	float minute = 0;
 	int hour = 0;
@@ -40,11 +58,13 @@ private:
 	float mulValue = 1.0f;
 
 
-	int money = 0;
+	int money = 100;
 	int oil = 0;
 	int electric = 0;
 	int iron = 0;
 	int citizen = 0;
+	int environment = 0;
+	int congestion = 0;
 
 	Season season = Season::Spring;
 	SeasonData data;

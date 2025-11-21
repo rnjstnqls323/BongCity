@@ -7,6 +7,12 @@ struct PixelInput
     float3 originPos : POSITION;
 };
 
+cbuffer SkyBuffer : register(b5)
+{
+    float4 color;
+    matrix skyView;
+}
+
 PixelInput VS(VertexUV input)
 {
     PixelInput output;
@@ -23,5 +29,9 @@ TextureCube cubeMap : register(t10);
 
 float4 PS(PixelInput input) : SV_TARGET
 {
-    return float4(cubeMap.Sample(samplerState, input.originPos).rgb, 1.0f);
+    float3 rotatedDir = mul(input.originPos, (float3x3) skyView);
+
+    float3 skyColor = cubeMap.Sample(samplerState, rotatedDir).rgb;
+
+    return float4(skyColor, 1.0f) * color;
 }

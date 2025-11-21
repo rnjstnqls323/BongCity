@@ -8,6 +8,7 @@ LandScape::~LandScape()
 {
 }
 
-void LandScape::SetTarget()
+void LandScape::SetType()
 {
+	type = InstallationType::LandScape;
 }

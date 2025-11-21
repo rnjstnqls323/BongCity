@@ -67,12 +67,18 @@ void SunMoon::CreateLight()
 	sun = &buffer->GetData()->lights[buffer->GetData()->lightCount - 2];
 	moon = &buffer->GetData()->lights[buffer->GetData()->lightCount - 1];
 
+	sun->type = 1;
+	moon->type = 1;
+
+	sun->range = 500;
+	moon->range = 500;
+
 	season = Player::Get()->GetSeason();
 	data = &DataManager::Get()->GetSeasonData((int)season);
 
 	OnMoon(); //이거 세이브데이터 받아올거면 수정해야됨
 	linear += (24 - data->nightTime) * correct;
-	moon->direction = originDir;
+	//moon->position.x = 0;
 	//nextLightColor = Float4{ 73 / 255 , 81.0f / 255 , 216.0f / 255 , 1 };
 }
 
@@ -82,8 +88,8 @@ void SunMoon::OnSun()
 	sun->color = moon->color;
 	nextLightColor = Float4{ 1,1,1,1 };
 	embientColor = Vector3{ 215.0f / 255, 95.0f / 255, 22.0f / 255 };
-	sun->direction = originDir;
-	correct = (float)3 / data->afternoonTime;
+	sun->position = originPos;
+	correct = CORRECT_VALUE / data->afternoonTime;
 	linear = -1;
 	nowLight = sun;
 	nowLight->active = true;
@@ -95,8 +101,8 @@ void SunMoon::OnMoon()
 	moon->color = sun->color;
 	nextLightColor = Float4{ 73 / 255 , 81.0f / 255 , 216.0f / 255 , 1 };
 	embientColor = Vector3{ 0,0,0 };
-	moon->direction = originDir;
-	correct = float(3) / (24 - data->afternoonTime);
+	moon->position = originPos;
+	correct = CORRECT_VALUE / (24 - data->afternoonTime)*0.7f;
 	linear = -1;
 	nowLight = moon;
 	nowLight->active = true;
@@ -113,14 +119,18 @@ void SunMoon::MatchSeason()
 
 void SunMoon::UpdateLight()
 {
-	float speed = 1 / Player::Get()->GetSpeedValue();
-	if (fabs(nowLight->direction.x - linear) > EPSILON)
-		nowLight->direction.x = GameMath::Lerp(nowLight->direction.x, linear, DELTA * SMOOTH_VALUE * speed);
+	if (fabs(nowLight->position.x - linear) > EPSILON)
+		nowLight->position.x = GameMath::Lerp(nowLight->position.x, linear, DELTA * SMOOTH_VALUE * speed);
 		
 	
-	if(fabs(buffer->GetData()->ambientLight.x - embientColor.x)>EPSILON || 
+	if (fabs(buffer->GetData()->ambientLight.x - embientColor.x) > EPSILON ||
 		fabs(buffer->GetData()->ambientLight.y - embientColor.y) > EPSILON || fabs(buffer->GetData()->ambientLight.z - embientColor.z) > EPSILON)
-		buffer->GetData()->ambientLight = GameMath::Lerp(buffer->GetData()->ambientLight, embientColor, SMOOTH_COLOR_VALUE * DELTA * speed);
+	{
+		Vector3 start = buffer->GetData()->ambientLight;
+		Vector3 end = embientColor;
+
+		buffer->GetData()->ambientLight = GameMath::Lerp(start, end, SMOOTH_COLOR_VALUE * DELTA * speed);
+	}
 
 	if (fabs(nowLight->color.x - nextLightColor.x) > EPSILON)
 		nowLight->color.x = GameMath::Lerp(nowLight->color.x, nextLightColor.x, SMOOTH_VALUE * DELTA * speed);
@@ -143,6 +153,11 @@ void SunMoon::OriginEmbient()
 	nextLightColor = Float4{ 1,1,1,1 };
 }
 
+void SunMoon::ChangeSpeed()
+{
+	speed = 1 / Player::Get()->GetSpeedValue();
+}
+
 void SunMoon::SetLiner()
 {
 	linear += correct;
@@ -155,4 +170,5 @@ void SunMoon::AddEvent()
 	EventManager::Get()->AddEvent("SetLinearValue", [this](void* param) {SetLiner(); });
 	EventManager::Get()->AddEvent("SunSetEmbient", [this](void* param) {SunSetEmbient(); });
 	EventManager::Get()->AddEvent("OriginEmbient", [this](void* param) {OriginEmbient(); });
+	EventManager::Get()->AddEvent("ChangeSpeed", [this](void* param) {ChangeSpeed(); });
 }

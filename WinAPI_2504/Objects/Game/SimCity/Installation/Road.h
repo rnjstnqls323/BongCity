@@ -9,6 +9,6 @@ public:
 
 
 private:
-	void SetTarget() override;
+	void SetType() override;
 
 };

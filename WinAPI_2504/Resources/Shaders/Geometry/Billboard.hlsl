@@ -98,6 +98,10 @@ float4 PS(PixelInput input) : SV_TARGET
 
         if (lights[i].type == 0)
             result += CalcDirectional(material, lights[i]);
+        else if (lights[i].type == 1)
+            result += CalcPoint(material, lights[i]);
+        else if (lights[i].type == 2)
+            result += CalcSpot(material, lights[i]);
     }
 
     return result;

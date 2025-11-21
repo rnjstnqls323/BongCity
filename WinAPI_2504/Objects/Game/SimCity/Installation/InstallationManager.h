@@ -15,13 +15,15 @@ public:
 	void Render();
 	void Edit();
 
-	void SpawnInstallation(InstallationData& data, Vector3 pos, Index2& index, int& rotation);
+	bool SpawnInstallation(InstallationData& data, Vector3 pos, Index2& index, int& rotation);
 
 	void DispawnInstallation(int& key, Index2& index);
 
 	void ShowInstallationToMouse(InstallationData& data, Vector3 pos, Index2& index, int& rotation);
 
+	void AddResources();
 private:
+	bool UseMoney(InstallationData& data);
 	void CreateInstallation();
 	Installation*& GetTransformToIndex(int& key, Index2& index);
 

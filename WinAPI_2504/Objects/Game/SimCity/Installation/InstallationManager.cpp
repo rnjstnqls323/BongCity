@@ -52,9 +52,11 @@ void InstallationManager::Edit()
 {
 }
 
-void InstallationManager::SpawnInstallation(InstallationData& data, Vector3 pos, Index2& index, int& rotation)
+bool InstallationManager::SpawnInstallation(InstallationData& data, Vector3 pos, Index2& index, int& rotation)
 {
 	vector<Installation*>& installation = installations[data.key].second;
+
+	if (!UseMoney(data)) return false;
 
 	for (Installation* install : installation)
 	{
@@ -76,6 +78,7 @@ void InstallationManager::SpawnInstallation(InstallationData& data, Vector3 pos,
 	}
 
 	installations[data.key].first->UpdateTransform();
+	return true;
 }
 
 void InstallationManager::DispawnInstallation(int& key, Index2& index)
@@ -123,7 +126,31 @@ void InstallationManager::ShowInstallationToMouse(InstallationData& data, Vector
 
 }
 
+void InstallationManager::AddResources()
+{
+	for (Installation* install : spawnInstallations)
+	{
+		if (install->GetType() != InstallationType::Production) continue;
+		Production* production = (Production*)install;
 
+		production->AddResources();
+	}
+}
+
+
+
+
+bool InstallationManager::UseMoney(InstallationData& data)
+{
+	if (!Player::Get()->IsConsumeResources(data)) return false;
+
+	Player::Get()->Use(Resources::Money, data.price->money);
+	Player::Get()->Use(Resources::Oil, data.price->oil);
+	Player::Get()->Use(Resources::Iron, data.price->iron);
+	Player::Get()->Use(Resources::Electric, data.price->electric);
+
+	return true;
+}
 
 void InstallationManager::CreateInstallation()
 {

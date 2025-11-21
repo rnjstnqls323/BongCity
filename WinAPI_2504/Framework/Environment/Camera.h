@@ -39,6 +39,7 @@ private:
 	void FollowMode();
 
 	void FrustumUpdate();
+	void NormalCamera();
 
 private:
 	bool isMatch;

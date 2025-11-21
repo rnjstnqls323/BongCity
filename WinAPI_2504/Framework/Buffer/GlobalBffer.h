@@ -274,3 +274,19 @@ public:
 private:
     Data data;
 };
+
+class SkyBuffer : public ConstBuffer
+{
+private:
+    struct Data
+    {
+        Float4 color = { 1,1,1,1 };
+        Matrix matrix;
+    };
+public:
+    SkyBuffer() : ConstBuffer(&data, sizeof(Data)) {}
+    Data& Get() { return data; }
+
+private:
+    Data data;
+};

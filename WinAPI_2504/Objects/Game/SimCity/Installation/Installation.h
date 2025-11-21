@@ -13,8 +13,9 @@ public:
 	Transform* GetFloorTransform() { return floorTransform; }
 
 	Index2& GetCenterIndex() { return centerIndex; }
+	InstallationType& GetType() { return type; }
 
-	virtual void Update(); //이거 필요없다? 애매띠
+	virtual void Update(); //이거 필요없다? 애매띠 전력쓰는거 체크해야됨
 
 	void SetSelect(const bool isSelect) { this->isSelect = isSelect; }
 	void SetTransform(Transform* transform) { this->transform = transform; }
@@ -27,10 +28,10 @@ public:
 
 
 	bool GetIsBuild() { return isBuild; }
+
 protected:
 	bool CheckResources();
-	void AddResources();
-	virtual void SetTarget() = 0;
+	virtual void SetType() = 0;
 
 protected:
 	bool isSelect = false; //이거 기준으로 선택되었으면 계속 업데이트해주기

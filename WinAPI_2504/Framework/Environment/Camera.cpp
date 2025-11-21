@@ -146,43 +146,30 @@ bool Camera::ContainSphere(Vector3 center, float radius)
 
 void Camera::FreeMode()
 {
-    if (Input::Get()->IsKeyPress('W'))
-        SetLocalPosition(localPosition.x, localPosition.y, localPosition.z + moveSpeed * DELTA);
-    if (Input::Get()->IsKeyPress('S'))
-        SetLocalPosition(localPosition.x, localPosition.y, localPosition.z - moveSpeed * DELTA);
-    if (Input::Get()->IsKeyPress('A'))
-        SetLocalPosition(localPosition.x - moveSpeed * DELTA, localPosition.y, localPosition.z);
-    if (Input::Get()->IsKeyPress('D'))
-        SetLocalPosition(localPosition.x + moveSpeed * DELTA, localPosition.y, localPosition.z);
+    NormalCamera();
 
+    if (!isMatch)return;
 
-    if (localPosition.x < -TILE_SIZE*0.5f)
-        localPosition.x = -TILE_SIZE*0.5f;
-    if (localPosition.x > TILE_SIZE *1.1f)
-        localPosition.x = TILE_SIZE * 1.1f;
-    if (localPosition.z < -TILE_SIZE*0.5f)
-        localPosition.z = -TILE_SIZE*0.5f;
-    if (localPosition.z > TILE_SIZE)
-        localPosition.z = TILE_SIZE;
+    float scrollDelta = Input::Get()->GetMouseWheel() * WHEEL;
+    float targetZ = localPosition.z - nextPositionY + localPosition.y;
 
-    //스크롤로 확대 이런거 하기
-    
-     // 부드럽게 보간
-    if (!isMatch)
-    {
-        localPosition.y = GameMath::Lerp(localPosition.y, nextPositionY, DELTA * SMOOTH_SPEED);
-        localRotation.x = GameMath::Lerp(localRotation.x, nextRotationX, DELTA * SMOOTH_SPEED);
-        if (fabs(localPosition.y - nextPositionY) < EPSILON && fabs(localRotation.x - nextRotationX) < EPSILON)
-            isMatch = true;
-    }
+    nextPositionY += scrollDelta;
+    nextPositionY = GameMath::Clamp(nextPositionY, MIN_WHEEL_POSITION_Y, 50);
 
+    // 카메라 보간
+    localPosition.y = GameMath::Lerp(localPosition.y, nextPositionY, DELTA * SMOOTH_SPEED);
+
+    // z 이동을 y 변화량에 비례
+    localPosition.z = GameMath::Lerp(localPosition.z, targetZ, DELTA * SMOOTH_SPEED);
+
+    localRotation.x = GameMath::Lerp(localRotation.x, XMConvertToRadians(nextPositionY), DELTA * SMOOTH_SPEED);
 
     //localRotation.x = XMConvertToRadians(20);
 }
 
 void Camera::FollowMode()
 {
-    FreeMode();
+    NormalCamera();
     if (!isMatch)return;
 
     
@@ -254,4 +241,38 @@ void Camera::FrustumUpdate()
 
     for(int i=0;i<6;i++)
         planes[i] = XMPlaneNormalize(planes[i]);
+}
+
+void Camera::NormalCamera()
+{
+    if (Input::Get()->IsKeyPress('W'))
+        SetLocalPosition(localPosition.x, localPosition.y, localPosition.z + moveSpeed * DELTA);
+    if (Input::Get()->IsKeyPress('S'))
+        SetLocalPosition(localPosition.x, localPosition.y, localPosition.z - moveSpeed * DELTA);
+    if (Input::Get()->IsKeyPress('A'))
+        SetLocalPosition(localPosition.x - moveSpeed * DELTA, localPosition.y, localPosition.z);
+    if (Input::Get()->IsKeyPress('D'))
+        SetLocalPosition(localPosition.x + moveSpeed * DELTA, localPosition.y, localPosition.z);
+
+
+    if (localPosition.x < -TILE_SIZE * 0.5f)
+        localPosition.x = -TILE_SIZE * 0.5f;
+    if (localPosition.x > TILE_SIZE * 1.1f)
+        localPosition.x = TILE_SIZE * 1.1f;
+    if (localPosition.z < -TILE_SIZE * 0.5f)
+        localPosition.z = -TILE_SIZE * 0.5f;
+    if (localPosition.z > TILE_SIZE)
+        localPosition.z = TILE_SIZE;
+
+    //스크롤로 확대 이런거 하기
+
+     // 부드럽게 보간
+    if (!isMatch)
+    {
+        localPosition.y = GameMath::Lerp(localPosition.y, nextPositionY, DELTA * SMOOTH_SPEED);
+        localRotation.x = GameMath::Lerp(localRotation.x, nextRotationX, DELTA * SMOOTH_SPEED);
+        if (fabs(localPosition.y - nextPositionY) < EPSILON && fabs(localRotation.x - nextRotationX) < EPSILON)
+            isMatch = true;
+    }
+
 }

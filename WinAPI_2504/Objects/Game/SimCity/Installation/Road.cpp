@@ -8,6 +8,7 @@ Road::~Road()
 {
 }
 
-void Road::SetTarget()
+void Road::SetType()
 {
+	type = InstallationType::Road;
 }

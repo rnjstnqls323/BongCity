@@ -73,4 +73,6 @@ void GameScene::GUIRender()
 
 	InstallationManager::Get()->Edit();
 	map->Edit();
+
+	UIManager::Get()->Edit();
 }

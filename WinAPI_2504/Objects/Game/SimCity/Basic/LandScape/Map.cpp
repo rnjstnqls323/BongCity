@@ -18,20 +18,24 @@ Map::~Map()
 void Map::Update()
 {
 	sunMoon->Update();
+	sky->Update();
 }
 
 void Map::Render()
 {
 	sky->Render();
 	floor->Render();
+	//plane->Render();
 	trees->Render();
 	sunMoon->Render();
+
 }
 
 void Map::Edit()
 {
-	floor->Edit();
+	//floor->Edit();
 	sunMoon->Edit();
+	sky->Edit();
 }
 
 void Map::CreatePlane()
@@ -54,5 +58,5 @@ void Map::CreateSunMoon()
 
 void Map::CreateSkyBox()
 {
-	sky = new SkyBox(L"Resources/Textures/Landscape/space.dds");
+	sky = new SkyBox(L"Resources/Textures/Landscape/blueSky.dds");
 }

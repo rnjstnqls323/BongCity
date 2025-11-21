@@ -105,7 +105,8 @@ void TileManager::BuildInstallation()
     if (UIManager::Get()->GetMode() != Mode::Build) return;
     if (Input::Get()->IsKeyDown(VK_LBUTTON) && tileInstancing->IsPossible())
     {
-        InstallationManager::Get()->SpawnInstallation(data, GetPreCenter(), tileInstancing->GetPreCenter(), rotation);
+       if(!InstallationManager::Get()->SpawnInstallation(data, GetPreCenter(), tileInstancing->GetPreCenter(), rotation)) return;
+        
         // 이것도 고른거 데베 받아와서 셋팅해주기
 
         for (Tile* tile : tileInstancing->GetPreSelectTiles())
