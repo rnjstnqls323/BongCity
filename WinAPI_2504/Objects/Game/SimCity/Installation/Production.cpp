@@ -2,6 +2,7 @@
 
 Production::Production()
 {
+	SetType();
 }
 
 Production::~Production()

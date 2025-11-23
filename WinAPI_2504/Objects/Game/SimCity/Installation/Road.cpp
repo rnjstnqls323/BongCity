@@ -2,6 +2,7 @@
 
 Road::Road()
 {
+	SetType();
 }
 
 Road::~Road()

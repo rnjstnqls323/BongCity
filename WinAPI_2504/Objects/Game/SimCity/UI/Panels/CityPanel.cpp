@@ -6,12 +6,6 @@ CityPanel::CityPanel():Panel(PanelType::CityPanel)
 	CreatePanels();
 	transform = new Transform;
 
-	ImGuiIO& io = ImGui::GetIO();
-	io.Fonts->AddFontDefault();
-
-	koreanFont = io.Fonts->AddFontFromFileTTF(
-		"Resources/Fonts/BMJUA.ttf", 50.0f, nullptr, io.Fonts->GetGlyphRangesKorean()
-	);
 }
 
 CityPanel::~CityPanel()
@@ -56,8 +50,8 @@ void CityPanel::CreatePanels()
 {
 	dayPanel = new Quad(L"Resources/Textures/Simcity/UI/Background/panel1.png");
 	dayPanel->GetMaterial()->SetShader(L"Basic/Texture.hlsl");
-	dayPanel->SetLocalPosition(200, 660, 0);
-	dayPanel->SetLocalScale(0.7f, 0.2f, 1);
+	dayPanel->SetLocalPosition(250, 660, 0);
+	dayPanel->SetLocalScale(1, 0.2f, 1);
 }
 
 void CityPanel::ClickBuildButton()
@@ -129,8 +123,6 @@ void CityPanel::RenderTexture()
 	text += "Congestion [ " + to_string(Player::Get()->GetResources(Resources::Congestion)) + " ]\tEnvironment [ "
 		+ to_string(Player::Get()->GetResources(Resources::Environment)) + " ]";
 
-	ImGuiIO& io = ImGui::GetIO();
-	io.Fonts->AddFontFromFileTTF("Resources/Fonts/BMJUA.ttf", 20);
 
 	drawList->AddText(ImVec2(37, SCREEN_HEIGHT - 690), IM_COL32(255, 255, 0, 255), text.c_str());
 

@@ -2,6 +2,7 @@
 
 Building::Building()
 {
+	SetType();
 }
 
 Building::~Building()

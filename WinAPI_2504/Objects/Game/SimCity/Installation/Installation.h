@@ -31,7 +31,7 @@ public:
 
 protected:
 	bool CheckResources();
-	virtual void SetType() = 0;
+	virtual void SetType() =0;
 
 protected:
 	bool isSelect = false; //이거 기준으로 선택되었으면 계속 업데이트해주기

@@ -58,10 +58,10 @@ private:
 	float mulValue = 1.0f;
 
 
-	int money = 100;
-	int oil = 0;
-	int electric = 0;
-	int iron = 0;
+	int money = 10000;
+	int oil = 100;
+	int electric = 100;
+	int iron = 100;
 	int citizen = 0;
 	int environment = 0;
 	int congestion = 0;

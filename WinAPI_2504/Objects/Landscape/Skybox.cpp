@@ -59,8 +59,7 @@ void SkyBox::Edit()
 void SkyBox::Update()
 {
 	
-	angle += (ROTATION_SPEED * DELTA* playSpeed);  // 속도 조절 가능
-
+	angle += (ROTATION_SPEED * DELTA* playSpeed); 
 	buffer->Get().matrix = XMMatrixRotationY(angle);
 
 	UpdateColor();

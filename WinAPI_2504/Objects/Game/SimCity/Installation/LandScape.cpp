@@ -2,6 +2,7 @@
 
 LandScape::LandScape()
 {
+	SetType();
 }
 
 LandScape::~LandScape()
