@@ -158,13 +158,10 @@ void Camera::FreeMode()
 
     // 카메라 보간
     localPosition.y = GameMath::Lerp(localPosition.y, nextPositionY, DELTA * SMOOTH_SPEED);
-
     // z 이동을 y 변화량에 비례
     localPosition.z = GameMath::Lerp(localPosition.z, targetZ, DELTA * SMOOTH_SPEED);
-
     localRotation.x = GameMath::Lerp(localRotation.x, XMConvertToRadians(nextPositionY), DELTA * SMOOTH_SPEED);
 
-    //localRotation.x = XMConvertToRadians(20);
 }
 
 void Camera::FollowMode()

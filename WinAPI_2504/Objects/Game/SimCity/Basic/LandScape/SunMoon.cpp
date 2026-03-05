@@ -124,7 +124,8 @@ void SunMoon::UpdateLight()
 		
 	
 	if (fabs(buffer->GetData()->ambientLight.x - embientColor.x) > EPSILON ||
-		fabs(buffer->GetData()->ambientLight.y - embientColor.y) > EPSILON || fabs(buffer->GetData()->ambientLight.z - embientColor.z) > EPSILON)
+		fabs(buffer->GetData()->ambientLight.y - embientColor.y) > EPSILON || 
+		fabs(buffer->GetData()->ambientLight.z - embientColor.z) > EPSILON)
 	{
 		Vector3 start = buffer->GetData()->ambientLight;
 		Vector3 end = embientColor;

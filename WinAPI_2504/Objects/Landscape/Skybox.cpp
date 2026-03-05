@@ -58,12 +58,10 @@ void SkyBox::Edit()
 
 void SkyBox::Update()
 {
-	
 	angle += (ROTATION_SPEED * DELTA* playSpeed); 
 	buffer->Get().matrix = XMMatrixRotationY(angle);
 
 	UpdateColor();
-	//UpdateWorld();
 }
 
 void SkyBox::UpdateColor()

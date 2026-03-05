@@ -88,7 +88,7 @@ void InstallationManager::DispawnInstallation(int& key, Index2& index)
 	auto it = spawnInstallations.find(installation);
 	if (it != spawnInstallations.end())
 	{
-		spawnInstallations.erase(it);  // unordered_set에서 제거
+		spawnInstallations.erase(it);
 	}
 	installations[key].first->UpdateTransform();
 	floors->UpdateTransform();

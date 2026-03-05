@@ -14,7 +14,7 @@ CityPanel::~CityPanel()
 
 void CityPanel::Render()
 {
-	dayPanel->Render();
+	//dayPanel->Render();
 	Panel::Render();
 }
 
@@ -95,35 +95,35 @@ void CityPanel::ClickSetSpeedValue()
 void CityPanel::RenderTexture()
 {
 
-	ImDrawList* drawList = ImGui::GetForegroundDrawList();
-
-	string text = "Season : ";
-	switch (Player::Get()->GetSeason())
-	{
-	case Season::Spring:
-		text += "Spring \t";
-		break;
-	case Season::Summer:
-		text += "Summer \t";
-		break;
-	case Season::Autumn:
-		text += "Autumn \t";
-		break;
-	case Season::Winter:
-		text += "Winter \t";
-		break;
-	}
-	text += "Citizen [" + to_string(Player::Get()->GetResources(Resources::Citizen)) + "]\n";
-	
-	text += "Day : " + to_string( Player::Get()->GetDay()) + " | Time [ " + to_string(Player::Get()->GetHour()) +
-		" : " + to_string(Player::Get()->GetMinute()) + "]\n";
-	text += "Money : " + to_string(Player::Get()->GetResources(Resources::Money))+" | Oil : " 
-		+ to_string(Player::Get()->GetResources(Resources::Oil)) +" | Electric : " + to_string(Player::Get()->GetResources(Resources::Electric)) 
-		+ " | Iron : " + to_string(Player::Get()->GetResources(Resources::Iron)) +"\n";
-	text += "Congestion [ " + to_string(Player::Get()->GetResources(Resources::Congestion)) + " ]\tEnvironment [ "
-		+ to_string(Player::Get()->GetResources(Resources::Environment)) + " ]";
-
-
-	drawList->AddText(ImVec2(37, SCREEN_HEIGHT - 690), IM_COL32(255, 255, 0, 255), text.c_str());
+	// ImDrawList* drawList = ImGui::GetForegroundDrawList();
+	// 
+	// string text = "Season : ";
+	// switch (Player::Get()->GetSeason())
+	// {
+	// case Season::Spring:
+	// 	text += "Spring \t";
+	// 	break;
+	// case Season::Summer:
+	// 	text += "Summer \t";
+	// 	break;
+	// case Season::Autumn:
+	// 	text += "Autumn \t";
+	// 	break;
+	// case Season::Winter:
+	// 	text += "Winter \t";
+	// 	break;
+	// }
+	// text += "Citizen [" + to_string(Player::Get()->GetResources(Resources::Citizen)) + "]\n";
+	// 
+	// text += "Day : " + to_string( Player::Get()->GetDay()) + " | Time [ " + to_string(Player::Get()->GetHour()) +
+	// 	" : " + to_string(Player::Get()->GetMinute()) + "]\n";
+	// text += "Money : " + to_string(Player::Get()->GetResources(Resources::Money))+" | Oil : " 
+	// 	+ to_string(Player::Get()->GetResources(Resources::Oil)) +" | Electric : " + to_string(Player::Get()->GetResources(Resources::Electric)) 
+	// 	+ " | Iron : " + to_string(Player::Get()->GetResources(Resources::Iron)) +"\n";
+	// text += "Congestion [ " + to_string(Player::Get()->GetResources(Resources::Congestion)) + " ]\tEnvironment [ "
+	// 	+ to_string(Player::Get()->GetResources(Resources::Environment)) + " ]";
+	// 
+	// 
+	// drawList->AddText(ImVec2(37, SCREEN_HEIGHT - 690), IM_COL32(255, 255, 0, 255), text.c_str());
 
 }

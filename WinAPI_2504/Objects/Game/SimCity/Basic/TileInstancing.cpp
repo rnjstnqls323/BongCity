@@ -47,7 +47,7 @@ void TileInstancing::UpdateSelectTile(InstallationData* data)
 
 	test = TileManager::Get()->GetTileToIndex(preCenter);
 
-	if (UIManager::Get()->GetMode() == Mode::Remove) //이부분 상수 최대한 안쓰는 방법으로 가야됨 아마 UI매니저에 Select참조해서 처리하면될듯?
+	if (UIManager::Get()->GetMode() == Mode::Remove)
 	{
 		UpdateSelectTileToBuild();
 		return;
@@ -87,7 +87,7 @@ void TileInstancing::UpdateSelectTile(InstallationData* data)
 	{
 		for (int col = 0; col < data->height; col++)
 		{
-			in = { preCenter.row + row, preCenter.col + col };
+			in = { preCenter.row + row, preCenter.col + col }; //Index2 타입
 
 			index = in.ChangeToInt(TILE_SIZE);
 			if (in.row < 0 || in.col < 0 || in.row >= TILE_SIZE || in.col >= TILE_SIZE)
@@ -155,11 +155,6 @@ Transform* TileInstancing::Add()
 
 void TileInstancing::UpdateSelectTileToBuild()
 {
-	//if (preCenter.row < 0 || preCenter.col < 0 || preCenter.row >= TILE_SIZE || preCenter.col >= TILE_SIZE)
-	//{
-	//	isPossible = false;
-	//	return;
-	//}
 	int index = preCenter.ChangeToInt(TILE_SIZE);
 	Index2 in;
 	if (TileManager::Get()->GetTileToIndex(preCenter)->GetTileType() != InstallationType::None)
@@ -182,7 +177,6 @@ void TileInstancing::UpdateSelectTileToBuild()
 	}
 	else
 	{
-		//instanceDatas[index].color = Float4(1, 0, 1, 1);
 		isPossible = false;
 		preSelectTiles.push_back(TileManager::Get()->GetTileToIndex(preCenter));
 	}
