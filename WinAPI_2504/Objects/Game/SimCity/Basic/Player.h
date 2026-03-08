@@ -2,7 +2,7 @@
 
 enum class Resources
 {
-	Money, Oil, Electric, Iron, Citizen, Environment, Congestion
+	Citizen, Money, Oil, Electric, Iron, Max, Environment, Congestion
 };
 
 

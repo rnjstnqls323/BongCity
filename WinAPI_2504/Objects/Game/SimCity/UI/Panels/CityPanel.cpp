@@ -3,32 +3,35 @@
 CityPanel::CityPanel():Panel(PanelType::CityPanel)
 {
 	Init();
-	CreatePanels();
 	transform = new Transform;
-
 }
 
 CityPanel::~CityPanel()
 {
+
 }
 
 void CityPanel::Render()
 {
 	//dayPanel->Render();
 	Panel::Render();
+
+
 }
 
 void CityPanel::Update()
 {
-	dayPanel->UpdateWorld();
+	//dayPanel->UpdateWorld();
 	Panel::Update();
 	transform->UpdateWorld();
+
 }
 
 void CityPanel::Edit()
 {
-	RenderTexture();
+	//RenderTexture();
 	//dayPanel->Edit();
+
 	Panel::Edit();
 	transform->Edit();
 }
@@ -46,13 +49,6 @@ void CityPanel::SetButtonEvents()
 	buttons[1]->SetEvent([this]() { ClickSetSpeedValue(); });
 }
 
-void CityPanel::CreatePanels()
-{
-	dayPanel = new Quad(L"Resources/Textures/Simcity/UI/Background/panel1.png");
-	dayPanel->GetMaterial()->SetShader(L"Basic/Texture.hlsl");
-	dayPanel->SetLocalPosition(250, 660, 0);
-	dayPanel->SetLocalScale(1, 0.2f, 1);
-}
 
 void CityPanel::ClickBuildButton()
 {
@@ -83,6 +79,11 @@ void CityPanel::ClickSetSpeedValue()
 		buttons[1]->GetQuad()->GetMaterial()->SetDiffuseMap(path + L"x10.png");
 		//사진바꾸기
 	}
+	else if (value == 0.1f)
+	{
+		Player::Get()->SetSpeedValue(0.01f);
+		buttons[1]->GetQuad()->GetMaterial()->SetDiffuseMap(path + L"x100.png");
+	}
 	else
 	{
 		Player::Get()->SetSpeedValue(1.0f);
@@ -91,6 +92,7 @@ void CityPanel::ClickSetSpeedValue()
 
 	EventManager::Get()->ExcuteEvent("ChangeSpeed", nullptr);
 }
+
 
 void CityPanel::RenderTexture()
 {
@@ -127,3 +129,4 @@ void CityPanel::RenderTexture()
 	// drawList->AddText(ImVec2(37, SCREEN_HEIGHT - 690), IM_COL32(255, 255, 0, 255), text.c_str());
 
 }
+

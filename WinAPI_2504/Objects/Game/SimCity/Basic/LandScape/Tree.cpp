@@ -3,6 +3,7 @@
 Tree::Tree(Vector2 range, int size, Vector2 noBuildRange, Vector3 pos) :size(size), range(range), noBuildRange(noBuildRange), pos(pos)
 {
 	CreateTrees();
+    season = Player::Get()->GetSeason();
 }
 
 Tree::~Tree()
@@ -27,10 +28,25 @@ void Tree::Render()
 	DC->GSSetShader(nullptr, nullptr, 0);
 }
 
+void Tree::Update()
+{
+    if (season != Player::Get()->GetSeason())
+    {
+        season = Player::Get()->GetSeason();
+        ChangeTrees();
+    }
+}
+
+void Tree::ChangeTrees()
+{
+    wstring path = L"Resources/Textures/Landscape/tree";
+    material->SetDiffuseMap(path + to_wstring((int)season) + L".png");
+}
+
 void Tree::CreateTrees()
 {
 	material = new Material(L"Geometry/Billboard.hlsl");
-	material->SetDiffuseMap(L"Resources/Textures/Landscape/Tree.png");
+	material->SetDiffuseMap(L"Resources/Textures/Landscape/tree0.png");
 
 	geometryShader = Shader::AddGS(L"Geometry/Billboard.hlsl");
 

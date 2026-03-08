@@ -19,6 +19,7 @@ void Map::Update()
 {
 	sunMoon->Update();
 	sky->Update();
+	trees->Update();
 }
 
 void Map::Render()

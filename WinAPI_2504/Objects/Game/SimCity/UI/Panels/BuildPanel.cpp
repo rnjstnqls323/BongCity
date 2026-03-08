@@ -41,9 +41,9 @@ void BuildPanel::Edit()
 
 void BuildPanel::CreateButtons()
 {
-	modeButton = CreateButton<Button>(L"Buttons/mode", Vector3{ 70,590,0 }, Vector2{ 120,60 });
+	modeButton = CreateButton<Button>(L"Buttons/mode", Vector3{ 70,530,0 }, Vector2{ 120,60 });
 	CreateButton<Button>(L"Buttons/removemode", Vector3{ 60,270,0 }, Vector2{ 100,50 });
-	CreateButton<Button>(L"Buttons/back", Vector3{ 70,660,0 }, Vector2{ 120,60 });
+	CreateButton<Button>(L"Buttons/back", Vector3{ 70,600,0 }, Vector2{ 120,60 });
 }
 
 void BuildPanel::SetButtonEvents()

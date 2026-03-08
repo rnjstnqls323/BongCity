@@ -8,12 +8,16 @@ public:
 
 	Material* GetMaterial() { return material; }
 	void Render();
+	void Update();
 
 private:
+	void ChangeTrees();
 	void CreateTrees();
 	Vector3 GetRandomPos();
 private:
 	int size;
+
+	Season season;
 
 	Vector2 range;
 	Vector2 noBuildRange;

@@ -9,7 +9,7 @@ GameScene::GameScene()
 	Player::Get();
 
 	map = new Map();
-
+	moneyUI = new MoneyAndWeather();
 	CAM->SetTarget(nullptr);
 }
 
@@ -20,6 +20,7 @@ GameScene::~GameScene()
 	UIManager::Delete();
 	Player::Delete();
 	delete map;
+	delete moneyUI;
 }
 
 void GameScene::Update()
@@ -37,7 +38,7 @@ void GameScene::Update()
 		Player::Get()->Update();		
 		break;
 	}
-
+	moneyUI->Update();
 	map->Update();
 }
 
@@ -57,6 +58,7 @@ void GameScene::Render()
 
 		break;
 	}
+
 	InstallationManager::Get()->Render();
 
 }
@@ -64,6 +66,7 @@ void GameScene::Render()
 void GameScene::PostRender()
 {
 	UIManager::Get()->Render();
+	moneyUI->Render();
 }
 
 void GameScene::GUIRender()
@@ -75,4 +78,6 @@ void GameScene::GUIRender()
 	map->Edit();
 
 	UIManager::Get()->Edit();
+
+	moneyUI->Edit();
 }
